@@ -427,9 +427,26 @@
               <div><label class="block text-xs font-bold text-slate-700 mb-1">同行援護・総合事業・自費対応</label><input type="text" id="formHomeCareExtra" placeholder="例：総合事業A2対応可・自費1時間2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <div id="fields_home_nursing" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">看取り・ターミナル・精神科訪問看護</label><input type="text" id="formNurseSpecialty" placeholder="例：ターミナル24時間対応・精神科訪問看護対応可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">連携主治医・指示書対応・空き曜日</label><input type="text" id="formNurseSchedule" placeholder="例：全診療科指示書対応・午前枠空きあり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 訪問看護専用：チェックボックス（緊急時訪問看護・看取り・精神科訪問看護）＋自由記載欄 -->
+            <div id="fields_home_nursing" class="hidden space-y-2.5">
+              <label class="block text-xs font-bold text-slate-700">対応体制・特色（チェック ＆ 自由記載）</label>
+              <div class="flex flex-wrap gap-2">
+                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                  <input type="checkbox" name="formNurseFeature" value="緊急時訪問看護" class="rounded text-brand-600">
+                  <span>緊急時訪問看護</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                  <input type="checkbox" name="formNurseFeature" value="看取り" class="rounded text-brand-600">
+                  <span>看取り</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                  <input type="checkbox" name="formNurseFeature" value="精神科訪問看護" class="rounded text-brand-600">
+                  <span>精神科訪問看護</span>
+                </label>
+              </div>
+              <div>
+                <input type="text" id="formNurseNote" placeholder="自由記載（例：24時間オンコール対応・がん末期/難病の受入実績豊富・小児対応可など）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+              </div>
             </div>
 
             <div id="fields_home_rehab" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -631,7 +648,8 @@
         areaDetail: '大浦・小島・戸町・土井首・桜馬場エリア', hours: '8:30〜17:30（24時間オンコール対応）', holidays: '日曜・年末年始',
         schedules: ['weekend', 'early_late', 'emergency_24h'],
         careTags: ['経管栄養法（胃ろうを含む）', '在宅中心静脈栄養法（IVH)', '点滴・静脈注射', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '気管カニューレ', '吸引', '麻薬を用いた疼痛管理', 'PT在籍', 'OT在籍'],
-        nurseSpecialty: 'ターミナル・看取り24時間対応可、精神科訪問看護対応可', nurseSchedule: '全診療科指示書対応・午前枠空きあり',
+        nurseFeatures: ['緊急時訪問看護', '看取り', '精神科訪問看護'],
+        nurseNote: '24時間オンコール対応・がん末期や難病の看取り実績豊富',
         additions: ['緊急時訪問看護加算', '特別管理加算Ⅰ・Ⅱ', 'ターミナルケア療養費'],
         memo: '退院直後の即日訪問や医師との連携が非常にスムーズ。', favorite: true, updatedAt: '2026-11-15'
       },
@@ -791,6 +809,12 @@
       return 'https://' + trimmed;
     }
 
+    function getNurseSummaryText(item) {
+      const feats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
+      const note = item.nurseNote || item.nurseSpecialty || '';
+      return [...feats, note].filter(Boolean).join(' ／ ');
+    }
+
     function highlightChip(btn, isSelected, variant = 'brand') {
       if (!btn) return;
       const activeClasses = variant === 'rose' ? ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'] : ['bg-brand-600', 'text-white', 'border-brand-600', 'shadow-2xs'];
@@ -870,7 +894,7 @@
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames,
+            item.homepage, attNames, getNurseSummaryText(item),
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
           if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
@@ -927,7 +951,7 @@
 
       let specSummary = '';
       if (item.serviceType === 'home_care') specSummary = [escapeHtml(item.homeCareScope), escapeHtml(item.homeCareExtra)].filter(Boolean).join(' ／ ');
-      else if (item.serviceType === 'home_nursing') specSummary = [escapeHtml(item.nurseSpecialty), escapeHtml(item.nurseSchedule)].filter(Boolean).join(' ／ ');
+      else if (item.serviceType === 'home_nursing') specSummary = escapeHtml(getNurseSummaryText(item));
       else if (item.serviceType === 'home_rehab') specSummary = [escapeHtml(item.homeRehabClinic), escapeHtml(item.homeRehabSlot)].filter(Boolean).join(' ／ ');
       else if (item.serviceType === 'welfare_equip') specSummary = [escapeHtml(item.welfareMaker), escapeHtml(item.welfareSpeed)].filter(Boolean).join(' ／ ');
       else specSummary = [escapeHtml(item.dayCapacity), escapeHtml(item.dayBath)].filter(Boolean).join(' ／ ');
@@ -1089,12 +1113,32 @@
       linksSec.classList.toggle('hidden', !hasHp && atts.length === 0);
 
       const rows = [];
-      const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
-      if (item.serviceType === 'home_care') { addRow('生活援助・身体介護の対応範囲', item.homeCareScope); addRow('同行援護・総合事業・自費対応', item.homeCareExtra); }
-      else if (item.serviceType === 'home_nursing') { addRow('看取り・ターミナル・精神科訪問看護', item.nurseSpecialty); addRow('連携主治医・指示書対応・空き曜日', item.nurseSchedule); }
-      else if (item.serviceType === 'home_rehab') { addRow('母体医療機関・指示書要件', item.homeRehabClinic); addRow('訪問可能枠・短期集中リハ対応', item.homeRehabSlot); }
-      else if (item.serviceType === 'welfare_equip') { addRow('取扱メーカー・得意品目', item.welfareMaker); addRow('当日納品・住宅改修・販売対応', item.welfareSpeed); }
-      else { addRow('利用定員・規模区分', item.dayCapacity); addRow('入浴設備', item.dayBath); addRow('食費・おやつ代目安', item.dayMeal); addRow('プログラム特色・延長/短時間対応', item.dayProgram); }
+      const addRow = (label, val, fullWidth = false) => {
+        if (val) rows.push(`<div class="${fullWidth ? 'sm:col-span-2 ' : ''}bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`);
+      };
+      if (item.serviceType === 'home_care') {
+        addRow('生活援助・身体介護の対応範囲', item.homeCareScope);
+        addRow('同行援護・総合事業・自費対応', item.homeCareExtra);
+      } else if (item.serviceType === 'home_nursing') {
+        const feats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
+        const note = item.nurseNote || item.nurseSpecialty || '';
+        if (feats.length > 0 || note) {
+          const badges = feats.map(f => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-brand-100 text-brand-800 border border-brand-300 text-xs font-bold mr-1.5 mb-1"><i class="fa-solid fa-check mr-1 text-[10px]"></i>${escapeHtml(f)}</span>`).join('');
+          const noteHtml = note ? `<div class="mt-1 text-xs sm:text-sm text-slate-800">${escapeHtml(note)}</div>` : '';
+          rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">対応体制・特色</div><div>${badges}</div>${noteHtml}</div>`);
+        }
+      } else if (item.serviceType === 'home_rehab') {
+        addRow('母体医療機関・指示書要件', item.homeRehabClinic);
+        addRow('訪問可能枠・短期集中リハ対応', item.homeRehabSlot);
+      } else if (item.serviceType === 'welfare_equip') {
+        addRow('取扱メーカー・得意品目', item.welfareMaker);
+        addRow('当日納品・住宅改修・販売対応', item.welfareSpeed);
+      } else {
+        addRow('利用定員・規模区分', item.dayCapacity);
+        addRow('入浴設備', item.dayBath);
+        addRow('食費・おやつ代目安', item.dayMeal);
+        addRow('プログラム特色・延長/短時間対応', item.dayProgram);
+      }
 
       const specSec = document.getElementById('detailServiceSpecificSection');
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
@@ -1193,8 +1237,11 @@
 
         document.getElementById('formHomeCareScope').value = item.homeCareScope || '';
         document.getElementById('formHomeCareExtra').value = item.homeCareExtra || '';
-        document.getElementById('formNurseSpecialty').value = item.nurseSpecialty || '';
-        document.getElementById('formNurseSchedule').value = item.nurseSchedule || '';
+
+        const nurseFeats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
+        document.querySelectorAll('input[name="formNurseFeature"]').forEach(c => c.checked = nurseFeats.includes(c.value));
+        document.getElementById('formNurseNote').value = item.nurseNote || item.nurseSpecialty || '';
+
         document.getElementById('formHomeRehabClinic').value = item.homeRehabClinic || '';
         document.getElementById('formHomeRehabSlot').value = item.homeRehabSlot || '';
         document.getElementById('formDayCapacity').value = item.dayCapacity || '';
@@ -1249,8 +1296,8 @@
 
         homeCareScope: document.getElementById('formHomeCareScope').value.trim(),
         homeCareExtra: document.getElementById('formHomeCareExtra').value.trim(),
-        nurseSpecialty: document.getElementById('formNurseSpecialty').value.trim(),
-        nurseSchedule: document.getElementById('formNurseSchedule').value.trim(),
+        nurseFeatures: Array.from(document.querySelectorAll('input[name="formNurseFeature"]:checked')).map(c => c.value),
+        nurseNote: document.getElementById('formNurseNote').value.trim(),
         homeRehabClinic: document.getElementById('formHomeRehabClinic').value.trim(),
         homeRehabSlot: document.getElementById('formHomeRehabSlot').value.trim(),
         dayCapacity: document.getElementById('formDayCapacity').value.trim(),
