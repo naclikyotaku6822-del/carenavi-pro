@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja" class="font-normal">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>ケアナビ Pro | 介護サービス事業所 統合ポータル・横断検索</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 共通設定ファイル読み込み -->
+  <script src="config.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'], mono: ['"Inter"', 'monospace'] },
+          colors: {
+            brand: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html.font-normal { font-size: 15px; }
+    html.font-large { font-size: 17.5px; }
+    @media (max-width: 640px) { input[type="text"], select { font-size: 16px !important; } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-900 min-h-screen flex flex-col">
+
+  <!-- ==================== ヘッダー ==================== -->
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-xs">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-slate-800 to-brand-700 text-white flex items-center justify-center shadow-xs shrink-0">
+          <i class="fa-solid fa-compass text-base sm:text-lg"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight truncate">ケアナビ Pro</h1>
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 shrink-0">総合ポータル</span>
+          </div>
+          <p class="hidden sm:block text-xs text-slate-500">介護サービス事業所 情報検索・共有システム</p>
+        </div>
+      </div>
+
+      <!-- 右側アクション -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- クラウド同期ステータスバッジ -->
+        <button type="button" onclick="syncFromCloud(true)" id="syncStatusBtn" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-medium text-slate-600 flex items-center gap-1.5 transition" title="クリックで最新データを再読込">
+          <i id="syncStatusIcon" class="fa-solid fa-cloud text-slate-400"></i>
+          <span id="syncStatusText" class="hidden md:inline">確認中...</span>
+        </button>
+
+        <div class="hidden sm:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
+          <span class="text-xs text-slate-500 px-2"><i class="fa-solid fa-text-height mr-1"></i>文字</span>
+          <button id="fontNormalBtn" type="button" onclick="setFontSize('normal')" class="px-2 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-xs transition">標準</button>
+          <button id="fontLargeBtn" type="button" onclick="setFontSize('large')" class="px-2 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">大</button>
+        </div>
+
+        <!-- データ管理ドロップダウン -->
+        <div class="relative" id="dataMenuWrapper">
+          <button id="dataMenuBtn" type="button" class="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition shadow-2xs">
+            <i class="fa-solid fa-database text-brand-600"></i>
+            <span class="hidden sm:inline">データ管理</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+          </button>
+          <div id="dataMenuDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50">
+            <button type="button" onclick="exportCSV()" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700 flex items-center gap-2.5">
+              <i class="fa-solid fa-file-export w-4 text-brand-600"></i>
+              <div><div class="font-medium">全データ CSVエクスポート</div><div class="text-xs text-slate-400">Excel用ファイルとして出力</div></div>
+            </button>
+            <label class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700 flex items-center gap-2.5 cursor-pointer">
+              <i class="fa-solid fa-file-import w-4 text-blue-600"></i>
+              <div><div class="font-medium">CSVインポート</div><div class="text-xs text-slate-400">CSVから一括登録・クラウド保存</div></div>
+              <input type="file" accept=".csv" class="hidden" onchange="importCSV(event)" />
+            </label>
+            <div class="border-t border-slate-100 my-1"></div>
+            <button type="button" onclick="exportFullJSON()" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5">
+              <i class="fa-solid fa-download w-4 text-emerald-600"></i><span>JSONバックアップ保存</span>
+            </button>
+            <label class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 cursor-pointer">
+              <i class="fa-solid fa-upload w-4 text-indigo-600"></i><span>JSONから復元・クラウド保存</span>
+              <input type="file" accept=".json" class="hidden" onchange="importFullJSON(event)" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== メインコンテンツ ==================== -->
+  <main class="max-w-[1400px] w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1 space-y-8">
+
+    <!-- 未設定時の案内バナー -->
+    <div id="localModeNotice" class="hidden bg-amber-50 border border-amber-300 rounded-xl p-3.5 text-xs sm:text-sm text-amber-900 flex items-start gap-2.5">
+      <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5"></i>
+      <div>
+        <strong>現在は「ローカル保存モード」で動作しています：</strong>全体でデータを共有するには、同じフォルダの <code class="bg-amber-100 px-1.5 py-0.5 rounded font-mono">config.js</code> にGoogle Apps ScriptのウェブアプリURLを設定してください。
+      </div>
+    </div>
+
+    <!-- 1. カテゴリ別専用画面へのナビゲーションカード -->
+    <section>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-grid-2 text-brand-600"></i>
+          <span>カテゴリ別専用画面を開く（新規登録・詳細絞り込み）</span>
+        </h2>
+        <span class="text-xs text-slate-500">全カテゴリ合計: <strong id="grandTotalCount" class="font-mono text-slate-800 text-sm">0</strong> 件</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+        <a href="zaitaku.html" class="group bg-white rounded-2xl border-2 border-slate-200 hover:border-teal-500 p-5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center text-xl group-hover:bg-teal-600 group-hover:text-white transition">
+                <i class="fa-solid fa-house-medical"></i>
+              </div>
+              <div class="text-right"><span id="countHome" class="text-2xl font-bold font-mono text-teal-700">0</span><span class="text-xs text-slate-500">件</span></div>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-teal-700 mb-1">在宅系サービス</h3>
+            <p class="text-xs text-slate-500 leading-relaxed mb-4">訪問介護・訪問看護・訪問リハビリ・通所介護（デイサービス）・通所リハビリ（デイケア）・福祉用具貸与</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-teal-700">
+            <span>在宅系の検索・新規登録へ</span><i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <a href="shisetsu.html" class="group bg-white rounded-2xl border-2 border-slate-200 hover:border-purple-500 p-5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center text-xl group-hover:bg-purple-600 group-hover:text-white transition">
+                <i class="fa-solid fa-building"></i>
+              </div>
+              <div class="text-right"><span id="countFacility" class="text-2xl font-bold font-mono text-purple-700">0</span><span class="text-xs text-slate-500">件</span></div>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-purple-700 mb-1">施設系サービス</h3>
+            <p class="text-xs text-slate-500 leading-relaxed mb-4">ショートステイ・医療型ショート・小多機・看多機・特別養護老人ホーム・老健・ケアハウス・養護・有料・グループホーム</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-700">
+            <span>施設系の検索・新規登録へ</span><i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <a href="sonota.html" class="group bg-white rounded-2xl border-2 border-slate-200 hover:border-sky-500 p-5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center text-xl group-hover:bg-sky-600 group-hover:text-white transition">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <div class="text-right"><span id="countOther" class="text-2xl font-bold font-mono text-sky-700">0</span><span class="text-xs text-slate-500">件</span></div>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-700 mb-1">他サービス</h3>
+            <p class="text-xs text-slate-500 leading-relaxed mb-4">居宅療養管理指導・移送支援（介護タクシー・福祉有償運送）・自費代行サービス・配食・買い物配達サービス</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-700">
+            <span>他サービスの検索・新規登録へ</span><i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. 全カテゴリ横断クイック検索セクション -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-2xs space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-magnifying-glass text-brand-600"></i>
+            <span>全カテゴリ横断クイック検索</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">在宅系・施設系・他サービスをまたいで事業所名・法人名・電話番号・包括エリア・メモから一括検索します</p>
+        </div>
+
+        <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 cursor-pointer select-none self-start sm:self-auto">
+          <input type="checkbox" id="crossFavOnly" onchange="renderCrossSearch()" class="rounded text-amber-500 w-4 h-4">
+          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+          <span class="text-xs font-bold text-slate-800">お気に入りのみ表示</span>
+        </label>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="md:col-span-2 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="crossKeyword" oninput="renderCrossSearch()" placeholder="事業所名・法人名・電話番号・処置・メモなどフリーワード入力..."
+            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <button type="button" id="clearCrossBtn" onclick="clearCrossSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
+        </div>
+        <div>
+          <select id="crossAreaFilter" onchange="renderCrossSearch()" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-700">
+            <option value="">すべての包括エリア</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-xs text-slate-500">
+        <div>検索結果: <strong id="crossResultCount" class="text-base font-mono text-brand-700">0</strong> 件</div>
+        <div>※編集や新規登録は各事業所の「専用画面で開く」から行えます</div>
+      </div>
+
+      <div id="crossResultList" class="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden"></div>
+      <div id="crossEmpty" class="hidden py-10 text-center text-sm text-slate-500">
+        該当する事業所が見つかりませんでした。検索条件を変更してください。
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    const STORAGE_KEY = 'carenavi_facilities_v2';
+    const MASTER_STORAGE_KEY = 'carenavi_masters_v2';
+    const FONT_KEY = 'carenavi_fontsize_v1';
+    const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
+
+    const DEFAULT_SERVICES = [
+      { id: 'home_care', category: 'home', name: '訪問介護', color: 'bg-sky-100 text-sky-800 border-sky-200' },
+      { id: 'home_nursing', category: 'home', name: '訪問看護', color: 'bg-rose-100 text-rose-800 border-rose-200' },
+      { id: 'home_rehab', category: 'home', name: '訪問リハビリ', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' },
+      { id: 'day_service', category: 'home', name: '通所介護（デイサービス）※地密含む', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
+      { id: 'day_care', category: 'home', name: '通所リハビリ（デイケア）', color: 'bg-teal-100 text-teal-800 border-teal-200' },
+      { id: 'welfare_equip', category: 'home', name: '福祉用具貸与', color: 'bg-amber-100 text-amber-800 border-amber-200' },
+      { id: 'short_stay', category: 'facility', name: '短期入所生活介護（ショート）', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+      { id: 'short_stay_medical', category: 'facility', name: '短期入所療養介護（医療型ショート）', color: 'bg-violet-100 text-violet-800 border-violet-200' },
+      { id: 'shokibo', category: 'facility', name: '小規模多機能型居宅介護', color: 'bg-orange-100 text-orange-800 border-orange-200' },
+      { id: 'kan_shokibo', category: 'facility', name: '看護小規模多機能型居宅介護', color: 'bg-pink-100 text-pink-800 border-pink-200' },
+      { id: 'tokuyou', category: 'facility', name: '特別養護老人ホーム', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+      { id: 'rouken', category: 'facility', name: '老健', color: 'bg-violet-100 text-violet-800 border-violet-200' },
+      { id: 'care_house', category: 'facility', name: 'ケアハウス・軽費・生活支援ハウス', color: 'bg-amber-100 text-amber-800 border-amber-200' },
+      { id: 'yougo_home', category: 'facility', name: '養護老人ホーム', color: 'bg-teal-100 text-teal-800 border-teal-200' },
+      { id: 'yuuryou_home', category: 'facility', name: '有料老人ホーム', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' },
+      { id: 'group_home', category: 'facility', name: 'グループホーム', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
+      { id: 'medical_guidance', category: 'other', name: '居宅療養管理指導', color: 'bg-cyan-100 text-cyan-800 border-cyan-200' },
+      { id: 'transport_support', category: 'other', name: '移送支援（介護タクシー・福祉有償運送）', color: 'bg-slate-200 text-slate-800 border-slate-300' },
+      { id: 'self_pay_proxy', category: 'other', name: '自費代行サービス等', color: 'bg-sky-100 text-sky-800 border-sky-200' },
+      { id: 'meal_delivery', category: 'other', name: '配食', color: 'bg-orange-100 text-orange-800 border-orange-200' },
+      { id: 'shopping_delivery', category: 'other', name: '買い物、配達サービス', color: 'bg-teal-100 text-teal-800 border-teal-200' }
+    ];
+
+    const DEFAULT_AREAS = ['大浦', '小島', '桜馬場', '片淵', '戸町', '土井首', '深堀', '南部', '江平', '西浦上', '緑が丘', '淵', '小江原', '西部', '岩屋', '滑石', '東長崎', '日見', '北部'];
+
+    let facilities = [];
+    let masterData = { serviceTypes: DEFAULT_SERVICES, areas: DEFAULT_AREAS };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      loadLocalCache();
+      initAreaSelect();
+      updateCategoryCounts();
+      renderCrossSearch();
+      applySavedFontSize();
+
+      if (!GAS_URL) {
+        document.getElementById('localModeNotice').classList.remove('hidden');
+        setSyncUI('local', 'ローカル保存');
+      } else {
+        await syncFromCloud(false);
+      }
+
+      document.getElementById('dataMenuBtn').addEventListener('click', e => {
+        e.stopPropagation();
+        document.getElementById('dataMenuDropdown').classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => document.getElementById('dataMenuDropdown').classList.add('hidden'));
+    });
+
+    function loadLocalCache() {
+      try { const m = localStorage.getItem(MASTER_STORAGE_KEY); if (m) masterData = JSON.parse(m); } catch (e) {}
+      try { const f = localStorage.getItem(STORAGE_KEY); if (f) facilities = JSON.parse(f); } catch (e) {}
+    }
+
+    function setSyncUI(state, text) {
+      const icon = document.getElementById('syncStatusIcon');
+      const label = document.getElementById('syncStatusText');
+      label.textContent = text;
+      if (state === 'loading') icon.className = 'fa-solid fa-arrows-rotate fa-spin text-brand-600';
+      else if (state === 'ok') icon.className = 'fa-solid fa-cloud-check text-emerald-600';
+      else if (state === 'error') icon.className = 'fa-solid fa-cloud-exclamation text-rose-500';
+      else icon.className = 'fa-solid fa-hard-drive text-amber-500';
+    }
+
+    async function syncFromCloud(manual = false) {
+      if (!GAS_URL) return;
+      setSyncUI('loading', '同期中...');
+      try {
+        const res = await fetch(GAS_URL);
+        const data = await res.json();
+        if (data.status === 'ok') {
+          if (Array.isArray(data.facilities)) {
+            facilities = data.facilities;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(facilities));
+          }
+          if (data.masters && Array.isArray(data.masters.serviceTypes)) {
+            masterData = data.masters;
+            localStorage.setItem(MASTER_STORAGE_KEY, JSON.stringify(masterData));
+          }
+          initAreaSelect();
+          updateCategoryCounts();
+          renderCrossSearch();
+          setSyncUI('ok', 'クラウド同期済');
+          if (manual) showToast('スプレッドシートから最新データを取得しました');
+        } else {
+          setSyncUI('error', '同期エラー');
+        }
+      } catch (e) {
+        setSyncUI('error', 'オフライン');
+        if (manual) showToast('クラウド接続に失敗しました（キャッシュを表示中）');
+      }
+    }
+
+    async function pushToCloud(payload) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(facilities));
+      localStorage.setItem(MASTER_STORAGE_KEY, JSON.stringify(masterData));
+      if (!GAS_URL) return;
+      setSyncUI('loading', '保存中...');
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        setSyncUI('ok', 'クラウド保存済');
+      } catch (e) {
+        setSyncUI('error', '保存エラー');
+        showToast('クラウドへの保存に失敗しました');
+      }
+    }
+
+    function getServiceObj(id) {
+      return (masterData.serviceTypes || DEFAULT_SERVICES).find(s => s.id === id)
+        || DEFAULT_SERVICES.find(s => s.id === id)
+        || { id, category: 'other', name: '未分類', color: 'bg-slate-100 text-slate-700 border-slate-200' };
+    }
+
+    function getCategoryPageInfo(cat) {
+      if (cat === 'home') return { label: '在宅系', href: 'zaitaku.html', badge: 'bg-teal-50 text-teal-800 border-teal-200' };
+      if (cat === 'facility') return { label: '施設系', href: 'shisetsu.html', badge: 'bg-purple-50 text-purple-800 border-purple-200' };
+      return { label: '他サービス', href: 'sonota.html', badge: 'bg-sky-50 text-sky-800 border-sky-200' };
+    }
+
+    function initAreaSelect() {
+      const sel = document.getElementById('crossAreaFilter');
+      const current = sel.value;
+      const areas = masterData.areas || DEFAULT_AREAS;
+      sel.innerHTML = `<option value="">すべての包括エリア</option>` + areas.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+      sel.value = current;
+    }
+
+    function updateCategoryCounts() {
+      let home = 0, facility = 0, other = 0;
+      facilities.forEach(f => {
+        const cat = getServiceObj(f.serviceType).category || 'other';
+        if (cat === 'home') home++;
+        else if (cat === 'facility') facility++;
+        else other++;
+      });
+      document.getElementById('countHome').textContent = home;
+      document.getElementById('countFacility').textContent = facility;
+      document.getElementById('countOther').textContent = other;
+      document.getElementById('grandTotalCount').textContent = facilities.length;
+    }
+
+    function renderCrossSearch() {
+      const kw = document.getElementById('crossKeyword').value.trim().toLowerCase();
+      const area = document.getElementById('crossAreaFilter').value;
+      const favOnly = document.getElementById('crossFavOnly').checked;
+
+      document.getElementById('clearCrossBtn').classList.toggle('hidden', !kw);
+
+      const filtered = facilities.filter(item => {
+        if (favOnly && !item.favorite) return false;
+        if (area && item.area !== area && item.area !== '全市対応') return false;
+        if (kw) {
+          const st = getServiceObj(item.serviceType);
+          const text = [item.name, item.corp, item.code, item.phone, item.address, item.area, item.contact, item.memo, st.name, ...(item.careTags || [])].join(' ').toLowerCase();
+          if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
+        }
+        return true;
+      }).sort((a, b) => {
+        if (a.favorite !== b.favorite) return b.favorite ? 1 : -1;
+        return (b.updatedAt || '').localeCompare(a.updatedAt || '');
+      });
+
+      document.getElementById('crossResultCount').textContent = filtered.length;
+      const listEl = document.getElementById('crossResultList');
+      const emptyEl = document.getElementById('crossEmpty');
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = ''; listEl.classList.add('hidden'); emptyEl.classList.remove('hidden'); return;
+      }
+
+      emptyEl.classList.add('hidden');
+      listEl.classList.remove('hidden');
+      listEl.innerHTML = filtered.map(item => {
+        const st = getServiceObj(item.serviceType);
+        const catInfo = getCategoryPageInfo(st.category);
+        return `
+          <div class="p-3.5 sm:p-4 bg-white hover:bg-slate-50/80 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="min-w-0 flex-1 space-y-1">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button type="button" onclick="toggleFavorite('${item.id}')" class="text-base mr-0.5">
+                  <i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i>
+                </button>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${catInfo.badge}">${catInfo.label}</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${st.color}">${escapeHtml(st.name)}</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">${escapeHtml(item.area)}</span>
+              </div>
+              <div class="font-bold text-slate-900 text-sm sm:text-base truncate">${escapeHtml(item.name)}</div>
+              <div class="text-xs text-slate-500 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <span><i class="fa-solid fa-phone text-slate-400 mr-1"></i><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号')" class="font-mono font-bold text-brand-700 hover:underline">${escapeHtml(item.phone)}</button></span>
+                ${item.fax ? `<span>FAX: <span class="font-mono">${escapeHtml(item.fax)}</span></span>` : ''}
+                ${item.contact ? `<span>窓口: ${escapeHtml(item.contact)}</span>` : ''}
+              </div>
+              ${item.memo ? `<div class="text-xs text-slate-600 bg-amber-50/70 border border-amber-200/80 rounded px-2.5 py-1 mt-1 line-clamp-1">${escapeHtml(item.memo)}</div>` : ''}
+            </div>
+            <div class="shrink-0 self-end sm:self-center">
+              <a href="${catInfo.href}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-300 bg-white hover:border-brand-500 hover:text-brand-700 text-xs font-bold text-slate-700 shadow-2xs transition">
+                <span>${catInfo.label}画面で開く</span><i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function clearCrossSearch() { document.getElementById('crossKeyword').value = ''; renderCrossSearch(); }
+
+    async function toggleFavorite(id) {
+      const target = facilities.find(f => f.id === id);
+      if (!target) return;
+      target.favorite = !target.favorite;
+      renderCrossSearch();
+      await pushToCloud({ facilities });
+    }
+
+    function copyText(text, label) {
+      if (!text) return;
+      navigator.clipboard?.writeText(text);
+      showToast(`${label}（${text}）をコピーしました`);
+    }
+
+    function exportCSV() {
+      document.getElementById('dataMenuDropdown').classList.add('hidden');
+      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
+      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+      const blob = new Blob([new Uint8Array([0xEF,0xBB,0xBF]), [headers.join(','), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `介護事業所一覧_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+    }
+
+    function importCSV(e) {
+      document.getElementById('dataMenuDropdown').classList.add('hidden');
+      const file = e.target.files[0]; if (!file) return;
+      const r = new FileReader();
+      r.onload = async ev => {
+        const lines = ev.target.result.split(/\r?\n/).filter(Boolean);
+        for (let i = 1; i < lines.length; i++) {
+          const c = lines[i].split(',').map(s => s.replace(/^"|"$/g, '').replace(/""/g, '"'));
+          if (c.length < 7 || !c[1]) continue;
+          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], hours: c[11], holidays: c[12], careTags: c[13]?c[13].split('|'):[], additions: c[14]?c[14].split('|'):[], memo: c[15], favorite: c[16]==='1', updatedAt: c[17]||new Date().toISOString().slice(0,10) };
+          const idx = facilities.findIndex(f => f.id === obj.id);
+          if (idx !== -1) facilities[idx] = { ...facilities[idx], ...obj }; else facilities.unshift(obj);
+        }
+        updateCategoryCounts(); renderCrossSearch();
+        await pushToCloud({ facilities });
+        showToast('CSVを取り込み、クラウドへ保存しました');
+      };
+      r.readAsText(file, 'UTF-8');
+    }
+
+    function exportFullJSON() {
+      document.getElementById('dataMenuDropdown').classList.add('hidden');
+      const blob = new Blob([JSON.stringify({ version: '2.0', masters: masterData, facilities }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `ケアナビPro_全データ_${new Date().toISOString().slice(0,10)}.json`; a.click();
+    }
+
+    function importFullJSON(e) {
+      document.getElementById('dataMenuDropdown').classList.add('hidden');
+      const file = e.target.files[0]; if (!file) return;
+      const r = new FileReader();
+      r.onload = async ev => {
+        const parsed = JSON.parse(ev.target.result);
+        if (parsed.masters && parsed.facilities) {
+          masterData = parsed.masters; facilities = parsed.facilities;
+          initAreaSelect(); updateCategoryCounts(); renderCrossSearch();
+          await pushToCloud({ masters: masterData, facilities });
+          showToast('JSONから復元し、クラウドへ保存しました');
+        }
+      };
+      r.readAsText(file, 'UTF-8');
+    }
+
+    function setFontSize(size) {
+      document.documentElement.className = size === 'large' ? 'font-large' : 'font-normal';
+      localStorage.setItem(FONT_KEY, size);
+    }
+    function applySavedFontSize() { setFontSize(localStorage.getItem(FONT_KEY) || 'normal'); }
+
+    function showToast(msg) {
+      const el = document.createElement('div');
+      el.className = 'bg-emerald-800 text-white px-4 py-3 rounded-xl shadow-lg text-xs sm:text-sm font-medium pointer-events-auto';
+      el.textContent = msg;
+      document.getElementById('toastContainer').appendChild(el);
+      setTimeout(() => el.remove(), 2500);
+    }
+
+    function escapeHtml(s) {
+      return s == null ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+</body>
+</html>
