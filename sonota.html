@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>ケアナビ Pro【他サービス】 | 介護サービス事業所 情報検索・管理システム</title>
+  <title>ケアナビ Pro【施設系】 | 介護サービス事業所 情報検索・管理システム</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,18 +42,18 @@
       <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
         <button id="mobileFilterToggle" type="button" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 relative shrink-0" aria-label="絞り込み条件を開く">
           <i class="fa-solid fa-sliders text-lg"></i>
-          <span id="mobileFilterBadge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-cyan-600 rounded-full ring-2 ring-white"></span>
+          <span id="mobileFilterBadge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-purple-600 rounded-full ring-2 ring-white"></span>
         </button>
 
-        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-cyan-600 to-sky-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
-          <i class="fa-solid fa-layer-group text-base sm:text-lg"></i>
+        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
+          <i class="fa-solid fa-building text-base sm:text-lg"></i>
         </a>
         <div class="min-w-0">
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight leading-tight truncate">ケアナビ Pro</h1>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-cyan-100 text-cyan-800 border border-cyan-300 shrink-0">他サービス</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-purple-100 text-purple-800 border border-purple-300 shrink-0">施設系</span>
           </div>
-          <p class="hidden md:block text-xs text-slate-500 truncate">居宅療養管理指導・移送支援・自費代行サービス・配食・買い物配達</p>
+          <p class="hidden md:block text-xs text-slate-500 truncate">ショートステイ・小多機・看多機・特養・老健・ケアハウス・養護・有料・GH</p>
         </div>
       </div>
 
@@ -65,10 +65,10 @@
         <a href="zaitaku.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
           <i class="fa-solid fa-house-medical"></i><span>在宅系</span>
         </a>
-        <a href="shisetsu.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
+        <a href="shisetsu.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-purple-600 text-white shadow-2xs flex items-center gap-1.5">
           <i class="fa-solid fa-building"></i><span>施設系</span>
         </a>
-        <a href="sonota.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-600 text-white shadow-2xs flex items-center gap-1.5">
+        <a href="sonota.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
           <i class="fa-solid fa-layer-group"></i><span>他サービス</span>
         </a>
       </nav>
@@ -88,7 +88,7 @@
         </div>
 
         <button type="button" onclick="openMasterModal()" class="p-2.5 sm:px-3 sm:py-2 rounded-xl sm:rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition shadow-2xs cursor-pointer">
-          <i class="fa-solid fa-gear text-cyan-600 text-sm sm:text-base"></i>
+          <i class="fa-solid fa-gear text-purple-600 text-sm sm:text-base"></i>
           <span class="hidden md:inline">マスター</span>
         </button>
 
@@ -100,18 +100,18 @@
           </button>
           <div id="dataMenuDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50">
             <div class="px-3 py-1.5 text-xs font-semibold text-slate-400 border-b border-slate-100">全カテゴリ共通データ管理</div>
-            <button type="button" onclick="exportCSV()" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-cyan-50 hover:text-cyan-700 flex items-center gap-2.5">
-              <i class="fa-solid fa-file-export w-4 text-cyan-600"></i>
+            <button type="button" onclick="exportCSV()" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2.5">
+              <i class="fa-solid fa-file-export w-4 text-purple-600"></i>
               <div><div class="font-medium">CSVエクスポート</div><div class="text-xs text-slate-400">全事業所データを出力</div></div>
             </button>
-            <label class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-cyan-50 hover:text-cyan-700 flex items-center gap-2.5 cursor-pointer">
+            <label class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2.5 cursor-pointer">
               <i class="fa-solid fa-file-import w-4 text-blue-600"></i>
               <div><div class="font-medium">CSVインポート</div><div class="text-xs text-slate-400">CSVから取込・クラウド保存</div></div>
               <input type="file" id="csvImportInput" accept=".csv" class="hidden" onchange="importCSV(event)" />
             </label>
             <div class="border-t border-slate-100 my-1"></div>
             <button type="button" onclick="openMasterModal('backup')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5">
-              <i class="fa-solid fa-sliders w-4 text-cyan-600"></i><span>JSONバックアップ・復元</span>
+              <i class="fa-solid fa-sliders w-4 text-purple-600"></i><span>JSONバックアップ・復元</span>
             </button>
             <button type="button" onclick="openResetConfirmModal()" class="w-full text-left px-4 py-2.5 text-sm text-rose-600 hover:bg-rose-50 flex items-center gap-2.5">
               <i class="fa-solid fa-rotate-left w-4"></i><span>初期サンプルデータに戻す</span>
@@ -119,8 +119,8 @@
           </div>
         </div>
 
-        <button type="button" onclick="openFormModal()" class="hidden sm:flex px-3.5 sm:px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-xs sm:text-sm font-semibold items-center gap-1.5 shadow-xs transition cursor-pointer">
-          <i class="fa-solid fa-plus"></i><span>他サービスを新規登録</span>
+        <button type="button" onclick="openFormModal()" class="hidden sm:flex px-3.5 sm:px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-semibold items-center gap-1.5 shadow-xs transition cursor-pointer">
+          <i class="fa-solid fa-plus"></i><span>施設系を新規登録</span>
         </button>
       </div>
     </div>
@@ -130,12 +130,12 @@
       <div class="grid grid-cols-4 gap-1 bg-slate-200/70 p-1 rounded-xl">
         <a href="index.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">トップ</a>
         <a href="zaitaku.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">在宅系</a>
-        <a href="shisetsu.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">施設系</a>
-        <a href="sonota.html" class="py-1.5 rounded-lg text-xs font-bold bg-cyan-600 text-white text-center shadow-2xs">他サービス</a>
+        <a href="shisetsu.html" class="py-1.5 rounded-lg text-xs font-bold bg-purple-600 text-white text-center shadow-2xs">施設系</a>
+        <a href="sonota.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">他サービス</a>
       </div>
       <div class="lg:hidden relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input type="text" id="mobileSearchInput" placeholder="他サービスの事業所名・料金・資料名・メモで検索..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+        <input type="text" id="mobileSearchInput" placeholder="施設系の事業所名・費用・資料名・メモで検索..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
         <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
       </div>
     </div>
@@ -145,13 +145,13 @@
   <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-4rem)]">
     <div id="mobileFilterBackdrop" class="hidden fixed inset-0 bg-slate-900/50 z-40 lg:hidden backdrop-blur-xs" onclick="closeMobileFilter()"></div>
 
-    <!-- ==================== 左側：他サービス絞り込みサイドバー ==================== -->
+    <!-- ==================== 左側：施設系絞り込みサイドバー ==================== -->
     <aside id="filterSidebar" class="fixed inset-y-0 left-0 z-50 w-[88vw] max-w-sm lg:w-80 xl:w-[340px] bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static lg:z-10 transition-transform duration-200 ease-out flex flex-col h-full lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16 shrink-0 shadow-2xl lg:shadow-none">
       <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70 shrink-0">
         <div class="flex items-center gap-2 font-bold text-slate-800">
-          <i class="fa-solid fa-filter text-cyan-600"></i>
-          <span>他サービスの条件絞り込み</span>
-          <span id="activeFilterCount" class="hidden px-2 py-0.5 text-xs font-bold rounded-full bg-cyan-600 text-white">0</span>
+          <i class="fa-solid fa-filter text-purple-600"></i>
+          <span>施設系の条件絞り込み</span>
+          <span id="activeFilterCount" class="hidden px-2 py-0.5 text-xs font-bold rounded-full bg-purple-600 text-white">0</span>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" onclick="resetAllFilters()" class="text-xs font-medium text-slate-500 hover:text-rose-600 px-2.5 py-1.5 rounded-lg hover:bg-rose-50 transition flex items-center gap-1">
@@ -166,7 +166,7 @@
           <label for="searchInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">フリーワード検索</label>
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="searchInput" placeholder="事業所名・料金・対応内容・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+            <input type="text" id="searchInput" placeholder="施設名・費用・設備・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
             <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
           </div>
         </div>
@@ -175,7 +175,7 @@
           <label class="flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-star text-amber-500"></i>
-              <span class="text-sm font-semibold text-slate-800">お気に入り事業所のみ</span>
+              <span class="text-sm font-semibold text-slate-800">お気に入り施設のみ</span>
             </div>
             <div class="relative inline-flex items-center">
               <input type="checkbox" id="favoriteOnlyToggle" class="sr-only peer" onchange="syncFavoriteToggles(this.checked)">
@@ -187,9 +187,9 @@
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2.5">
           <div class="flex items-center justify-between">
             <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-layer-group text-cyan-600"></i><span>他サービス種別</span>
+              <i class="fa-solid fa-building text-purple-600"></i><span>施設系サービス種別</span>
             </label>
-            <button type="button" onclick="toggleAllOtherServices()" class="text-[11px] font-medium text-cyan-700 hover:underline">全選択/解除</button>
+            <button type="button" onclick="toggleAllFacilityServices()" class="text-[11px] font-medium text-purple-700 hover:underline">全選択/解除</button>
           </div>
           <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
@@ -206,28 +206,28 @@
 
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
           <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-solid fa-user-nurse text-cyan-600"></i><span>専門職・職員体制（AND）</span>
+            <i class="fa-solid fa-user-nurse text-purple-600"></i><span>専門職・職員体制（AND）</span>
           </label>
           <div id="staffFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
           <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-regular fa-clock text-cyan-600"></i><span>営業曜日・時間帯の対応</span>
+            <i class="fa-regular fa-clock text-purple-600"></i><span>営業曜日・時間帯の対応</span>
           </label>
           <div id="scheduleFilters" class="flex flex-col gap-1.5"></div>
         </div>
 
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
           <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-solid fa-map-location-dot text-cyan-600"></i><span>対応包括エリア</span>
+            <i class="fa-solid fa-map-location-dot text-purple-600"></i><span>所在地・対象包括エリア</span>
           </label>
           <div id="areaFilters" class="grid grid-cols-2 gap-1.5"></div>
         </div>
       </div>
 
       <div class="lg:hidden p-3 border-t border-slate-200 bg-white shrink-0 pb-safe">
-        <button type="button" onclick="closeMobileFilter()" class="w-full py-3 rounded-xl bg-cyan-600 text-white text-sm font-bold shadow-sm">
+        <button type="button" onclick="closeMobileFilter()" class="w-full py-3 rounded-xl bg-purple-600 text-white text-sm font-bold shadow-sm">
           この条件で表示する（<span id="mobileResultCount">0</span>件）
         </button>
       </div>
@@ -238,10 +238,10 @@
       <div class="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
         <div class="flex flex-wrap items-center gap-2">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-xs sm:text-sm font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200 mr-1">他サービス</span>
-            <span id="resultCount" class="text-xl sm:text-2xl font-bold text-cyan-700 font-mono">0</span>
+            <span class="text-xs sm:text-sm font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 mr-1">施設系</span>
+            <span id="resultCount" class="text-xl sm:text-2xl font-bold text-purple-700 font-mono">0</span>
             <span class="text-xs sm:text-sm text-slate-600 font-medium">件</span>
-            <span class="text-xs text-slate-400 ml-1">/ 他サービス全 <span id="totalCount">0</span> 件</span>
+            <span class="text-xs text-slate-400 ml-1">/ 施設系全 <span id="totalCount">0</span> 件</span>
           </div>
         </div>
 
@@ -251,11 +251,11 @@
             <select id="sortSelect" onchange="applyFilters()" class="flex-1 sm:flex-initial bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium">
               <option value="favorite">お気に入り優先</option>
               <option value="updated">情報更新日が新しい順</option>
-              <option value="name">事業所名順 (五十音)</option>
+              <option value="name">施設名順 (五十音)</option>
             </select>
           </div>
           <div class="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
-            <button type="button" id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-cyan-700 shadow-2xs flex items-center gap-1">
+            <button type="button" id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-purple-700 shadow-2xs flex items-center gap-1">
               <i class="fa-solid fa-grip"></i><span class="hidden md:inline">カード</span>
             </button>
             <button type="button" id="viewListBtn" onclick="setViewMode('list')" class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1">
@@ -268,9 +268,9 @@
       <div id="facilityContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-3.5 sm:gap-5"></div>
 
       <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center my-6">
-        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">条件に一致する事業所が見つかりませんでした</h3>
+        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">条件に一致する施設が見つかりませんでした</h3>
         <p class="text-xs sm:text-sm text-slate-500 mb-5">条件を減らすかリセットしてお試しください。</p>
-        <button type="button" onclick="resetAllFilters()" class="px-5 py-2.5 bg-cyan-600 text-white text-sm font-semibold rounded-xl shadow-xs">絞り込み条件をリセット</button>
+        <button type="button" onclick="resetAllFilters()" class="px-5 py-2.5 bg-purple-600 text-white text-sm font-semibold rounded-xl shadow-xs">絞り込み条件をリセット</button>
       </div>
     </main>
   </div>
@@ -278,13 +278,13 @@
   <!-- モバイル下部バー -->
   <nav class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 pt-2 pb-safe flex items-center justify-around gap-2 shadow-lg">
     <button type="button" onclick="openMobileFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5 relative">
-      <div class="relative"><i class="fa-solid fa-sliders text-base text-cyan-600"></i><span id="bottomFilterBadge" class="hidden -top-1 -right-2.5 absolute px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-cyan-600 text-white">0</span></div>
+      <div class="relative"><i class="fa-solid fa-sliders text-base text-purple-600"></i><span id="bottomFilterBadge" class="hidden -top-1 -right-2.5 absolute px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-purple-600 text-white">0</span></div>
       <span>条件絞り込み</span>
     </button>
     <button type="button" onclick="toggleBottomFavoriteFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5">
       <i class="fa-regular fa-star text-base text-amber-500"></i><span>お気に入り</span>
     </button>
-    <button type="button" onclick="openFormModal()" class="flex-1 py-2 px-2 rounded-xl bg-cyan-600 text-white text-xs font-bold flex flex-col items-center justify-center gap-0.5 shadow-xs">
+    <button type="button" onclick="openFormModal()" class="flex-1 py-2 px-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex flex-col items-center justify-center gap-0.5 shadow-xs">
       <i class="fa-solid fa-plus text-base"></i><span>新規登録</span>
     </button>
   </nav>
@@ -294,7 +294,7 @@
     <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
       <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeDetailModal()"></div>
       <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[92vh] flex flex-col">
-        <div id="detailTopBar" class="h-2 bg-cyan-600 w-full shrink-0"></div>
+        <div id="detailTopBar" class="h-2 bg-purple-600 w-full shrink-0"></div>
         <div class="px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-200 flex items-start justify-between gap-3 bg-slate-50/50 shrink-0">
           <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-1.5 mb-1.5" id="detailBadges"></div>
@@ -312,8 +312,8 @@
             <div>
               <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
               <div class="flex items-center gap-2">
-                <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-cyan-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
-                <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-cyan-600 text-white text-xs font-bold">発信</a>
+                <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
+                <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-purple-600 text-white text-xs font-bold">発信</a>
               </div>
             </div>
             <div>
@@ -321,7 +321,7 @@
               <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
             </div>
             <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者・連絡先</div>
+              <div class="text-xs text-slate-500 font-medium mb-1">相談員・ケアマネ・窓口担当</div>
               <div class="text-sm font-bold text-slate-800"><span id="detailContact"></span></div>
             </div>
           </div>
@@ -329,7 +329,7 @@
           <!-- ホームページ・添付資料セクション -->
           <div id="detailLinksSection" class="hidden bg-blue-50/60 border border-blue-200 rounded-xl p-4 space-y-3">
             <h3 class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-folder-open text-blue-600"></i><span>ホームページ・添付資料（メニュー表・料金表・申込書等）</span>
+              <i class="fa-solid fa-folder-open text-blue-600"></i><span>ホームページ・添付資料（パンフレット・料金表・空床情報等）</span>
             </h3>
             <div id="detailHomepageBox" class="hidden">
               <a id="detailHomepageLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-blue-300 hover:bg-blue-600 hover:text-white text-blue-700 text-xs sm:text-sm font-bold transition shadow-2xs">
@@ -345,16 +345,16 @@
           </div>
 
           <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4">
-            <div class="text-xs font-bold text-amber-800 mb-1.5"><i class="fa-solid fa-note-sticky text-amber-600 mr-1"></i>ケアマネ独自メモ・利用時の注意点</div>
+            <div class="text-xs font-bold text-amber-800 mb-1.5"><i class="fa-solid fa-note-sticky text-amber-600 mr-1"></i>ケアマネ独自メモ・空床/受入傾向</div>
             <p id="detailMemo" class="text-sm text-slate-800 leading-relaxed whitespace-pre-line"></p>
           </div>
 
-          <div id="detailServiceSpecificSection" class="hidden bg-cyan-50/60 border border-cyan-200 rounded-xl p-4 space-y-2.5">
-            <h3 class="text-xs font-bold text-cyan-900">サービス詳細仕様（料金・対応条件・エリア）</h3>
+          <div id="detailServiceSpecificSection" class="hidden bg-purple-50/60 border border-purple-200 rounded-xl p-4 space-y-2.5">
+            <h3 class="text-xs font-bold text-purple-900">施設詳細仕様（費用・設備・体制・ルール）</h3>
             <div id="detailServiceSpecificBody" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800"></div>
           </div>
 
-          <div id="detailTagsSection">
+          <div>
             <h3 class="text-sm font-bold text-slate-800 mb-2">対応可能な医療処置・専門職体制</h3>
             <div id="detailTags" class="flex flex-wrap gap-1.5"></div>
           </div>
@@ -363,10 +363,10 @@
             <h3 class="text-sm font-bold text-slate-800 mb-2">基本情報・対応エリア</h3>
             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm border-t border-slate-200 pt-3">
               <div><dt class="text-xs text-slate-500">所在地</dt><dd id="detailAddress" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">営業時間・受付時間</dt><dd id="detailHours" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">定休日</dt><dd id="detailHolidays" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">算定加算・特徴</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
+              <div id="detailAreaDetailRow"><dt class="text-xs text-slate-500">送迎・訪問対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
+              <div id="detailHoursRow"><dt class="text-xs text-slate-500">営業時間・受付時間</dt><dd id="detailHours" class="font-medium text-slate-800 mt-0.5"></dd></div>
+              <div id="detailHolidaysRow"><dt class="text-xs text-slate-500">定休日</dt><dd id="detailHolidays" class="font-medium text-slate-800 mt-0.5"></dd></div>
+              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">算定加算・施設特徴</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
             </dl>
           </div>
         </div>
@@ -375,21 +375,21 @@
           <span class="text-xs text-slate-400">最終更新日: <span id="detailUpdatedAt"></span></span>
           <div class="flex items-center gap-2">
             <button type="button" id="detailDeleteBtn" class="px-3 py-2 text-xs sm:text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg">削除</button>
-            <button type="button" id="detailEditBtn" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-2xs">情報を編集する</button>
+            <button type="button" id="detailEditBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-2xs">情報を編集する</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== モーダル2：他サービス 新規登録・編集モーダル ==================== -->
+  <!-- ==================== モーダル2：施設系 新規登録・編集モーダル ==================== -->
   <div id="formModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
       <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeFormModal()"></div>
       <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[92vh] flex flex-col">
         <div class="px-5 sm:px-6 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
           <h2 id="formModalTitle" class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-cyan-600"></i><span>他サービス事業所 新規登録</span>
+            <i class="fa-solid fa-building text-purple-600"></i><span>施設系事業所 新規登録</span>
           </h2>
           <button type="button" onclick="closeFormModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
@@ -399,70 +399,72 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">事業所・店舗・医療機関名 <span class="text-rose-500">*</span></label>
-              <input type="text" id="formName" required placeholder="例：〇〇訪問診療クリニック / 介護タクシー〇〇 / 配食サービス〇〇" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
+              <label class="block text-xs font-bold text-slate-700 mb-1">施設・事業所名 <span class="text-rose-500">*</span></label>
+              <input type="text" id="formName" required placeholder="例：特別養護老人ホーム 〇〇の里" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none" />
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">運営法人・会社名</label>
-              <input type="text" id="formCorp" placeholder="例：医療法人〇〇会 / 株式会社〇〇" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+              <label class="block text-xs font-bold text-slate-700 mb-1">運営法人名</label>
+              <input type="text" id="formCorp" placeholder="例：社会福祉法人 〇〇福祉会" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">事業所番号・許可番号（任意）</label>
-              <input type="text" id="formCode" placeholder="例：4210101234 / 九州運輸局許可" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" />
+              <label class="block text-xs font-bold text-slate-700 mb-1">介護保険事業所番号</label>
+              <input type="text" id="formCode" placeholder="例：4290101234" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" />
             </div>
             <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">他サービス種別 <span class="text-rose-500">*</span></label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">施設系サービス種別 <span class="text-rose-500">*</span></label>
               <select id="formServiceType" required onchange="updateServiceSpecificFormFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
             </div>
           </div>
 
-          <!-- 他サービス専用入力ブロック -->
-          <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-cyan-50/50 border border-cyan-200 space-y-3">
-            <div class="text-xs font-bold text-cyan-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-sliders text-cyan-600"></i><span id="serviceSpecificFormTitle">他サービス種別ごとの詳細仕様</span>
+          <!-- 施設系サービス専用入力ブロック（種別ごとに自動表示切替） -->
+          <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-purple-50/50 border border-purple-200 space-y-3">
+            <div class="text-xs font-bold text-purple-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-sliders text-purple-600"></i><span id="serviceSpecificFormTitle">施設サービス種別ごとの詳細仕様</span>
             </div>
 
-            <!-- 1. 居宅療養管理指導用 -->
-            <div id="fields_medical_guidance" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">指導職種（医師・歯科医師・薬剤師・管理栄養士・歯科衛生士）</label><input type="text" id="formMedRole" placeholder="例：薬剤師（薬局）・歯科医師・管理栄養士" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">麻薬調剤・クリーンベンチ・お薬カレンダー対応</label><input type="text" id="formMedEquip" placeholder="例：無菌調剤・麻薬対応可・一包化・カレンダーセット可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">訪問可能曜日・緊急配送・主治医連携状況</label><input type="text" id="formMedSchedule" placeholder="例：月〜土訪問可・処方箋FAX後当日配達・在宅医と連携実績多数" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 1. ショートステイ・医療型ショート用 -->
+            <div id="fields_short_stay" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">居室タイプ・定員数</label><input type="text" id="formShortRoom" placeholder="例：全室個室ユニット型 20床 / 従来型多床室あり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">送迎対応時間帯・土日祝送迎</label><input type="text" id="formShortTransfer" placeholder="例：8:30〜17:30（土日祝送迎可・片道20分圏内）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">緊急ショート受け入れ・空床目安</label><input type="text" id="formShortEmergency" placeholder="例：緊急受入枠2床あり（当日相談可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">滞在費・食費目安（1日あたり）</label><input type="text" id="formShortFee" placeholder="例：居住費2,066円・食費1,445円（負担限度額認定対応）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 2. 移送支援（介護タクシー・福祉有償運送）用 -->
-            <div id="fields_transport_support" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">対応車両・機材（車椅子・リクライニング・ストレッチャー）</label><input type="text" id="formTransVehicle" placeholder="例：車椅子2台同時可・ストレッチャー・リクライニング貸出あり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">料金目安（初乗り・時間制・介助料・階段介助）</label><input type="text" id="formTransFee" placeholder="例：初乗り700円＋基本介助1,000円（長崎市福祉タクシー券利用可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">院内付き添い・階段昇降・長距離転院対応</label><input type="text" id="formTransOption" placeholder="例：2名体制階段介助可・ヘルパー2級以上所持・院内受診同行相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 2. 小多機・看多機用 -->
+            <div id="fields_shokibo" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">登録定員・通い・宿泊定員</label><input type="text" id="formShokiboCapacity" placeholder="例：登録29名 / 通い18名 / 宿泊9名" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">宿泊費・食費目安</label><input type="text" id="formShokiboFee" placeholder="例：宿泊費 1泊2,500円 / 朝食400円・昼食600円・夕食600円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">通い・訪問・泊まりの柔軟性／看護体制</label><input type="text" id="formShokiboFlex" placeholder="例：急な当日宿泊・早朝送り出し・夕食後送り対応可（看多機は24時間看護師オンコール）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 3. 自費代行サービス等用 -->
-            <div id="fields_self_pay_proxy" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">対応可能な代行内容（通院同行・掃除・草刈り・手続き等）</label><input type="text" id="formProxyScope" placeholder="例：病院付き添い・入退院手続き・大掃除・電球交換・話し相手" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">料金体系目安（1時間あたり・出張費・最低利用時間）</label><input type="text" id="formProxyFee" placeholder="例：1時間 2,200円〜（交通費一律500円・1時間から利用可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-            </div>
-
-            <!-- 4. 配食・買い物配達サービス用 -->
-            <div id="fields_delivery" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">食形態・取扱品目（きざみ・ムース・塩分調整・日用品等）</label><input type="text" id="formDelivMenu" placeholder="例：普通食・きざみ食・ムース食・カロリー/塩分制限食対応可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">1食・1回あたり料金目安／最低注文数</label><input type="text" id="formDelivFee" placeholder="例：おかずのみ550円・ご飯付620円（週1回・1食から注文可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">安否確認・手渡し対応・注文締切ルール</label><input type="text" id="formDelivSafety" placeholder="例：手渡し安否確認無料（異常時はケアマネ・家族へ即時連絡）・前日17時まで変更可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 3. 入居系施設（特養・老健・ケアハウス・養護・有料・GH）用 -->
+            <div id="fields_residential" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">定員数・居室タイプ</label><input type="text" id="formResCapacity" placeholder="例：特養80床（ユニット個室）/ 有料45室（18㎡・トイレ洗面付）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">入居一時金・敷金</label><input type="text" id="formResInitialFee" placeholder="例：0円（敷金10万円のみ）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">月額利用料目安（家賃・管理費・食費込）</label><input type="text" id="formResMonthlyFee" placeholder="例：約12.5万〜14.8万円（介護保険自己負担・おむつ代別）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <!-- 特養では非表示にするフィールド -->
+              <div id="field_resCareLevelIn"><label class="block text-xs font-bold text-slate-700 mb-1">入居時介護度・条件目安</label><input type="text" id="formResCareLevelIn" placeholder="例：要支援1〜要介護5（自立相談可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div id="field_resCareLevelOut"><label class="block text-xs font-bold text-slate-700 mb-1">退去時介護度上限目安・継続居住</label><input type="text" id="formResCareLevelOut" placeholder="例：要介護5・看取りまで継続居住可能" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div id="field_resDrinkRule"><label class="block text-xs font-bold text-slate-700 mb-1">飲酒ルール</label><input type="text" id="formResDrinkRule" placeholder="例：居室内のみ可 / 医師許可・施設預かりで晩酌可 / 原則禁止" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div id="field_resSmokeRule"><label class="block text-xs font-bold text-slate-700 mb-1">喫煙ルール</label><input type="text" id="formResSmokeRule" placeholder="例：敷地内全面禁煙 / 屋外指定喫煙所のみ可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div id="field_resRoomEquip" class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">居室内設備・持ち込み家具ルール</label><input type="text" id="formResRoomEquip" placeholder="例：介護ベッド・エアコン・ナースコール標準装備（テレビ・仏壇・冷蔵庫持ち込み可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">医療連携・協力医療機関・夜間看護体制</label><input type="text" id="formResMedical" placeholder="例：〇〇病院と24時間連携・週2回往診あり・夜間オンコール対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
           </div>
 
           <!-- 連絡先・住所 -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-5555" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-5556" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名・ドライバー名</label><input type="text" id="formContact" placeholder="例：鈴木 一郎" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">主たる対応包括エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
-            <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">所在地・拠点住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-3333" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-3334" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">生活相談員・ケアマネ・入居窓口</label><input type="text" id="formContact" placeholder="例：佐藤 健太（相談員）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">所在地・主たる包括エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
+            <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
           </div>
 
           <!-- ホームページアドレス・添付ファイル（Googleドライブ等URL） -->
           <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3">
             <div class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-paperclip text-blue-600"></i><span>ホームページアドレス・添付ファイル（メニュー表・料金表・申込書等）</span>
+              <i class="fa-solid fa-paperclip text-blue-600"></i><span>ホームページアドレス・添付ファイル（パンフレット・料金表・空床情報等）</span>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">ホームページURL</label>
@@ -480,11 +482,11 @@
             </div>
           </div>
 
-          <!-- 営業時間・定休日・体制 -->
-          <div class="pt-2 border-t border-slate-100 space-y-4">
+          <!-- 営業時間・定休日・体制（入居系6種別では非表示） -->
+          <div id="sectionHoursAndSchedule" class="pt-2 border-t border-slate-100 space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">営業時間・予約受付時間</label><input type="text" id="formHours" placeholder="例：8:00〜18:00（時間外予約相談可）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日</label><input type="text" id="formHolidays" placeholder="例：日曜・祝日（配食は365日配達）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">相談窓口・営業時間</label><input type="text" id="formHours" placeholder="例：8:30〜17:30（施設は24時間365日）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日（相談受付）</label><input type="text" id="formHolidays" placeholder="例：年中無休（相談窓口は日曜休み）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1.5">営業曜日・時間帯の対応</label>
@@ -495,28 +497,28 @@
           <!-- 対応可能な医療処置・専門職 -->
           <div class="pt-2 border-t border-slate-100 space-y-3">
             <div>
-              <label class="block text-xs font-bold text-rose-800 mb-1.5"><i class="fa-solid fa-notes-medical text-rose-600 mr-1"></i>対応可能な医療処置（居宅療養管理指導・医療移送等）</label>
+              <label class="block text-xs font-bold text-rose-800 mb-1.5"><i class="fa-solid fa-notes-medical text-rose-600 mr-1"></i>受入可能な医療処置</label>
               <div id="formMedicalCareTags" class="flex flex-wrap gap-1.5 bg-rose-50/40 p-2.5 rounded-xl border border-rose-100"></div>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1.5"><i class="fa-solid fa-user-nurse text-cyan-600 mr-1"></i>専門職・職員体制</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5"><i class="fa-solid fa-user-nurse text-purple-600 mr-1"></i>専門職・職員体制</label>
               <div id="formFacilityStaffTags" class="flex flex-wrap gap-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80"></div>
             </div>
           </div>
 
           <!-- エリア詳細・加算・独自メモ -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">配達・送迎・訪問対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市全域（離島部除く）・時津・長与相談可" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・サービス特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：福祉タクシー券対応, 安否確認無料, 現金払いのみ" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div id="field_areaDetail"><label class="block text-xs font-bold text-slate-700 mb-1">送迎・訪問対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市全域（有料・特養は市外も相談可）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div id="field_additions"><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・施設特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：看取り介護加算, 認知症専門ケア加算" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-amber-800 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1"></i>ケアマネ独自メモ（利用者の評判・予約の取りやすさ等）</label>
-              <textarea id="formMemo" rows="3" placeholder="例：急な通院予約でも空きがあれば当日朝でも対応してくれる。ドライバーさんが非常に親切。" class="w-full px-3 py-2 border border-amber-300 bg-amber-50/40 rounded-lg text-sm"></textarea>
+              <label class="block text-xs font-bold text-amber-800 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1"></i>ケアマネ独自メモ（待機人数目安・見学時の印象・受入傾向等）</label>
+              <textarea id="formMemo" rows="3" placeholder="例：待機者約10名だが特例入所や医療ニーズ高い方の調整が早い。相談員のレスポンスが非常に丁寧。" class="w-full px-3 py-2 border border-amber-300 bg-amber-50/40 rounded-lg text-sm"></textarea>
             </div>
           </div>
 
           <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-2.5 pb-safe">
             <button type="button" onclick="closeFormModal()" class="px-4 py-2.5 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium">キャンセル</button>
-            <button type="submit" class="px-5 py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold shadow-xs flex items-center gap-1.5">
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold shadow-xs flex items-center gap-1.5">
               <i class="fa-solid fa-cloud-arrow-up"></i><span>保存する</span>
             </button>
           </div>
@@ -546,18 +548,18 @@
       <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeMasterModal()"></div>
       <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl overflow-hidden z-10 sm:my-4 flex flex-col max-h-[92vh]">
         <div class="px-5 sm:px-6 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
-          <h2 class="text-base sm:text-lg font-bold text-slate-900"><i class="fa-solid fa-gear text-cyan-600 mr-2"></i>マスター設定・バックアップ</h2>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900"><i class="fa-solid fa-gear text-purple-600 mr-2"></i>マスター設定・バックアップ</h2>
           <button type="button" onclick="closeMasterModal()" class="text-slate-400 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
         <div class="px-3 sm:px-6 pt-3 bg-slate-50/60 border-b border-slate-200 flex overflow-x-auto gap-1.5 shrink-0">
-          <button type="button" data-mtab="serviceTypes" onclick="switchMasterTab('serviceTypes')" class="master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-bold rounded-t-lg border-t border-x border-slate-200 bg-white text-cyan-700 -mb-px whitespace-nowrap">1. 他サービス種別</button>
+          <button type="button" data-mtab="serviceTypes" onclick="switchMasterTab('serviceTypes')" class="master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-bold rounded-t-lg border-t border-x border-slate-200 bg-white text-purple-700 -mb-px whitespace-nowrap">1. 施設系サービス種別</button>
           <button type="button" data-mtab="areas" onclick="switchMasterTab('areas')" class="master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-t-lg text-slate-600 whitespace-nowrap">2. 包括エリア</button>
           <button type="button" data-mtab="careTags" onclick="switchMasterTab('careTags')" class="master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-t-lg text-slate-600 whitespace-nowrap">3. 医療処置・専門職</button>
           <button type="button" data-mtab="backup" onclick="switchMasterTab('backup')" class="master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-t-lg text-slate-600 whitespace-nowrap">4. バックアップ・初期化</button>
         </div>
         <div id="masterTabContent" class="p-4 sm:p-6 overflow-y-auto flex-1 bg-white"></div>
         <div class="px-5 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end shrink-0 pb-safe">
-          <button type="button" onclick="closeMasterModal()" class="px-5 py-2 rounded-lg bg-cyan-600 text-white text-sm font-semibold">完了して閉じる</button>
+          <button type="button" onclick="closeMasterModal()" class="px-5 py-2 rounded-lg bg-purple-600 text-white text-sm font-semibold">完了して閉じる</button>
         </div>
       </div>
     </div>
@@ -566,19 +568,23 @@
   <div id="toastContainer" class="fixed bottom-20 lg:bottom-5 right-3 sm:right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <script>
-    const CURRENT_PAGE_CATEGORY = 'other';
+    const CURRENT_PAGE_CATEGORY = 'facility';
     const STORAGE_KEY = 'carenavi_facilities_v2';
     const MASTER_STORAGE_KEY = 'carenavi_masters_v2';
     const FONT_KEY = 'carenavi_fontsize_v1';
     const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
 
+    const RESIDENTIAL_IDS = ['tokuyou', 'rouken', 'care_house', 'yougo_home', 'yuuryou_home', 'group_home'];
+
     const COLOR_THEMES = [
-      { id: 'cyan', label: 'シアン', color: 'bg-cyan-100 text-cyan-800 border-cyan-200', bar: 'bg-cyan-500' },
-      { id: 'slate', label: 'スレートグレー', color: 'bg-slate-200 text-slate-800 border-slate-300', bar: 'bg-slate-600' },
-      { id: 'sky', label: 'スカイブルー', color: 'bg-sky-100 text-sky-800 border-sky-200', bar: 'bg-sky-500' },
+      { id: 'purple', label: 'パープル', color: 'bg-purple-100 text-purple-800 border-purple-200', bar: 'bg-purple-500' },
+      { id: 'violet', label: 'バイオレット', color: 'bg-violet-100 text-violet-800 border-violet-200', bar: 'bg-violet-500' },
       { id: 'orange', label: 'オレンジ', color: 'bg-orange-100 text-orange-800 border-orange-200', bar: 'bg-orange-500' },
-      { id: 'teal', label: 'ティール', color: 'bg-teal-100 text-teal-800 border-teal-200', bar: 'bg-teal-500' },
-      { id: 'emerald', label: 'エメラルド', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', bar: 'bg-emerald-500' }
+      { id: 'pink', label: 'ピンク', color: 'bg-pink-100 text-pink-800 border-pink-200', bar: 'bg-pink-500' },
+      { id: 'indigo', label: 'インディゴ', color: 'bg-indigo-100 text-indigo-800 border-indigo-200', bar: 'bg-indigo-500' },
+      { id: 'emerald', label: 'エメラルド', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', bar: 'bg-emerald-500' },
+      { id: 'amber', label: 'アンバー', color: 'bg-amber-100 text-amber-800 border-amber-200', bar: 'bg-amber-500' },
+      { id: 'teal', label: 'ティール', color: 'bg-teal-100 text-teal-800 border-teal-200', bar: 'bg-teal-500' }
     ];
 
     const INITIAL_MEDICAL_CARE_TAGS = [
@@ -625,42 +631,28 @@
 
     const INITIAL_FACILITIES = [
       {
-        id: 'fac_201', name: 'あおぞら在宅薬局（居宅療養管理指導）', corp: '株式会社 あおぞらメディカル', code: '4240107722', serviceType: 'medical_guidance',
-        phone: '095-844-1212', fax: '095-844-1213', contact: '松本 涼子（在宅担当薬剤師）', area: '緑が丘', address: '長崎市緑が丘町8-5',
+        id: 'fac_101', name: '特別養護老人ホーム ながさき海風の丘', corp: '社会福祉法人 海風福祉会', code: '4290105511', serviceType: 'tokuyou',
+        phone: '095-830-7788', fax: '095-830-7789', contact: '中村 浩二（生活相談員）', area: '戸町', address: '長崎市戸町4-12-3',
         homepage: '', attachments: [],
-        areaDetail: '長崎市全域（訪問診療クリニック処方箋すべて対応）', hours: '9:00〜18:00（緊急時24時間電話・配達対応）', holidays: '日曜・祝日',
-        schedules: ['emergency_24h'],
-        careTags: ['経管栄養法（胃ろうを含む）', '在宅中心静脈栄養法（IVH)', '点滴・静脈注射', '麻薬を用いた疼痛管理'],
-        medRole: '薬剤師（薬局）', medEquip: '無菌調剤室完備・医療用麻薬常備・一包化＆お薬カレンダーセット対応',
-        medSchedule: '月〜土訪問可・処方箋FAX後当日配達・主治医への服薬情報報告書提出が丁寧',
-        additions: ['無菌製剤処理加算', '麻薬管理指導加算', 'お薬カレンダーセット対応'],
-        memo: '飲み忘れが多い独居の方でも、訪問時に残薬整理とカレンダーへのセットまで丁寧に行ってくれる。', favorite: true, updatedAt: '2026-11-19'
+        resCapacity: '特養80床（全室個室ユニット型）＋ショート20床併設', resInitialFee: '0円', resMonthlyFee: '約9.5万〜13.8万円（負担限度額段階による）',
+        resMedical: '協力病院（みなと総合病院）と24時間連携・週2回嘱託医回診・看取り実績年間15件以上',
+        careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '吸引', '麻薬を用いた疼痛管理'],
+        additions: ['看取り介護加算', '認知症専門ケア加算Ⅰ', '栄養マネジメント強化加算'],
+        memo: '併設ショートから特養への移行相談にも柔軟に対応。家族面会も予約不要で自由度が高い。', favorite: true, updatedAt: '2026-11-20'
       },
       {
-        id: 'fac_202', name: '介護タクシー ながさきハートケア', corp: '有限会社 ハートケア移送', code: '九運旅二第105号', serviceType: 'transport_support',
-        phone: '095-818-9900', fax: '095-818-9901', contact: '森田 誠（代表ドライバー）', area: '大浦', address: '長崎市出島町3-10',
+        id: 'fac_102', name: '住宅型有料老人ホーム やすらぎの杜 滑石', corp: '株式会社 九州シルバーケア', code: '4270108899', serviceType: 'yuuryou_home',
+        phone: '095-856-3311', fax: '095-856-3312', contact: '高橋 恵子（施設長）', area: '滑石', address: '長崎市滑石5-3-18',
         homepage: '', attachments: [],
-        areaDetail: '長崎市全域（斜面地・階段介助も相談可）', hours: '7:30〜19:00（早朝・夜間予約対応可）', holidays: '不定休（事前予約制）',
-        schedules: ['weekend', 'early_late'],
-        careTags: ['在宅酸素療法（HOT)', '吸引', '男性スタッフ在籍'],
-        transVehicle: '車椅子2台同乗可・ストレッチャー・リクライニング車椅子貸出あり（酸素ボンベ積載可）',
-        transFee: '初乗り700円＋基本乗降介助1,000円（長崎市福祉タクシー券利用可）',
-        transOption: '2名体制での階段昇降介助可・院内受診付き添い（30分1,500円）相談可',
-        additions: ['福祉タクシー券対応', 'ストレッチャー対応', '階段昇降介助'],
-        memo: '長崎特有の坂道・階段があるご自宅でも2名体制で安全に搬送してくれる。退院時の病院ベッド〜自宅ベッド移動も安心。', favorite: true, updatedAt: '2026-11-17'
-      },
-      {
-        id: 'fac_203', name: 'まごころ配食サービス 長崎中央店', corp: '株式会社 まごころフーズ', code: '', serviceType: 'meal_delivery',
-        phone: '095-825-6600', fax: '095-825-6601', contact: '山口 真由美', area: '桜馬場', address: '長崎市桜馬場2-4-1',
-        homepage: '', attachments: [],
-        areaDetail: '長崎市中心部・南部・北部エリア（詳細はお問合せ）', hours: '9:00〜18:00（昼食・夕食の1日2回配達）', holidays: '正月三が日のみ（362日配達）',
-        schedules: ['weekend'],
-        careTags: [],
-        delivMenu: '普通食・カロリー塩分調整食・たんぱく調整食・きざみ食・ムース食（おかゆ変更無料）',
-        delivFee: 'おかずのみ560円・ご飯付630円（週1回・1食から注文可・配達料無料）',
-        delivSafety: '手渡しでの安否確認無料（応答がない場合は緊急連絡先・ケアマネへ即時連絡）・前日17時までキャンセル可',
-        additions: ['安否確認見守り無料', 'きざみ・ムース食対応', '1食から利用可'],
-        memo: 'お試し試食（初回1食無料）あり。独居高齢者の安否確認目的でも非常に重宝。', favorite: false, updatedAt: '2026-11-14'
+        resCapacity: '全42室（完全個室18.2㎡・トイレ・洗面・エアコン・介護ベッド付）', resInitialFee: '0円（敷金12万円・退去時原状回復費差引返還）',
+        resMonthlyFee: '132,000円（家賃55,000円＋管理費32,000円＋食費45,000円）',
+        resCareLevelIn: '要介護1〜要介護5（要支援の方も相談可）', resCareLevelOut: '要介護5・ターミナル期まで継続居住可能',
+        resDrinkRule: '居室内での晩酌可（医師の制限がない場合）', resSmokeRule: '敷地内全面禁煙',
+        resRoomEquip: '介護ベッド・寝具・エアコン・ナースコール標準完備（テレビ・冷蔵庫・仏壇持ち込み可）',
+        resMedical: '訪問診療クリニックと連携・日中看護師常駐・夜間オンコール対応',
+        careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）'],
+        additions: ['24時間職員常駐', '館内厨房手作り食'],
+        memo: '生活保護受給者も相談可能。外部のデイサービスや訪問看護をそのまま継続利用できるため在宅ケアマネが継続担当可能。', favorite: true, updatedAt: '2026-11-18'
       }
     ];
 
@@ -692,7 +684,7 @@
           const normalizedServices = rawServices.map(st => {
             if (st.category) return st;
             const matched = INITIAL_MASTER_DATA.serviceTypes.find(i => i.id === st.id);
-            return { ...st, category: matched ? matched.category : 'other' };
+            return { ...st, category: matched ? matched.category : 'facility' };
           });
           INITIAL_MASTER_DATA.serviceTypes.forEach(initSt => {
             if (!normalizedServices.some(s => s.id === initSt.id)) normalizedServices.push({ ...initSt });
@@ -719,7 +711,7 @@
       const label = document.getElementById('syncStatusText');
       if (label) label.textContent = text;
       if (!icon) return;
-      if (state === 'loading') icon.className = 'fa-solid fa-arrows-rotate fa-spin text-cyan-600';
+      if (state === 'loading') icon.className = 'fa-solid fa-arrows-rotate fa-spin text-purple-600';
       else if (state === 'ok') icon.className = 'fa-solid fa-cloud-check text-emerald-600';
       else if (state === 'error') icon.className = 'fa-solid fa-cloud-exclamation text-rose-500';
       else icon.className = 'fa-solid fa-hard-drive text-amber-500';
@@ -789,7 +781,7 @@
     }
 
     function getCategoryServices() {
-      return masterData.serviceTypes.filter(st => (st.category || 'other') === CURRENT_PAGE_CATEGORY);
+      return masterData.serviceTypes.filter(st => (st.category || 'facility') === CURRENT_PAGE_CATEGORY);
     }
 
     function getCategoryFacilities() {
@@ -798,7 +790,7 @@
     }
 
     function getServiceTypeObj(id) {
-      return masterData.serviceTypes.find(s => s.id === id) || { id, category: 'other', name: '未分類', color: 'bg-slate-100 text-slate-700 border-slate-200', bar: 'bg-slate-400' };
+      return masterData.serviceTypes.find(s => s.id === id) || { id, category: 'facility', name: '未分類', color: 'bg-slate-100 text-slate-700 border-slate-200', bar: 'bg-slate-400' };
     }
 
     function sanitizeUrl(url) {
@@ -808,9 +800,9 @@
       return 'https://' + trimmed;
     }
 
-    function highlightChip(btn, isSelected, variant = 'cyan') {
+    function highlightChip(btn, isSelected, variant = 'purple') {
       if (!btn) return;
-      const activeClasses = variant === 'rose' ? ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'] : ['bg-cyan-600', 'text-white', 'border-cyan-600', 'shadow-2xs'];
+      const activeClasses = variant === 'rose' ? ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'] : ['bg-purple-600', 'text-white', 'border-purple-600', 'shadow-2xs'];
       const inactiveClasses = ['bg-white', 'text-slate-700', 'border-slate-200'];
       activeClasses.forEach(c => btn.classList.toggle(c, isSelected));
       inactiveClasses.forEach(c => btn.classList.toggle(c, !isSelected));
@@ -819,7 +811,7 @@
     function initFilterUI() {
       const items = getCategoryServices();
       document.getElementById('serviceTypeFilters').innerHTML = items.map(st => `
-        <button type="button" data-service="${escapeHtml(st.id)}" onclick="toggleArrayFilter('serviceTypes', '${escapeHtml(st.id)}', this, 'cyan')"
+        <button type="button" data-service="${escapeHtml(st.id)}" onclick="toggleArrayFilter('serviceTypes', '${escapeHtml(st.id)}', this, 'purple')"
           class="filter-chip text-left px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-1.5 max-w-full">
           <span class="w-2 h-2 rounded-full ${st.bar} shrink-0"></span><span class="truncate">${escapeHtml(st.name)}</span>
         </button>
@@ -833,36 +825,36 @@
       `).join('');
 
       document.getElementById('staffFilters').innerHTML = masterData.facilityStaffTags.map(tag => `
-        <button type="button" data-care="${escapeHtml(tag)}" onclick="toggleArrayFilter('careTags', '${escapeHtml(tag)}', this, 'cyan')"
+        <button type="button" data-care="${escapeHtml(tag)}" onclick="toggleArrayFilter('careTags', '${escapeHtml(tag)}', this, 'purple')"
           class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700">
           ${escapeHtml(tag)}
         </button>
       `).join('');
 
       document.getElementById('scheduleFilters').innerHTML = masterData.schedules.map(sc => `
-        <button type="button" data-schedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('schedules', '${escapeHtml(sc.id)}', this, 'cyan')"
+        <button type="button" data-schedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('schedules', '${escapeHtml(sc.id)}', this, 'purple')"
           class="filter-chip text-left px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-2">
           <i class="fa-solid ${sc.icon} text-slate-400 w-3.5 text-center"></i><span>${escapeHtml(sc.label)}</span>
         </button>
       `).join('');
 
       document.getElementById('areaFilters').innerHTML = masterData.areas.map(area => `
-        <button type="button" data-area="${escapeHtml(area)}" onclick="toggleArrayFilter('areas', '${escapeHtml(area)}', this, 'cyan')"
+        <button type="button" data-area="${escapeHtml(area)}" onclick="toggleArrayFilter('areas', '${escapeHtml(area)}', this, 'purple')"
           class="filter-chip px-2.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 text-center truncate">
           ${escapeHtml(area)}
         </button>
       `).join('');
     }
 
-    function toggleAllOtherServices() {
+    function toggleAllFacilityServices() {
       const ids = getCategoryServices().map(i => i.id);
       const allSelected = ids.every(id => filterState.serviceTypes.includes(id));
       filterState.serviceTypes = allSelected ? [] : [...ids];
-      ids.forEach(id => highlightChip(document.querySelector(`#serviceTypeFilters button[data-service="${id}"]`), !allSelected, 'cyan'));
+      ids.forEach(id => highlightChip(document.querySelector(`#serviceTypeFilters button[data-service="${id}"]`), !allSelected, 'purple'));
       applyFilters();
     }
 
-    function toggleArrayFilter(key, val, btn, variant = 'cyan') {
+    function toggleArrayFilter(key, val, btn, variant = 'purple') {
       const idx = filterState[key].indexOf(val);
       const isSelected = idx === -1;
       if (isSelected) filterState[key].push(val); else filterState[key].splice(idx, 1);
@@ -888,10 +880,10 @@
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
             item.homepage, attNames,
-            item.medRole, item.medEquip, item.medSchedule,
-            item.transVehicle, item.transFee, item.transOption,
-            item.proxyScope, item.proxyFee,
-            item.delivMenu, item.delivFee, item.delivSafety,
+            item.shortRoom, item.shortTransfer, item.shortEmergency, item.shortFee,
+            item.shokiboCapacity, item.shokiboFee, item.shokiboFlex,
+            item.resCapacity, item.resInitialFee, item.resMonthlyFee, item.resCareLevelIn, item.resCareLevelOut,
+            item.resDrinkRule, item.resSmokeRule, item.resRoomEquip, item.resMedical,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
           if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
@@ -940,6 +932,7 @@
 
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
+      const isResidential = RESIDENTIAL_IDS.includes(item.serviceType);
       const tagsHtml = (item.careTags || []).map(tag => {
         const isMed = masterData.medicalCareTags.includes(tag);
         const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
@@ -947,20 +940,22 @@
       }).join('');
 
       let specSummary = '';
-      if (item.serviceType === 'medical_guidance') {
-        specSummary = [escapeHtml(item.medRole), escapeHtml(item.medEquip)].filter(Boolean).join(' ／ ');
-      } else if (item.serviceType === 'transport_support') {
-        specSummary = [escapeHtml(item.transVehicle), escapeHtml(item.transFee)].filter(Boolean).join(' ／ ');
-      } else if (item.serviceType === 'self_pay_proxy') {
-        specSummary = [escapeHtml(item.proxyScope), escapeHtml(item.proxyFee)].filter(Boolean).join(' ／ ');
+      if (['short_stay', 'short_stay_medical'].includes(item.serviceType)) {
+        specSummary = [item.shortRoom ? escapeHtml(item.shortRoom) : '', item.shortFee ? `費用: ${escapeHtml(item.shortFee)}` : ''].filter(Boolean).join(' ／ ');
+      } else if (['shokibo', 'kan_shokibo'].includes(item.serviceType)) {
+        specSummary = [item.shokiboCapacity ? escapeHtml(item.shokiboCapacity) : '', item.shokiboFee ? escapeHtml(item.shokiboFee) : ''].filter(Boolean).join(' ／ ');
       } else {
-        specSummary = [escapeHtml(item.delivMenu), escapeHtml(item.delivFee)].filter(Boolean).join(' ／ ');
+        specSummary = [
+          item.resCapacity ? escapeHtml(item.resCapacity) : '',
+          item.resMonthlyFee ? `月額: ${escapeHtml(item.resMonthlyFee)}` : '',
+          (item.serviceType !== 'tokuyou' && item.resCareLevelIn) ? `対象: ${escapeHtml(item.resCareLevelIn)}` : ''
+        ].filter(Boolean).join(' ／ ');
       }
 
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
 
       return `
-        <article class="bg-white rounded-2xl border border-slate-200 hover:border-cyan-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+        <article class="bg-white rounded-2xl border border-slate-200 hover:border-purple-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
           <div>
             <div class="h-1.5 w-full ${st.bar}"></div>
             <div class="p-4 sm:p-5">
@@ -976,19 +971,19 @@
                 </button>
               </div>
               <div class="mb-3">
-                <h3 onclick="openDetailModal('${item.id}')" class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-cyan-700 cursor-pointer leading-snug">${escapeHtml(item.name)}</h3>
+                <h3 onclick="openDetailModal('${item.id}')" class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-purple-700 cursor-pointer leading-snug">${escapeHtml(item.name)}</h3>
                 <div class="text-xs text-slate-500 mt-0.5">${escapeHtml(item.corp || '')} ${item.code ? `<span class="font-mono text-slate-400 ml-2">${escapeHtml(item.code)}</span>` : ''}</div>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs">
-                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-cyan-700 hover:underline">${escapeHtml(item.phone)}</button></div>
+                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-purple-700 hover:underline">${escapeHtml(item.phone)}</button></div>
                 <div class="flex items-center gap-2"><span class="text-slate-400 w-8">FAX</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
-                <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">担当: ${escapeHtml(item.contact || '未設定')}</div>
+                <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">窓口: ${escapeHtml(item.contact || '未設定')}</div>
               </div>
               <div class="space-y-1 text-xs text-slate-600 mb-3">
                 ${item.address ? `<div class="truncate"><i class="fa-solid fa-map-pin text-slate-400 w-4"></i>${escapeHtml(item.address)}</div>` : ''}
-                ${item.hours ? `<div><i class="fa-regular fa-clock text-slate-400 w-4"></i>${escapeHtml(item.hours)}（休: ${escapeHtml(item.holidays || '-')}）</div>` : ''}
+                ${(!isResidential && item.hours) ? `<div><i class="fa-regular fa-clock text-slate-400 w-4"></i>${escapeHtml(item.hours)}（休: ${escapeHtml(item.holidays || '-')}）</div>` : ''}
               </div>
-              ${specSummary ? `<div class="bg-cyan-50/70 border border-cyan-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-cyan-950 font-medium">${specSummary}</div>` : ''}
+              ${specSummary ? `<div class="bg-purple-50/70 border border-purple-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-purple-950 font-medium">${specSummary}</div>` : ''}
               ${tagsHtml ? `<div class="flex flex-wrap gap-1.5 mb-3">${tagsHtml}</div>` : ''}
               ${item.memo ? `<div class="bg-amber-50/80 border border-amber-200 rounded-lg px-3 py-2 text-xs text-slate-700 line-clamp-2">${escapeHtml(item.memo)}</div>` : ''}
             </div>
@@ -997,7 +992,7 @@
             <span class="text-[11px] text-slate-400">更新: ${escapeHtml(item.updatedAt || '-')}</span>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="px-2.5 py-1.5 rounded-lg text-xs text-slate-600 hover:bg-slate-200/70"><i class="fa-solid fa-pen"></i></button>
-              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-cyan-500 text-xs font-semibold text-slate-700">詳細・資料・メモ</button>
+              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-purple-500 text-xs font-semibold text-slate-700">詳細・資料・メモ</button>
             </div>
           </div>
         </article>
@@ -1008,24 +1003,24 @@
       const st = getServiceTypeObj(item.serviceType);
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
       return `
-        <div class="bg-white rounded-xl border border-slate-200 hover:border-cyan-400 px-4 py-3 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+        <div class="bg-white rounded-xl border border-slate-200 hover:border-purple-400 px-4 py-3 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
             <button type="button" onclick="toggleFavorite('${item.id}', event)" class="text-base p-1"><i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i></button>
             <span class="px-2 py-0.5 rounded text-xs font-bold border ${st.color} shrink-0">${escapeHtml(st.name)}</span>
             <div class="min-w-0 flex-1">
               <div class="flex items-center gap-2">
-                <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-cyan-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
+                <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-purple-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
                 ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold shrink-0">HP</a>` : ''}
                 ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
               </div>
-              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')}</div>
+              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 窓口: ${escapeHtml(item.contact || '-')}</div>
             </div>
           </div>
           <div class="flex items-center justify-between lg:justify-end gap-3 shrink-0">
-            <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-xs text-cyan-700">${escapeHtml(item.phone)}</button>
+            <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-xs text-purple-700">${escapeHtml(item.phone)}</button>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 text-xs"><i class="fa-solid fa-pen"></i></button>
-              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-cyan-600 hover:text-white text-xs font-semibold">詳細</button>
+              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-purple-600 hover:text-white text-xs font-semibold">詳細</button>
             </div>
           </div>
         </div>
@@ -1034,8 +1029,8 @@
 
     function setViewMode(mode) {
       currentViewMode = mode;
-      document.getElementById('viewCardBtn').className = mode === 'card' ? 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-cyan-700 shadow-2xs flex items-center gap-1' : 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1';
-      document.getElementById('viewListBtn').className = mode === 'list' ? 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-cyan-700 shadow-2xs flex items-center gap-1' : 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1';
+      document.getElementById('viewCardBtn').className = mode === 'card' ? 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-purple-700 shadow-2xs flex items-center gap-1' : 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1';
+      document.getElementById('viewListBtn').className = mode === 'list' ? 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-purple-700 shadow-2xs flex items-center gap-1' : 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1';
       applyFilters();
     }
 
@@ -1061,10 +1056,11 @@
       if (!item) return;
       currentDetailId = id;
       const st = getServiceTypeObj(item.serviceType);
+      const isResidential = RESIDENTIAL_IDS.includes(item.serviceType);
 
       document.getElementById('detailTopBar').className = `h-2 w-full shrink-0 ${st.bar}`;
       document.getElementById('detailBadges').innerHTML = `
-        <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-cyan-50 text-cyan-800 border-cyan-200">他サービス</span>
+        <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-purple-50 text-purple-800 border-purple-200">施設系</span>
         <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-medium">${escapeHtml(item.area)}</span>
       `;
@@ -1114,23 +1110,29 @@
       linksSec.classList.toggle('hidden', !hasHp && atts.length === 0);
 
       const rows = [];
-      const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-cyan-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
+      const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-purple-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
 
-      if (item.serviceType === 'medical_guidance') {
-        addRow('指導職種', item.medRole);
-        addRow('麻薬調剤・無菌調剤・お薬カレンダー対応', item.medEquip);
-        addRow('訪問可能曜日・緊急配送・主治医連携', item.medSchedule);
-      } else if (item.serviceType === 'transport_support') {
-        addRow('対応車両・機材', item.transVehicle);
-        addRow('料金目安・福祉タクシー券', item.transFee);
-        addRow('院内付き添い・階段昇降・転院対応', item.transOption);
-      } else if (item.serviceType === 'self_pay_proxy') {
-        addRow('対応可能な代行内容', item.proxyScope);
-        addRow('料金体系目安', item.proxyFee);
+      if (['short_stay', 'short_stay_medical'].includes(item.serviceType)) {
+        addRow('居室タイプ・定員数', item.shortRoom);
+        addRow('送迎対応時間帯・土日祝送迎', item.shortTransfer);
+        addRow('緊急ショート受け入れ・空床目安', item.shortEmergency);
+        addRow('滞在費・食費目安（1日あたり）', item.shortFee);
+      } else if (['shokibo', 'kan_shokibo'].includes(item.serviceType)) {
+        addRow('登録定員・通い・宿泊定員', item.shokiboCapacity);
+        addRow('宿泊費・食費目安', item.shokiboFee);
+        addRow('通い・訪問・泊まりの柔軟性／看護体制', item.shokiboFlex);
       } else {
-        addRow('食形態・取扱品目', item.delivMenu);
-        addRow('料金目安・最低注文数', item.delivFee);
-        addRow('安否確認・手渡し対応・注文締切ルール', item.delivSafety);
+        addRow('定員数・居室タイプ', item.resCapacity);
+        addRow('入居一時金・敷金', item.resInitialFee);
+        addRow('月額利用料目安', item.resMonthlyFee);
+        if (item.serviceType !== 'tokuyou') {
+          addRow('入居時介護度・条件目安', item.resCareLevelIn);
+          addRow('退去時介護度上限目安・継続居住', item.resCareLevelOut);
+          addRow('飲酒ルール', item.resDrinkRule);
+          addRow('喫煙ルール', item.resSmokeRule);
+          addRow('居室内設備・持ち込み家具ルール', item.resRoomEquip);
+        }
+        addRow('医療連携・協力医療機関・夜間看護体制', item.resMedical);
       }
 
       const specSec = document.getElementById('detailServiceSpecificSection');
@@ -1147,12 +1149,17 @@
       document.getElementById('detailAreaDetail').textContent = item.areaDetail || item.area;
       document.getElementById('detailHours').textContent = item.hours || '未登録';
       document.getElementById('detailHolidays').textContent = item.holidays || '未登録';
+
+      document.getElementById('detailAreaDetailRow').classList.toggle('hidden', isResidential);
+      document.getElementById('detailHoursRow').classList.toggle('hidden', isResidential);
+      document.getElementById('detailHolidaysRow').classList.toggle('hidden', isResidential);
+
       document.getElementById('detailAdditions').innerHTML = (item.additions || []).map(a => `<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 text-xs">${escapeHtml(a)}</span>`).join('') || '登録なし';
       document.getElementById('detailUpdatedAt').textContent = item.updatedAt || '-';
 
       document.getElementById('detailEditBtn').onclick = () => { closeDetailModal(); openFormModal(item.id); };
       document.getElementById('detailDeleteBtn').onclick = () => {
-        document.getElementById('confirmTitle').textContent = '事業所の削除';
+        document.getElementById('confirmTitle').textContent = '施設の削除';
         document.getElementById('confirmMessage').textContent = `「${item.name}」を削除しますか？（クラウドからも削除されます）`;
         document.getElementById('confirmExecuteBtn').onclick = async () => {
           facilities = facilities.filter(f => f.id !== item.id);
@@ -1172,7 +1179,7 @@
       const row = document.createElement('div');
       row.className = 'attachment-row flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white p-2 rounded-lg border border-blue-200';
       row.innerHTML = `
-        <input type="text" class="att-title sm:w-1/3 px-2.5 py-1.5 border border-slate-300 rounded text-xs" placeholder="資料名（例：メニュー表PDF）" value="${escapeHtml(title)}" />
+        <input type="text" class="att-title sm:w-1/3 px-2.5 py-1.5 border border-slate-300 rounded text-xs" placeholder="資料名（例：料金表PDF）" value="${escapeHtml(title)}" />
         <input type="url" class="att-url flex-1 px-2.5 py-1.5 border border-slate-300 rounded text-xs font-mono" placeholder="https://drive.google.com/..." value="${escapeHtml(url)}" />
         <button type="button" onclick="this.parentElement.remove()" class="px-2.5 py-1.5 rounded text-rose-600 hover:bg-rose-50 text-xs font-semibold shrink-0"><i class="fa-solid fa-trash-can mr-1"></i>削除</button>
       `;
@@ -1186,7 +1193,7 @@
 
       document.getElementById('formSchedules').innerHTML = masterData.schedules.map(sc => `
         <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-medium">
-          <input type="checkbox" name="formSchedule" value="${escapeHtml(sc.id)}" class="rounded text-cyan-600"><span>${escapeHtml(sc.label)}</span>
+          <input type="checkbox" name="formSchedule" value="${escapeHtml(sc.id)}" class="rounded text-purple-600"><span>${escapeHtml(sc.label)}</span>
         </label>
       `).join('');
 
@@ -1198,7 +1205,7 @@
 
       document.getElementById('formFacilityStaffTags').innerHTML = masterData.facilityStaffTags.map(tag => `
         <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white cursor-pointer text-xs font-medium text-slate-700">
-          <input type="checkbox" name="formCareTag" value="${escapeHtml(tag)}" class="rounded text-cyan-600"><span>${escapeHtml(tag)}</span>
+          <input type="checkbox" name="formCareTag" value="${escapeHtml(tag)}" class="rounded text-purple-600"><span>${escapeHtml(tag)}</span>
         </label>
       `).join('');
     }
@@ -1206,15 +1213,30 @@
     function updateServiceSpecificFormFields() {
       const stId = document.getElementById('formServiceType').value;
       const stObj = getServiceTypeObj(stId);
+      const isTokuyou = stId === 'tokuyou';
+      const isResidential = RESIDENTIAL_IDS.includes(stId);
+
       document.getElementById('serviceSpecificFormTitle').textContent = `詳細仕様（${stObj.name}）`;
 
-      ['fields_medical_guidance', 'fields_transport_support', 'fields_self_pay_proxy', 'fields_delivery']
-        .forEach(id => document.getElementById(id).classList.add('hidden'));
+      ['fields_short_stay', 'fields_shokibo', 'fields_residential'].forEach(id => document.getElementById(id).classList.add('hidden'));
 
-      if (stId === 'medical_guidance') document.getElementById('fields_medical_guidance').classList.remove('hidden');
-      else if (stId === 'transport_support') document.getElementById('fields_transport_support').classList.remove('hidden');
-      else if (stId === 'self_pay_proxy') document.getElementById('fields_self_pay_proxy').classList.remove('hidden');
-      else document.getElementById('fields_delivery').classList.remove('hidden');
+      if (['short_stay', 'short_stay_medical'].includes(stId)) {
+        document.getElementById('fields_short_stay').classList.remove('hidden');
+      } else if (['shokibo', 'kan_shokibo'].includes(stId)) {
+        document.getElementById('fields_shokibo').classList.remove('hidden');
+      } else {
+        document.getElementById('fields_residential').classList.remove('hidden');
+      }
+
+      ['field_resCareLevelIn', 'field_resCareLevelOut', 'field_resDrinkRule', 'field_resSmokeRule', 'field_resRoomEquip']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.toggle('hidden', isTokuyou);
+        });
+
+      document.getElementById('sectionHoursAndSchedule').classList.toggle('hidden', isResidential);
+      document.getElementById('field_areaDetail').classList.toggle('hidden', isResidential);
+      document.getElementById('field_additions').classList.toggle('sm:col-span-2', isResidential);
     }
 
     function openFormModal(editId = null) {
@@ -1223,24 +1245,29 @@
       if (editId) {
         const item = facilities.find(f => f.id === editId);
         if (!item) return;
-        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-cyan-600"></i><span>他サービス事業所の編集</span>`;
+        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-purple-600"></i><span>施設系事業所の編集</span>`;
         document.getElementById('formId').value = item.id;
         document.getElementById('formName').value = item.name;
         document.getElementById('formCorp').value = item.corp || '';
         document.getElementById('formCode').value = item.code || '';
         document.getElementById('formServiceType').value = item.serviceType;
 
-        document.getElementById('formMedRole').value = item.medRole || '';
-        document.getElementById('formMedEquip').value = item.medEquip || '';
-        document.getElementById('formMedSchedule').value = item.medSchedule || '';
-        document.getElementById('formTransVehicle').value = item.transVehicle || '';
-        document.getElementById('formTransFee').value = item.transFee || '';
-        document.getElementById('formTransOption').value = item.transOption || '';
-        document.getElementById('formProxyScope').value = item.proxyScope || '';
-        document.getElementById('formProxyFee').value = item.proxyFee || '';
-        document.getElementById('formDelivMenu').value = item.delivMenu || '';
-        document.getElementById('formDelivFee').value = item.delivFee || '';
-        document.getElementById('formDelivSafety').value = item.delivSafety || '';
+        document.getElementById('formShortRoom').value = item.shortRoom || '';
+        document.getElementById('formShortTransfer').value = item.shortTransfer || '';
+        document.getElementById('formShortEmergency').value = item.shortEmergency || '';
+        document.getElementById('formShortFee').value = item.shortFee || '';
+        document.getElementById('formShokiboCapacity').value = item.shokiboCapacity || '';
+        document.getElementById('formShokiboFee').value = item.shokiboFee || '';
+        document.getElementById('formShokiboFlex').value = item.shokiboFlex || '';
+        document.getElementById('formResCapacity').value = item.resCapacity || '';
+        document.getElementById('formResInitialFee').value = item.resInitialFee || '';
+        document.getElementById('formResMonthlyFee').value = item.resMonthlyFee || '';
+        document.getElementById('formResCareLevelIn').value = item.resCareLevelIn || '';
+        document.getElementById('formResCareLevelOut').value = item.resCareLevelOut || '';
+        document.getElementById('formResDrinkRule').value = item.resDrinkRule || '';
+        document.getElementById('formResSmokeRule').value = item.resSmokeRule || '';
+        document.getElementById('formResRoomEquip').value = item.resRoomEquip || '';
+        document.getElementById('formResMedical').value = item.resMedical || '';
 
         document.getElementById('formPhone').value = item.phone;
         document.getElementById('formFax').value = item.fax || '';
@@ -1259,7 +1286,7 @@
         document.querySelectorAll('input[name="formCareTag"]').forEach(c => c.checked = (item.careTags || []).includes(c.value));
         updateServiceSpecificFormFields();
       } else {
-        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-layer-group text-cyan-600"></i><span>他サービス事業所 新規登録</span>`;
+        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-building text-purple-600"></i><span>施設系事業所 新規登録</span>`;
         document.getElementById('formId').value = '';
         updateServiceSpecificFormFields();
       }
@@ -1271,6 +1298,9 @@
     async function saveFacility(e) {
       e.preventDefault();
       const id = document.getElementById('formId').value;
+      const stId = document.getElementById('formServiceType').value;
+      const isTokuyou = stId === 'tokuyou';
+      const isResidential = RESIDENTIAL_IDS.includes(stId);
       const today = new Date().toISOString().split('T')[0];
 
       const attachments = Array.from(document.querySelectorAll('#attachmentRowsContainer .attachment-row')).map(row => ({
@@ -1283,19 +1313,24 @@
         name: document.getElementById('formName').value.trim(),
         corp: document.getElementById('formCorp').value.trim(),
         code: document.getElementById('formCode').value.trim(),
-        serviceType: document.getElementById('formServiceType').value,
+        serviceType: stId,
 
-        medRole: document.getElementById('formMedRole').value.trim(),
-        medEquip: document.getElementById('formMedEquip').value.trim(),
-        medSchedule: document.getElementById('formMedSchedule').value.trim(),
-        transVehicle: document.getElementById('formTransVehicle').value.trim(),
-        transFee: document.getElementById('formTransFee').value.trim(),
-        transOption: document.getElementById('formTransOption').value.trim(),
-        proxyScope: document.getElementById('formProxyScope').value.trim(),
-        proxyFee: document.getElementById('formProxyFee').value.trim(),
-        delivMenu: document.getElementById('formDelivMenu').value.trim(),
-        delivFee: document.getElementById('formDelivFee').value.trim(),
-        delivSafety: document.getElementById('formDelivSafety').value.trim(),
+        shortRoom: document.getElementById('formShortRoom').value.trim(),
+        shortTransfer: document.getElementById('formShortTransfer').value.trim(),
+        shortEmergency: document.getElementById('formShortEmergency').value.trim(),
+        shortFee: document.getElementById('formShortFee').value.trim(),
+        shokiboCapacity: document.getElementById('formShokiboCapacity').value.trim(),
+        shokiboFee: document.getElementById('formShokiboFee').value.trim(),
+        shokiboFlex: document.getElementById('formShokiboFlex').value.trim(),
+        resCapacity: document.getElementById('formResCapacity').value.trim(),
+        resInitialFee: document.getElementById('formResInitialFee').value.trim(),
+        resMonthlyFee: document.getElementById('formResMonthlyFee').value.trim(),
+        resCareLevelIn: isTokuyou ? '' : document.getElementById('formResCareLevelIn').value.trim(),
+        resCareLevelOut: isTokuyou ? '' : document.getElementById('formResCareLevelOut').value.trim(),
+        resDrinkRule: isTokuyou ? '' : document.getElementById('formResDrinkRule').value.trim(),
+        resSmokeRule: isTokuyou ? '' : document.getElementById('formResSmokeRule').value.trim(),
+        resRoomEquip: isTokuyou ? '' : document.getElementById('formResRoomEquip').value.trim(),
+        resMedical: document.getElementById('formResMedical').value.trim(),
 
         phone: document.getElementById('formPhone').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
@@ -1304,11 +1339,11 @@
         address: document.getElementById('formAddress').value.trim(),
         homepage: document.getElementById('formHomepage').value.trim(),
         attachments,
-        hours: document.getElementById('formHours').value.trim(),
-        holidays: document.getElementById('formHolidays').value.trim(),
-        schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
+        hours: isResidential ? '' : document.getElementById('formHours').value.trim(),
+        holidays: isResidential ? '' : document.getElementById('formHolidays').value.trim(),
+        schedules: isResidential ? [] : Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
         careTags: Array.from(document.querySelectorAll('input[name="formCareTag"]:checked')).map(c => c.value),
-        areaDetail: document.getElementById('formAreaDetail').value.trim(),
+        areaDetail: isResidential ? '' : document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
         memo: document.getElementById('formMemo').value.trim(),
         favorite: false,
@@ -1321,7 +1356,7 @@
         showToast('更新しました', 'success');
       } else {
         facilities.unshift(payload);
-        showToast('他サービス事業所を新規登録しました', 'success');
+        showToast('施設系事業所を新規登録しました', 'success');
       }
       closeFormModal();
       applyFilters();
@@ -1338,7 +1373,7 @@
       currentMasterTab = tab;
       document.querySelectorAll('.master-tab-btn').forEach(b => {
         b.className = b.dataset.mtab === tab
-          ? 'master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-bold rounded-t-lg border-t border-x border-slate-200 bg-white text-cyan-700 -mb-px whitespace-nowrap'
+          ? 'master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-bold rounded-t-lg border-t border-x border-slate-200 bg-white text-purple-700 -mb-px whitespace-nowrap'
           : 'master-tab-btn px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-t-lg text-slate-600 whitespace-nowrap';
       });
       const container = document.getElementById('masterTabContent');
@@ -1346,10 +1381,10 @@
         const catItems = getCategoryServices();
         container.innerHTML = `
           <div class="space-y-4">
-            <form onsubmit="addOtherService(event)" class="flex gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
-              <input type="text" id="newStName" required placeholder="新しい他サービス名" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" />
+            <form onsubmit="addFacilityService(event)" class="flex gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <input type="text" id="newStName" required placeholder="新しい施設系サービス名" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" />
               <select id="newStTheme" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">${COLOR_THEMES.map(t => `<option value="${t.id}">${t.label}</option>`).join('')}</select>
-              <button type="submit" class="px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-lg">追加</button>
+              <button type="submit" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg">追加</button>
             </form>
             <div class="divide-y divide-slate-200 border border-slate-200 rounded-xl">
               ${catItems.map(st => `
@@ -1366,7 +1401,7 @@
           <div class="space-y-4">
             <form onsubmit="addAreaMaster(event)" class="flex gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
               <input type="text" id="newAreaName" required placeholder="新しい包括エリア名" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" />
-              <button type="submit" class="px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-lg">追加</button>
+              <button type="submit" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg">追加</button>
             </form>
             <div class="flex flex-wrap gap-2">${masterData.areas.map((a, i) => `<span class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium flex items-center gap-2">${escapeHtml(a)}<button type="button" onclick="removeArea(${i})" class="text-rose-500">×</button></span>`).join('')}</div>
           </div>
@@ -1379,7 +1414,7 @@
                 <option value="medical">医療処置タグ</option><option value="staff">専門職・体制タグ</option>
               </select>
               <input type="text" id="newTagName" required placeholder="新しいタグ名" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" />
-              <button type="submit" class="px-4 py-2 bg-cyan-600 text-white text-sm font-semibold rounded-lg">追加</button>
+              <button type="submit" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg">追加</button>
             </form>
             <div class="text-xs font-bold text-rose-800">医療処置</div>
             <div class="flex flex-wrap gap-1.5">${masterData.medicalCareTags.map((t, i) => `<span class="px-2.5 py-1 rounded border border-rose-200 bg-rose-50 text-xs flex items-center gap-1.5">${escapeHtml(t)}<button type="button" onclick="removeMedTag(${i})" class="text-rose-600">×</button></span>`).join('')}</div>
@@ -1390,10 +1425,10 @@
       } else if (tab === 'backup') {
         container.innerHTML = `
           <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-cyan-50/60 border border-cyan-200 space-y-3">
+            <div class="p-4 rounded-xl bg-purple-50/60 border border-purple-200 space-y-3">
               <h3 class="font-bold text-sm text-slate-900">全データ完全バックアップ（在宅・施設・他すべて共通）</h3>
               <div class="flex flex-wrap gap-2">
-                <button type="button" onclick="exportFullJSON()" class="px-4 py-2 bg-cyan-600 text-white text-xs sm:text-sm font-semibold rounded-lg">JSONバックアップ保存</button>
+                <button type="button" onclick="exportFullJSON()" class="px-4 py-2 bg-purple-600 text-white text-xs sm:text-sm font-semibold rounded-lg">JSONバックアップ保存</button>
                 <label class="px-4 py-2 bg-white border border-slate-300 text-xs sm:text-sm font-semibold rounded-lg cursor-pointer">
                   JSONから復元<input type="file" accept=".json" class="hidden" onchange="importFullJSON(event)" />
                 </label>
@@ -1404,7 +1439,7 @@
       }
     }
 
-    async function addOtherService(e) {
+    async function addFacilityService(e) {
       e.preventDefault();
       const name = document.getElementById('newStName').value.trim();
       const theme = COLOR_THEMES.find(t => t.id === document.getElementById('newStTheme').value) || COLOR_THEMES[0];
