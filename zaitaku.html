@@ -25,7 +25,7 @@
   <style>
     html.font-normal { font-size: 15px; }
     html.font-large { font-size: 17.5px; }
-    @media (max-width: 640px) { input[type="text"], input[type="tel"], select, textarea { font-size: 16px !important; } }
+    @media (max-width: 640px) { input[type="text"], input[type="tel"], input[type="url"], select, textarea { font-size: 16px !important; } }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
@@ -45,13 +45,13 @@
           <span id="mobileFilterBadge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-brand-600 rounded-full ring-2 ring-white"></span>
         </button>
 
-        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-600 to-emerald-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
+        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
           <i class="fa-solid fa-house-medical text-base sm:text-lg"></i>
         </a>
         <div class="min-w-0">
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight leading-tight truncate">ケアナビ Pro</h1>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-teal-100 text-teal-800 border border-teal-300 shrink-0">在宅系</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-brand-100 text-brand-800 border border-brand-300 shrink-0">在宅系</span>
           </div>
           <p class="hidden md:block text-xs text-slate-500 truncate">訪問介護・訪問看護・訪問リハ・通所介護・通所リハ・福祉用具貸与</p>
         </div>
@@ -62,7 +62,7 @@
         <a href="index.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
           <i class="fa-solid fa-compass"></i><span>トップ</span>
         </a>
-        <a href="zaitaku.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-teal-600 text-white shadow-2xs flex items-center gap-1.5">
+        <a href="zaitaku.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white shadow-2xs flex items-center gap-1.5">
           <i class="fa-solid fa-house-medical"></i><span>在宅系</span>
         </a>
         <a href="shisetsu.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
@@ -129,13 +129,13 @@
     <div class="xl:hidden px-3 py-2 bg-slate-50 border-t border-slate-200/80 space-y-2">
       <div class="grid grid-cols-4 gap-1 bg-slate-200/70 p-1 rounded-xl">
         <a href="index.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">トップ</a>
-        <a href="zaitaku.html" class="py-1.5 rounded-lg text-xs font-bold bg-teal-600 text-white text-center shadow-2xs">在宅系</a>
+        <a href="zaitaku.html" class="py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white text-center shadow-2xs">在宅系</a>
         <a href="shisetsu.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">施設系</a>
         <a href="sonota.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">他サービス</a>
       </div>
       <div class="lg:hidden relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input type="text" id="mobileSearchInput" placeholder="在宅系の事業所名・エリア・医療処置・メモで検索..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input type="text" id="mobileSearchInput" placeholder="在宅系の事業所名・エリア・加算・資料名・メモで検索..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
         <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
       </div>
     </div>
@@ -166,7 +166,7 @@
           <label for="searchInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">フリーワード検索</label>
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="searchInput" placeholder="事業所名・エリア・医療処置・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input type="text" id="searchInput" placeholder="事業所名・担当者・加算・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
             <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
           </div>
         </div>
@@ -238,7 +238,7 @@
       <div class="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
         <div class="flex flex-wrap items-center gap-2">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-xs sm:text-sm font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 mr-1">在宅系</span>
+            <span class="text-xs sm:text-sm font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 mr-1">在宅系</span>
             <span id="resultCount" class="text-xl sm:text-2xl font-bold text-brand-700 font-mono">0</span>
             <span class="text-xs sm:text-sm text-slate-600 font-medium">件</span>
             <span class="text-xs text-slate-400 ml-1">/ 在宅系全 <span id="totalCount">0</span> 件</span>
@@ -268,7 +268,7 @@
       <div id="facilityContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-3.5 sm:gap-5"></div>
 
       <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center my-6">
-        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">条件に一致する在宅系事業所が見つかりませんでした</h3>
+        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">条件に一致する事業所が見つかりませんでした</h3>
         <p class="text-xs sm:text-sm text-slate-500 mb-5">条件を減らすかリセットしてお試しください。</p>
         <button type="button" onclick="resetAllFilters()" class="px-5 py-2.5 bg-brand-600 text-white text-sm font-semibold rounded-xl shadow-xs">絞り込み条件をリセット</button>
       </div>
@@ -321,18 +321,36 @@
               <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
             </div>
             <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">窓口担当・サ責・管理者</div>
+              <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
               <div class="text-sm font-bold text-slate-800"><span id="detailContact"></span></div>
             </div>
           </div>
 
+          <!-- ホームページ・添付資料セクション -->
+          <div id="detailLinksSection" class="hidden bg-blue-50/60 border border-blue-200 rounded-xl p-4 space-y-3">
+            <h3 class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-folder-open text-blue-600"></i><span>ホームページ・添付資料（パンフレット・料金表等）</span>
+            </h3>
+            <div id="detailHomepageBox" class="hidden">
+              <a id="detailHomepageLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-blue-300 hover:bg-blue-600 hover:text-white text-blue-700 text-xs sm:text-sm font-bold transition shadow-2xs">
+                <i class="fa-solid fa-globe"></i>
+                <span id="detailHomepageText">公式ホームページを開く</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] opacity-80"></i>
+              </a>
+            </div>
+            <div id="detailAttachmentsBox" class="hidden space-y-1.5">
+              <div class="text-[11px] font-bold text-slate-600">添付ファイル一覧（クリックで開く）</div>
+              <div id="detailAttachmentsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+            </div>
+          </div>
+
           <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4">
-            <div class="text-xs font-bold text-amber-800 mb-1.5"><i class="fa-solid fa-note-sticky text-amber-600 mr-1"></i>ケアマネ独自メモ・連携のポイント</div>
+            <div class="text-xs font-bold text-amber-800 mb-1.5"><i class="fa-solid fa-note-sticky text-amber-600 mr-1"></i>ケアマネ独自メモ</div>
             <p id="detailMemo" class="text-sm text-slate-800 leading-relaxed whitespace-pre-line"></p>
           </div>
 
-          <div id="detailServiceSpecificSection" class="hidden bg-teal-50/50 border border-teal-200 rounded-xl p-4 space-y-2.5">
-            <h3 class="text-xs font-bold text-teal-900">在宅サービス詳細仕様（入浴・食事・リハビリ・取扱品目）</h3>
+          <div id="detailServiceSpecificSection" class="hidden bg-brand-50/60 border border-brand-200 rounded-xl p-4 space-y-2.5">
+            <h3 class="text-xs font-bold text-brand-900">サービス詳細仕様</h3>
             <div id="detailServiceSpecificBody" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800"></div>
           </div>
 
@@ -345,10 +363,10 @@
             <h3 class="text-sm font-bold text-slate-800 mb-2">基本情報・対応エリア</h3>
             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm border-t border-slate-200 pt-3">
               <div><dt class="text-xs text-slate-500">所在地</dt><dd id="detailAddress" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">訪問・送迎対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
+              <div><dt class="text-xs text-slate-500">対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
               <div><dt class="text-xs text-slate-500">営業時間</dt><dd id="detailHours" class="font-medium text-slate-800 mt-0.5"></dd></div>
               <div><dt class="text-xs text-slate-500">定休日</dt><dd id="detailHolidays" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">算定加算・事業所特徴</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
+              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">算定加算・特徴</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
             </dl>
           </div>
         </div>
@@ -382,11 +400,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="sm:col-span-2">
               <label class="block text-xs font-bold text-slate-700 mb-1">事業所名 <span class="text-rose-500">*</span></label>
-              <input type="text" id="formName" required placeholder="例：〇〇訪問看護ステーション" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+              <input type="text" id="formName" required placeholder="例：〇〇訪問介護ステーション" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" />
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">運営法人名</label>
-              <input type="text" id="formCorp" placeholder="例：医療法人 〇〇会" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+              <input type="text" id="formCorp" placeholder="例：株式会社 〇〇ケア" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">介護保険事業所番号</label>
@@ -398,42 +416,37 @@
             </div>
           </div>
 
-          <!-- 在宅系サービス専用入力ブロック（種別ごとに自動表示切替） -->
-          <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-teal-50/50 border border-teal-200 space-y-3">
-            <div class="text-xs font-bold text-teal-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-sliders text-teal-600"></i><span id="serviceSpecificFormTitle">サービス種別ごとの詳細仕様</span>
+          <!-- 在宅系専用入力ブロック -->
+          <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-brand-50/50 border border-brand-200 space-y-3">
+            <div class="text-xs font-bold text-brand-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-sliders text-brand-600"></i><span id="serviceSpecificFormTitle">在宅サービス種別ごとの詳細仕様</span>
             </div>
 
-            <!-- 訪問介護用 -->
             <div id="fields_home_care" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">自費サービス対応・料金</label><input type="text" id="formSelfPay" placeholder="例：30分 1,500円（病院付き添い・大掃除など）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">身体介護・生活援助の受け入れ枠</label><input type="text" id="formHomeCareSlots" placeholder="例：午前中の身体介護空きあり / 2人介助相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">生活援助・身体介護の対応範囲</label><input type="text" id="formHomeCareScope" placeholder="例：身体・生活とも空きあり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">同行援護・総合事業・自費対応</label><input type="text" id="formHomeCareExtra" placeholder="例：総合事業A2対応可・自費1時間2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 訪問看護用 -->
             <div id="fields_home_nursing" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">精神科訪問看護・難病・小児対応</label><input type="text" id="formNursingSpecialty" placeholder="例：精神科訪問看護算定可・難病・終末期積極対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">オンコール体制・緊急訪問実績</label><input type="text" id="formNursingOncall" placeholder="例：24時間緊急時訪問看護加算あり・看取り実績多数" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">看取り・ターミナル・精神科訪問看護</label><input type="text" id="formNurseSpecialty" placeholder="例：ターミナル24時間対応・精神科訪問看護対応可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">連携主治医・指示書対応・空き曜日</label><input type="text" id="formNurseSchedule" placeholder="例：全診療科指示書対応・午前枠空きあり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 訪問リハ用 -->
             <div id="fields_home_rehab" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">併設医療機関・指示書発行要件</label><input type="text" id="formRehabHospital" placeholder="例：〇〇クリニック併設（3ヶ月に1回の診察が必要）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">リハビリ時間枠・訪問頻度</label><input type="text" id="formRehabProgram" placeholder="例：1回40分〜60分 / 退院直後の短期集中リハ対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">母体医療機関・指示書要件</label><input type="text" id="formHomeRehabClinic" placeholder="例：〇〇整形外科併設（3ヶ月毎の診察要）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">訪問可能枠・短期集中リハ対応</label><input type="text" id="formHomeRehabSlot" placeholder="例：退院直後の短期集中リハ優先受入可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 通所介護・通所リハ用 -->
-            <div id="fields_day_service" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">利用定員・規模区分</label><input type="text" id="formDayCapacity" placeholder="例：定員18名（地域密着型）/ 通常規模型 定員35名" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">提供時間区分・延長対応</label><input type="text" id="formDayHoursType" placeholder="例：7〜8時間 / 3〜4時間短時間 / 延長19時まで可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">浴槽設備（一般浴・個浴・機械浴）</label><input type="text" id="formDayBath" placeholder="例：個浴3槽＋チェアインバス・寝台浴完備" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">食事形態・おやつ・昼食代</label><input type="text" id="formDayMeal" placeholder="例：施設内調理・刻み/ミキサー食対応・昼食代650円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <div id="fields_day" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">利用定員・規模区分</label><input type="text" id="formDayCapacity" placeholder="例：定員35名（通常規模型）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">入浴設備（一般浴・個浴・機械浴・リフト浴）</label><input type="text" id="formDayBath" placeholder="例：個浴3槽・特殊機械浴完備" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">食費・おやつ代目安</label><input type="text" id="formDayMeal" placeholder="例：昼食650円・おやつ100円（刻み・ミキサー食可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">プログラム特色・延長/短時間対応</label><input type="text" id="formDayProgram" placeholder="例：個別機能訓練強化・半日利用相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 福祉用具貸与用 -->
             <div id="fields_welfare_equip" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">デモ機お試し・納品スピード</label><input type="text" id="formEquipDelivery" placeholder="例：ベッド・車椅子デモ無料、退院時当日納品対応可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">住宅改修・特定福祉用具販売対応</label><input type="text" id="formEquipRenovation" placeholder="例：手すり・段差解消の住宅改修見積〜施工まで一貫対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">取扱メーカー・得意品目</label><input type="text" id="formWelfareMaker" placeholder="例：パラマウント・フランスベッド・車椅子各種" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">当日納品・住宅改修・販売対応</label><input type="text" id="formWelfareSpeed" placeholder="例：退院時当日納品可・住宅改修施工可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
           </div>
 
@@ -441,9 +454,30 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
             <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-1111" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
             <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-1112" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">窓口担当・サ責・相談員</label><input type="text" id="formContact" placeholder="例：田中 美咲（管理者）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名</label><input type="text" id="formContact" placeholder="例：山田 花子（管理者）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div><label class="block text-xs font-bold text-slate-700 mb-1">主たる包括エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
             <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+          </div>
+
+          <!-- ホームページアドレス・添付ファイル（Googleドライブ等URL） -->
+          <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3">
+            <div class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-paperclip text-blue-600"></i><span>ホームページアドレス・添付ファイル（パンフレット・料金表等）</span>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">ホームページURL</label>
+              <input type="url" id="formHomepage" placeholder="https://example.com" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm font-mono" />
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-xs font-bold text-slate-700">添付ファイル（Googleドライブ等の共有リンクURLを複数登録可）</label>
+                <button type="button" onclick="addAttachmentRow()" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-plus"></i><span>添付ファイルを追加</span>
+                </button>
+              </div>
+              <div id="attachmentRowsContainer" class="space-y-2"></div>
+              <p class="text-[11px] text-slate-500 mt-1">※GoogleドライブにPDFや画像を保存し、「リンクを知っている全員」の共有URLを貼り付けると容量制限なく閲覧できます。</p>
+            </div>
           </div>
 
           <!-- 営業時間・定休日・体制 -->
@@ -472,11 +506,11 @@
 
           <!-- エリア詳細・加算・独自メモ -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">訪問・送迎対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市中央・南部・西部エリア（片道20分圏内）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・事業所特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：特定事業所加算Ⅱ, 緊急時訪問看護加算" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市全域（片道20分圏内）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：特定事業所加算Ⅱ, 緊急時訪問看護加算" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-amber-800 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1"></i>ケアマネ独自メモ（空き曜日・相性・連携のしやすさ等）</label>
-              <textarea id="formMemo" rows="3" placeholder="例：火・木の午後空きあり、退院前カンファレンスにもフットワーク軽く参加してくれる" class="w-full px-3 py-2 border border-amber-300 bg-amber-50/40 rounded-lg text-sm"></textarea>
+              <label class="block text-xs font-bold text-amber-800 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1"></i>ケアマネ独自メモ</label>
+              <textarea id="formMemo" rows="3" placeholder="例：急な退院調整や困難事例も柔軟に対応してくれる。" class="w-full px-3 py-2 border border-amber-300 bg-amber-50/40 rounded-lg text-sm"></textarea>
             </div>
           </div>
 
@@ -591,25 +625,25 @@
 
     const INITIAL_FACILITIES = [
       {
-        id: 'fac_001', name: 'みなと訪問看護ステーション', corp: '医療法人 みなと会', code: '4260101122', serviceType: 'home_nursing',
-        phone: '095-822-1100', fax: '095-822-1101', contact: '林田 真由美（管理者）', area: '大浦', address: '長崎市大浦町5-10',
-        areaDetail: '大浦・小島・戸町・土井首・中央エリア', hours: '8:30〜17:30', holidays: '日曜・年末年始（オンコール365日）',
-        schedules: ['weekend', 'emergency_24h'],
-        nursingSpecialty: '精神科訪問看護算定可・難病・末期がん看取り積極対応', nursingOncall: '24時間緊急時訪問看護加算あり・PT/OT在籍',
-        careTags: ['経管栄養法（胃ろうを含む）', '在宅中心静脈栄養法（IVH)', '点滴・静脈注射', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '吸引', '麻薬を用いた疼痛管理', 'PT在籍', 'OT在籍'],
-        additions: ['緊急時訪問看護加算', '特別管理加算Ⅰ・Ⅱ', 'ターミナルケア加算'],
-        memo: '主治医との連携が非常にスムーズ。退院前カンファレンスも即日調整してくれる。', favorite: true, updatedAt: '2026-11-19'
+        id: 'fac_001', name: '訪問看護ステーション みなと長崎', corp: '医療法人 みなと会', code: '4260190123', serviceType: 'home_nursing',
+        phone: '095-822-4510', fax: '095-822-4511', contact: '佐藤 美咲（管理者）', area: '大浦', address: '長崎市大浦町5-12',
+        homepage: '', attachments: [],
+        areaDetail: '大浦・小島・戸町・土井首・桜馬場エリア', hours: '8:30〜17:30（24時間オンコール対応）', holidays: '日曜・年末年始',
+        schedules: ['weekend', 'early_late', 'emergency_24h'],
+        careTags: ['経管栄養法（胃ろうを含む）', '在宅中心静脈栄養法（IVH)', '点滴・静脈注射', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '気管カニューレ', '吸引', '麻薬を用いた疼痛管理', 'PT在籍', 'OT在籍'],
+        nurseSpecialty: 'ターミナル・看取り24時間対応可、精神科訪問看護対応可', nurseSchedule: '全診療科指示書対応・午前枠空きあり',
+        additions: ['緊急時訪問看護加算', '特別管理加算Ⅰ・Ⅱ', 'ターミナルケア療養費'],
+        memo: '退院直後の即日訪問や医師との連携が非常にスムーズ。', favorite: true, updatedAt: '2026-11-15'
       },
       {
-        id: 'fac_002', name: 'デイサービス 笑顔の輪 小島', corp: '株式会社 ながさきケアサポート', code: '4270102233', serviceType: 'day_service',
-        phone: '095-825-4455', fax: '095-825-4456', contact: '山口 誠一（生活相談員）', area: '小島', address: '長崎市小島2-8-15',
-        areaDetail: '小島・大浦・桜馬場・片淵・南部エリア', hours: '8:30〜17:30（サービス9:30〜16:35）', holidays: '日曜・1月1日〜3日',
-        schedules: ['weekend'],
-        dayCapacity: '定員18名（地域密着型通所介護）', dayHoursType: '7時間以上8時間未満（短時間相談可）',
-        dayBath: '個浴3槽＋リフト浴完備（同性介助対応）', dayMeal: '施設内手作り昼食600円（刻み・ソフト食対応）',
-        careTags: ['膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '男性スタッフ在籍'],
-        additions: ['入浴介助加算Ⅱ', '個別機能訓練加算Ⅰ', '認知症加算'],
-        memo: '急な坂道が多い小島・大浦エリアでも軽自動車で自宅玄関先まで丁寧に送迎してくれる。', favorite: true, updatedAt: '2026-11-16'
+        id: 'fac_003', name: 'デイサービスセンター あじさいの里', corp: '社会福祉法人 長崎福祉会', code: '4270103344', serviceType: 'day_service',
+        phone: '095-861-3300', fax: '095-861-3301', contact: '田中 健一（生活相談員）', area: '淵', address: '長崎市梁川町12-8',
+        homepage: '', attachments: [],
+        areaDetail: '淵・緑が丘・西浦上・江平・小江原エリア', hours: '8:30〜17:30', holidays: '日曜・12/31〜1/3',
+        schedules: ['weekend'], careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', 'PT在籍', '男性スタッフ在籍'],
+        dayCapacity: '定員35名（通常規模型）', dayBath: '個浴3槽・特殊機械浴完備', dayMeal: '昼食650円・おやつ100円（刻み・ミキサー食可）', dayProgram: '個別機能訓練強化・半日利用相談可',
+        additions: ['入浴介助加算Ⅱ', '個別機能訓練加算Ⅰ・Ⅱ', '中重度者ケア体制加算'],
+        memo: '機械浴完備で重度の方も安心。体験利用（昼食代のみ）随時受付中。', favorite: true, updatedAt: '2026-11-12'
       }
     ];
 
@@ -750,6 +784,13 @@
       return masterData.serviceTypes.find(s => s.id === id) || { id, category: 'home', name: '未分類', color: 'bg-slate-100 text-slate-700 border-slate-200', bar: 'bg-slate-400' };
     }
 
+    function sanitizeUrl(url) {
+      if (!url) return '';
+      const trimmed = String(url).trim();
+      if (/^https?:\/\//i.test(trimmed)) return trimmed;
+      return 'https://' + trimmed;
+    }
+
     function highlightChip(btn, isSelected, variant = 'brand') {
       if (!btn) return;
       const activeClasses = variant === 'rose' ? ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'] : ['bg-brand-600', 'text-white', 'border-brand-600', 'shadow-2xs'];
@@ -826,10 +867,10 @@
 
         if (kw) {
           const st = getServiceTypeObj(item.serviceType);
+          const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.selfPay, item.homeCareSlots, item.nursingSpecialty, item.nursingOncall, item.rehabHospital, item.rehabProgram,
-            item.dayCapacity, item.dayHoursType, item.dayBath, item.dayMeal, item.equipDelivery, item.equipRenovation,
+            item.homepage, attNames,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
           if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
@@ -885,17 +926,13 @@
       }).join('');
 
       let specSummary = '';
-      if (item.serviceType === 'home_care' && (item.selfPay || item.homeCareSlots)) {
-        specSummary = [item.selfPay ? `自費: ${escapeHtml(item.selfPay)}` : '', item.homeCareSlots ? escapeHtml(item.homeCareSlots) : ''].filter(Boolean).join(' ／ ');
-      } else if (item.serviceType === 'home_nursing' && (item.nursingSpecialty || item.nursingOncall)) {
-        specSummary = [escapeHtml(item.nursingSpecialty), escapeHtml(item.nursingOncall)].filter(Boolean).join(' ／ ');
-      } else if (item.serviceType === 'home_rehab' && (item.rehabHospital || item.rehabProgram)) {
-        specSummary = [escapeHtml(item.rehabHospital), escapeHtml(item.rehabProgram)].filter(Boolean).join(' ／ ');
-      } else if (['day_service', 'day_care'].includes(item.serviceType)) {
-        specSummary = [item.dayCapacity ? escapeHtml(item.dayCapacity) : '', item.dayBath ? `入浴: ${escapeHtml(item.dayBath)}` : ''].filter(Boolean).join(' ／ ');
-      } else if (item.serviceType === 'welfare_equip' && (item.equipDelivery || item.equipRenovation)) {
-        specSummary = [escapeHtml(item.equipDelivery), escapeHtml(item.equipRenovation)].filter(Boolean).join(' ／ ');
-      }
+      if (item.serviceType === 'home_care') specSummary = [escapeHtml(item.homeCareScope), escapeHtml(item.homeCareExtra)].filter(Boolean).join(' ／ ');
+      else if (item.serviceType === 'home_nursing') specSummary = [escapeHtml(item.nurseSpecialty), escapeHtml(item.nurseSchedule)].filter(Boolean).join(' ／ ');
+      else if (item.serviceType === 'home_rehab') specSummary = [escapeHtml(item.homeRehabClinic), escapeHtml(item.homeRehabSlot)].filter(Boolean).join(' ／ ');
+      else if (item.serviceType === 'welfare_equip') specSummary = [escapeHtml(item.welfareMaker), escapeHtml(item.welfareSpeed)].filter(Boolean).join(' ／ ');
+      else specSummary = [escapeHtml(item.dayCapacity), escapeHtml(item.dayBath)].filter(Boolean).join(' ／ ');
+
+      const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
 
       return `
         <article class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
@@ -906,6 +943,8 @@
                 <div class="flex flex-wrap items-center gap-1.5">
                   <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
                   <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>${escapeHtml(item.area)}</span>
+                  ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-globe"></i><span>HP</span></a>` : ''}
+                  ${attCount > 0 ? `<button type="button" onclick="openDetailModal('${item.id}')" class="px-2 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-paperclip"></i><span>資料${attCount}件</span></button>` : ''}
                 </div>
                 <button type="button" onclick="toggleFavorite('${item.id}', event)" class="p-2 -mt-1.5 -mr-1.5 rounded-lg hover:bg-amber-50 text-lg">
                   <i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i>
@@ -918,13 +957,13 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs">
                 <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-brand-700 hover:underline">${escapeHtml(item.phone)}</button></div>
                 <div class="flex items-center gap-2"><span class="text-slate-400 w-8">FAX</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
-                <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">窓口: ${escapeHtml(item.contact || '未設定')}</div>
+                <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">担当: ${escapeHtml(item.contact || '未設定')}</div>
               </div>
               <div class="space-y-1 text-xs text-slate-600 mb-3">
                 ${item.address ? `<div class="truncate"><i class="fa-solid fa-map-pin text-slate-400 w-4"></i>${escapeHtml(item.address)}</div>` : ''}
                 ${item.hours ? `<div><i class="fa-regular fa-clock text-slate-400 w-4"></i>${escapeHtml(item.hours)}（休: ${escapeHtml(item.holidays || '-')}）</div>` : ''}
               </div>
-              ${specSummary ? `<div class="bg-teal-50/70 border border-teal-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-teal-950 font-medium">${specSummary}</div>` : ''}
+              ${specSummary ? `<div class="bg-brand-50/70 border border-brand-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-brand-950 font-medium">${specSummary}</div>` : ''}
               ${tagsHtml ? `<div class="flex flex-wrap gap-1.5 mb-3">${tagsHtml}</div>` : ''}
               ${item.memo ? `<div class="bg-amber-50/80 border border-amber-200 rounded-lg px-3 py-2 text-xs text-slate-700 line-clamp-2">${escapeHtml(item.memo)}</div>` : ''}
             </div>
@@ -933,7 +972,7 @@
             <span class="text-[11px] text-slate-400">更新: ${escapeHtml(item.updatedAt || '-')}</span>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="px-2.5 py-1.5 rounded-lg text-xs text-slate-600 hover:bg-slate-200/70"><i class="fa-solid fa-pen"></i></button>
-              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-brand-500 text-xs font-semibold text-slate-700">詳細・メモ</button>
+              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-brand-500 text-xs font-semibold text-slate-700">詳細・資料・メモ</button>
             </div>
           </div>
         </article>
@@ -942,14 +981,19 @@
 
     function renderListHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
+      const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
       return `
         <div class="bg-white rounded-xl border border-slate-200 hover:border-brand-400 px-4 py-3 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
             <button type="button" onclick="toggleFavorite('${item.id}', event)" class="text-base p-1"><i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i></button>
             <span class="px-2 py-0.5 rounded text-xs font-bold border ${st.color} shrink-0">${escapeHtml(st.name)}</span>
             <div class="min-w-0 flex-1">
-              <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-brand-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
-              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 窓口: ${escapeHtml(item.contact || '-')}</div>
+              <div class="flex items-center gap-2">
+                <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-brand-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
+                ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold shrink-0">HP</a>` : ''}
+                ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
+              </div>
+              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')}</div>
             </div>
           </div>
           <div class="flex items-center justify-between lg:justify-end gap-3 shrink-0">
@@ -995,7 +1039,7 @@
 
       document.getElementById('detailTopBar').className = `h-2 w-full shrink-0 ${st.bar}`;
       document.getElementById('detailBadges').innerHTML = `
-        <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-teal-50 text-teal-800 border-teal-200">在宅系</span>
+        <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-brand-50 text-brand-800 border-brand-200">在宅系</span>
         <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-medium">${escapeHtml(item.area)}</span>
       `;
@@ -1011,27 +1055,46 @@
       document.getElementById('detailContact').textContent = item.contact || '未設定';
       document.getElementById('detailMemo').textContent = item.memo || '（独自メモなし）';
 
-      const rows = [];
-      const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-teal-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
+      // HP & 添付資料
+      const hasHp = Boolean(item.homepage && item.homepage.trim());
+      const atts = Array.isArray(item.attachments) ? item.attachments.filter(a => a && a.url) : [];
+      const linksSec = document.getElementById('detailLinksSection');
+      const hpBox = document.getElementById('detailHomepageBox');
+      const attBox = document.getElementById('detailAttachmentsBox');
 
-      if (item.serviceType === 'home_care') {
-        addRow('自費サービス対応・料金', item.selfPay);
-        addRow('身体介護・生活援助の受け入れ枠', item.homeCareSlots);
-      } else if (item.serviceType === 'home_nursing') {
-        addRow('精神科訪問看護・難病・小児対応', item.nursingSpecialty);
-        addRow('オンコール体制・緊急訪問実績', item.nursingOncall);
-      } else if (item.serviceType === 'home_rehab') {
-        addRow('併設医療機関・指示書発行要件', item.rehabHospital);
-        addRow('リハビリ時間枠・訪問頻度', item.rehabProgram);
-      } else if (['day_service', 'day_care'].includes(item.serviceType)) {
-        addRow('利用定員・規模区分', item.dayCapacity);
-        addRow('提供時間区分・延長対応', item.dayHoursType);
-        addRow('浴槽設備（一般浴・個浴・機械浴）', item.dayBath);
-        addRow('食事形態・おやつ・昼食代', item.dayMeal);
-      } else if (item.serviceType === 'welfare_equip') {
-        addRow('デモ機お試し・納品スピード', item.equipDelivery);
-        addRow('住宅改修・特定福祉用具販売対応', item.equipRenovation);
+      if (hasHp) {
+        const safeHp = sanitizeUrl(item.homepage);
+        document.getElementById('detailHomepageLink').href = safeHp;
+        document.getElementById('detailHomepageText').textContent = `公式ホームページを開く（${item.homepage.trim()}）`;
+        hpBox.classList.remove('hidden');
+      } else {
+        hpBox.classList.add('hidden');
       }
+
+      if (atts.length > 0) {
+        document.getElementById('detailAttachmentsList').innerHTML = atts.map(att => `
+          <a href="${escapeHtml(sanitizeUrl(att.url))}" target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg bg-white border border-blue-200 hover:border-blue-500 hover:bg-blue-50 text-slate-800 transition shadow-2xs">
+            <div class="flex items-center gap-2 min-w-0">
+              <i class="fa-solid fa-file-lines text-blue-600 shrink-0"></i>
+              <span class="text-xs sm:text-sm font-bold truncate">${escapeHtml(att.title || '添付資料')}</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-blue-500 shrink-0"></i>
+          </a>
+        `).join('');
+        attBox.classList.remove('hidden');
+      } else {
+        attBox.classList.add('hidden');
+      }
+      linksSec.classList.toggle('hidden', !hasHp && atts.length === 0);
+
+      const rows = [];
+      const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
+      if (item.serviceType === 'home_care') { addRow('生活援助・身体介護の対応範囲', item.homeCareScope); addRow('同行援護・総合事業・自費対応', item.homeCareExtra); }
+      else if (item.serviceType === 'home_nursing') { addRow('看取り・ターミナル・精神科訪問看護', item.nurseSpecialty); addRow('連携主治医・指示書対応・空き曜日', item.nurseSchedule); }
+      else if (item.serviceType === 'home_rehab') { addRow('母体医療機関・指示書要件', item.homeRehabClinic); addRow('訪問可能枠・短期集中リハ対応', item.homeRehabSlot); }
+      else if (item.serviceType === 'welfare_equip') { addRow('取扱メーカー・得意品目', item.welfareMaker); addRow('当日納品・住宅改修・販売対応', item.welfareSpeed); }
+      else { addRow('利用定員・規模区分', item.dayCapacity); addRow('入浴設備', item.dayBath); addRow('食費・おやつ代目安', item.dayMeal); addRow('プログラム特色・延長/短時間対応', item.dayProgram); }
 
       const specSec = document.getElementById('detailServiceSpecificSection');
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
@@ -1067,6 +1130,18 @@
 
     function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); currentDetailId = null; }
 
+    function addAttachmentRow(title = '', url = '') {
+      const container = document.getElementById('attachmentRowsContainer');
+      const row = document.createElement('div');
+      row.className = 'attachment-row flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white p-2 rounded-lg border border-blue-200';
+      row.innerHTML = `
+        <input type="text" class="att-title sm:w-1/3 px-2.5 py-1.5 border border-slate-300 rounded text-xs" placeholder="資料名（例：料金表PDF）" value="${escapeHtml(title)}" />
+        <input type="url" class="att-url flex-1 px-2.5 py-1.5 border border-slate-300 rounded text-xs font-mono" placeholder="https://drive.google.com/..." value="${escapeHtml(url)}" />
+        <button type="button" onclick="this.parentElement.remove()" class="px-2.5 py-1.5 rounded text-rose-600 hover:bg-rose-50 text-xs font-semibold shrink-0"><i class="fa-solid fa-trash-can mr-1"></i>削除</button>
+      `;
+      container.appendChild(row);
+    }
+
     function initFormUI() {
       const stSelect = document.getElementById('formServiceType');
       stSelect.innerHTML = getCategoryServices().map(st => `<option value="${escapeHtml(st.id)}">${escapeHtml(st.name)}</option>`).join('');
@@ -1095,19 +1170,17 @@
       const stId = document.getElementById('formServiceType').value;
       const stObj = getServiceTypeObj(stId);
       document.getElementById('serviceSpecificFormTitle').textContent = `詳細仕様（${stObj.name}）`;
-
-      ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day_service', 'fields_welfare_equip']
-        .forEach(id => document.getElementById(id).classList.add('hidden'));
-
+      ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day', 'fields_welfare_equip'].forEach(id => document.getElementById(id).classList.add('hidden'));
       if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
       else if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
       else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
-      else if (['day_service', 'day_care'].includes(stId)) document.getElementById('fields_day_service').classList.remove('hidden');
       else if (stId === 'welfare_equip') document.getElementById('fields_welfare_equip').classList.remove('hidden');
+      else document.getElementById('fields_day').classList.remove('hidden');
     }
 
     function openFormModal(editId = null) {
       document.getElementById('facilityForm').reset();
+      document.getElementById('attachmentRowsContainer').innerHTML = '';
       if (editId) {
         const item = facilities.find(f => f.id === editId);
         if (!item) return;
@@ -1118,24 +1191,26 @@
         document.getElementById('formCode').value = item.code || '';
         document.getElementById('formServiceType').value = item.serviceType;
 
-        document.getElementById('formSelfPay').value = item.selfPay || '';
-        document.getElementById('formHomeCareSlots').value = item.homeCareSlots || '';
-        document.getElementById('formNursingSpecialty').value = item.nursingSpecialty || '';
-        document.getElementById('formNursingOncall').value = item.nursingOncall || '';
-        document.getElementById('formRehabHospital').value = item.rehabHospital || '';
-        document.getElementById('formRehabProgram').value = item.rehabProgram || '';
+        document.getElementById('formHomeCareScope').value = item.homeCareScope || '';
+        document.getElementById('formHomeCareExtra').value = item.homeCareExtra || '';
+        document.getElementById('formNurseSpecialty').value = item.nurseSpecialty || '';
+        document.getElementById('formNurseSchedule').value = item.nurseSchedule || '';
+        document.getElementById('formHomeRehabClinic').value = item.homeRehabClinic || '';
+        document.getElementById('formHomeRehabSlot').value = item.homeRehabSlot || '';
         document.getElementById('formDayCapacity').value = item.dayCapacity || '';
-        document.getElementById('formDayHoursType').value = item.dayHoursType || '';
         document.getElementById('formDayBath').value = item.dayBath || '';
         document.getElementById('formDayMeal').value = item.dayMeal || '';
-        document.getElementById('formEquipDelivery').value = item.equipDelivery || '';
-        document.getElementById('formEquipRenovation').value = item.equipRenovation || '';
+        document.getElementById('formDayProgram').value = item.dayProgram || '';
+        document.getElementById('formWelfareMaker').value = item.welfareMaker || '';
+        document.getElementById('formWelfareSpeed').value = item.welfareSpeed || '';
 
         document.getElementById('formPhone').value = item.phone;
         document.getElementById('formFax').value = item.fax || '';
         document.getElementById('formContact').value = item.contact || '';
         document.getElementById('formArea').value = item.area;
         document.getElementById('formAddress').value = item.address || '';
+        document.getElementById('formHomepage').value = item.homepage || '';
+        (item.attachments || []).forEach(att => addAttachmentRow(att.title || '', att.url || ''));
         document.getElementById('formHours').value = item.hours || '';
         document.getElementById('formHolidays').value = item.holidays || '';
         document.getElementById('formAreaDetail').value = item.areaDetail || '';
@@ -1158,34 +1233,40 @@
     async function saveFacility(e) {
       e.preventDefault();
       const id = document.getElementById('formId').value;
-      const stId = document.getElementById('formServiceType').value;
       const today = new Date().toISOString().split('T')[0];
+
+      const attachments = Array.from(document.querySelectorAll('#attachmentRowsContainer .attachment-row')).map(row => ({
+        title: row.querySelector('.att-title').value.trim(),
+        url: row.querySelector('.att-url').value.trim()
+      })).filter(a => a.url);
 
       const payload = {
         id: id || 'fac_' + Date.now(),
         name: document.getElementById('formName').value.trim(),
         corp: document.getElementById('formCorp').value.trim(),
         code: document.getElementById('formCode').value.trim(),
-        serviceType: stId,
+        serviceType: document.getElementById('formServiceType').value,
 
-        selfPay: document.getElementById('formSelfPay').value.trim(),
-        homeCareSlots: document.getElementById('formHomeCareSlots').value.trim(),
-        nursingSpecialty: document.getElementById('formNursingSpecialty').value.trim(),
-        nursingOncall: document.getElementById('formNursingOncall').value.trim(),
-        rehabHospital: document.getElementById('formRehabHospital').value.trim(),
-        rehabProgram: document.getElementById('formRehabProgram').value.trim(),
+        homeCareScope: document.getElementById('formHomeCareScope').value.trim(),
+        homeCareExtra: document.getElementById('formHomeCareExtra').value.trim(),
+        nurseSpecialty: document.getElementById('formNurseSpecialty').value.trim(),
+        nurseSchedule: document.getElementById('formNurseSchedule').value.trim(),
+        homeRehabClinic: document.getElementById('formHomeRehabClinic').value.trim(),
+        homeRehabSlot: document.getElementById('formHomeRehabSlot').value.trim(),
         dayCapacity: document.getElementById('formDayCapacity').value.trim(),
-        dayHoursType: document.getElementById('formDayHoursType').value.trim(),
         dayBath: document.getElementById('formDayBath').value.trim(),
         dayMeal: document.getElementById('formDayMeal').value.trim(),
-        equipDelivery: document.getElementById('formEquipDelivery').value.trim(),
-        equipRenovation: document.getElementById('formEquipRenovation').value.trim(),
+        dayProgram: document.getElementById('formDayProgram').value.trim(),
+        welfareMaker: document.getElementById('formWelfareMaker').value.trim(),
+        welfareSpeed: document.getElementById('formWelfareSpeed').value.trim(),
 
         phone: document.getElementById('formPhone').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
         contact: document.getElementById('formContact').value.trim(),
         area: document.getElementById('formArea').value,
         address: document.getElementById('formAddress').value.trim(),
+        homepage: document.getElementById('formHomepage').value.trim(),
+        attachments,
         hours: document.getElementById('formHours').value.trim(),
         holidays: document.getElementById('formHolidays').value.trim(),
         schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
@@ -1338,8 +1419,8 @@
 
     function exportCSV() {
       document.getElementById('dataMenuDropdown').classList.add('hidden');
-      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
-      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', 'ホームページURL', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
+      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.homepage||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
       const blob = new Blob([new Uint8Array([0xEF,0xBB,0xBF]), [headers.join(','), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `介護事業所一覧_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
@@ -1353,7 +1434,7 @@
         for (let i = 1; i < lines.length; i++) {
           const c = lines[i].split(',').map(s => s.replace(/^"|"$/g, '').replace(/""/g, '"'));
           if (c.length < 7 || !c[1]) continue;
-          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], hours: c[11], holidays: c[12], careTags: c[13]?c[13].split('|'):[], additions: c[14]?c[14].split('|'):[], memo: c[15], favorite: c[16]==='1', updatedAt: c[17]||new Date().toISOString().slice(0,10) };
+          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], homepage: c[11], hours: c[12], holidays: c[13], careTags: c[14]?c[14].split('|'):[], additions: c[15]?c[15].split('|'):[], memo: c[16], favorite: c[17]==='1', updatedAt: c[18]||new Date().toISOString().slice(0,10) };
           const idx = facilities.findIndex(f => f.id === obj.id);
           if (idx !== -1) facilities[idx] = { ...facilities[idx], ...obj }; else facilities.unshift(obj);
         }
