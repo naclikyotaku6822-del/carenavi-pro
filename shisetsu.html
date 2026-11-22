@@ -134,7 +134,7 @@
       </div>
       <div class="lg:hidden relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input type="text" id="mobileSearchInput" placeholder="施設系の事業所名・居室タイプ・月額・資料名・メモ..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        <input type="text" id="mobileSearchInput" placeholder="施設系の事業所名・居室タイプ・食費/滞在費・資料名・メモ..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
         <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
       </div>
     </div>
@@ -165,7 +165,7 @@
           <label for="searchInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">フリーワード検索</label>
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="searchInput" placeholder="施設名・居室タイプ・費用・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input type="text" id="searchInput" placeholder="施設名・居室タイプ・食費/滞在費・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
             <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
           </div>
         </div>
@@ -203,15 +203,21 @@
           <div id="roomTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
-        <!-- 短期入所系：入浴設備絞り込み -->
-        <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2">
+        <!-- 短期入所系：施設形態・入浴設備絞り込み -->
+        <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2.5">
           <div class="flex items-center justify-between">
             <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-bath text-sky-600"></i><span>入浴設備（短期入所系・AND）</span>
+              <i class="fa-solid fa-bed text-sky-600"></i><span>短期入所系 施設形態・入浴設備</span>
             </label>
-            <span class="text-[10px] text-slate-400">複数選択可</span>
           </div>
-          <div id="shortBathFilters" class="flex flex-wrap gap-1.5"></div>
+          <div>
+            <div class="text-[11px] font-bold text-slate-600 mb-1">施設形態</div>
+            <div id="shortFacilityTypeFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
+          <div>
+            <div class="text-[11px] font-bold text-slate-600 mb-1">入浴設備（AND）</div>
+            <div id="shortBathFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
         </div>
 
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2.5">
@@ -369,6 +375,12 @@
             <div id="detailRoomNote" class="hidden text-xs sm:text-sm text-slate-800 bg-white p-2.5 rounded-lg border border-indigo-200/80"></div>
           </div>
 
+          <!-- 食費・滞在費詳細 -->
+          <div id="detailCommonCostSection" class="hidden bg-emerald-50/60 border border-emerald-200 rounded-xl p-4 space-y-2">
+            <h3 class="text-xs font-bold text-emerald-900 flex items-center gap-1.5"><i class="fa-solid fa-yen-sign text-emerald-600"></i><span>食費・滞在費（居住費）</span></h3>
+            <div id="detailCommonCostBody" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800"></div>
+          </div>
+
           <div id="detailServiceSpecificSection" class="hidden bg-purple-50/60 border border-purple-200 rounded-xl p-4 space-y-2.5">
             <h3 class="text-xs font-bold text-purple-900">施設・入居条件・費用詳細</h3>
             <div id="detailServiceSpecificBody" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800"></div>
@@ -464,6 +476,23 @@
             </div>
           </div>
 
+          <!-- 食費・滞在費（全施設系共通） -->
+          <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-2.5">
+            <div class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-yen-sign text-emerald-600"></i><span>食費・滞在費（居住費）</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">食費</label>
+                <input type="text" id="formMealCost" placeholder="例：1,445円/日（朝400円・昼550円・夕495円） / 月額4.5万円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">滞在費（居住費）</label>
+                <input type="text" id="formStayCost" placeholder="例：ユニット型個室 2,066円/日・従来型個室 1,171円/日・多床室 855円/日" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+              </div>
+            </div>
+          </div>
+
           <!-- 施設系専用詳細仕様入力ブロック -->
           <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-purple-50/60 border border-purple-200 space-y-3">
             <div class="text-xs font-bold text-purple-900 flex items-center gap-1.5">
@@ -472,9 +501,22 @@
 
             <!-- 1. 短期入所系（短期入所生活介護・短期入所療養介護） -->
             <div id="fields_short_stay" class="hidden space-y-3">
+              <div class="bg-white p-3 rounded-lg border border-purple-200 space-y-2">
+                <label class="block text-xs font-bold text-purple-900"><i class="fa-solid fa-building-circle-check text-purple-600 mr-1"></i>施設形態（単独型・併設型）</label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-purple-50">
+                    <input type="checkbox" name="formShortFacilityType" value="単独型" class="rounded text-purple-600">
+                    <span>単独型</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-purple-50">
+                    <input type="checkbox" name="formShortFacilityType" value="併設型" class="rounded text-purple-600">
+                    <span>併設型</span>
+                  </label>
+                </div>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">予約開始時期・緊急ショート可否</label><input type="text" id="formShortBooking" placeholder="例：2ヶ月前1日より予約開始・緊急受入枠1床あり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">送迎対応曜日・時間帯・滞在費目安</label><input type="text" id="formShortTransport" placeholder="例：土日祝の送迎可・滞在費(多床室)855円/日" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">送迎対応曜日・時間帯・補足</label><input type="text" id="formShortTransport" placeholder="例：土日祝の送迎相談可（8:30〜17:30）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
               </div>
               <div class="bg-white p-3 rounded-lg border border-sky-200 space-y-2">
                 <label class="block text-xs font-bold text-sky-900"><i class="fa-solid fa-bath text-sky-600 mr-1"></i>入浴設備（絞り込み対象・複数選択可）</label>
@@ -510,7 +552,7 @@
             <div id="fields_residential" class="hidden space-y-3">
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">入居一時金・敷金</label><input type="text" id="formResDeposit" placeholder="例：0円（敷金10万円）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">月額利用料目安（家賃・食費・管理費）</label><input type="text" id="formResMonthlyFee" placeholder="例：約11.5万〜14.5万円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">月額利用料目安（合計・管理費等）</label><input type="text" id="formResMonthlyFee" placeholder="例：約11.5万〜14.5万円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">現在の空室・待機状況</label><input type="text" id="formResVacancy" placeholder="例：即入居可1室 / 待機約5名" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
               </div>
               <div id="resCareLimitRow" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -559,7 +601,7 @@
             </div>
           </div>
 
-          <!-- 営業時間・定休日・体制 -->
+          <!-- 営業時間・定休日・体制（小規模多機能・看多機のみ表示） -->
           <div id="formHoursSection" class="pt-2 border-t border-slate-100 space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div><label class="block text-xs font-bold text-slate-700 mb-1">相談受付・営業時間</label><input type="text" id="formHours" placeholder="例：8:30〜17:30（施設は24時間365日）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
@@ -648,9 +690,13 @@
     const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
 
     const ROOM_TYPE_OPTIONS = ['ユニット型個室', '従来型個室', '多床室', '居室内トイレ'];
+    const SHORT_FACILITY_TYPE_OPTIONS = ['単独型', '併設型'];
     const SHORT_BATH_OPTIONS = ['個浴', '特浴', '機械浴', 'リフト浴'];
 
-    const RESIDENTIAL_NO_HOURS_IDS = new Set([
+    // 営業時間・定休日・営業曜日時間帯・送迎エリア詳細を除外する施設系サービスID
+    const NO_HOURS_SERVICE_IDS = new Set([
+      'short_stay',
+      'short_stay_medical',
       'tokuyou',
       'rouken',
       'care_house',
@@ -718,11 +764,13 @@
         phone: '095-839-8800', fax: '095-839-8801', contact: '高橋 誠（ショート相談員）', area: '東長崎', address: '長崎市矢上町22-5',
         homepage: '', attachments: [],
         roomTypes: ['ユニット型個室', '従来型個室', '居室内トイレ'], roomNote: 'ユニット型個室20床（居室内トイレ完備）・従来型個室10床',
+        mealCost: '1,445円/日', stayCost: 'ユニット型個室 2,066円/日・従来型個室 1,171円/日',
+        shortFacilityTypes: ['併設型'],
         shortBathTypes: ['個浴', '機械浴'], shortBath: '個浴2槽・特殊機械浴完備',
-        areaDetail: '東長崎・日見・桜馬場・片淵・小島エリア', hours: '8:30〜17:30（施設は24時間365日）', holidays: '無休',
-        schedules: ['weekend', 'early_late', 'emergency_24h'],
+        areaDetail: '', hours: '', holidays: '',
+        schedules: [],
         careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '吸引'],
-        shortBooking: '利用月の2ヶ月前1日より受付開始・緊急枠1床確保', shortTransport: '土日祝の送迎相談可・滞在費(従来型個室)1,171円/日',
+        shortBooking: '利用月の2ヶ月前1日より受付開始・緊急枠1床確保', shortTransport: '土日祝の送迎相談可（東長崎・日見・桜馬場・片淵・小島エリア）',
         additions: ['緊急短期入所受入加算', '看護体制加算Ⅰ・Ⅱ', '送迎加算'],
         memo: 'レスパイト目的の緊急ショートも空きがあれば当日受け入れ相談可能。', favorite: false, updatedAt: '2026-11-10'
       },
@@ -731,8 +779,9 @@
         phone: '095-878-5500', fax: '095-878-5501', contact: '中村 裕子（生活相談員）', area: '深堀', address: '長崎市深堀町5-110',
         homepage: '', attachments: [],
         roomTypes: ['ユニット型個室', '居室内トイレ'], roomNote: '全室ユニット型個室（定員80名・全室トイレ洗面完備）',
-        areaDetail: '長崎市全域', hours: '', holidays: '',
-        schedules: ['weekend', 'emergency_24h'],
+        mealCost: '約4.4万円/月（1,445円/日）', stayCost: '約6.2万円/月（2,066円/日）',
+        areaDetail: '', hours: '', holidays: '',
+        schedules: [],
         careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '吸引', '麻薬を用いた疼痛管理'],
         resDeposit: '0円', resMonthlyFee: '約12.5万〜15.5万円（介護度・負担限度額による）', resVacancy: '待機約12名（特例入所相談可）',
         resDementia: '認知症重度・看取り実績豊富', resTrial: '施設見学随時受付（事前予約制）',
@@ -746,7 +795,7 @@
     let currentViewMode = 'card';
     let currentDetailId = null;
     let currentMasterTab = 'serviceTypes';
-    let filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+    let filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
 
     document.addEventListener('DOMContentLoaded', async () => {
       loadLocalCache();
@@ -900,6 +949,11 @@
       return '';
     }
 
+    function getItemShortFacilityTypes(item) {
+      if (Array.isArray(item.shortFacilityTypes) && item.shortFacilityTypes.length > 0) return item.shortFacilityTypes;
+      return [];
+    }
+
     function getItemShortBathTypes(item) {
       if (Array.isArray(item.shortBathTypes) && item.shortBathTypes.length > 0) return item.shortBathTypes;
       const text = String(item.shortBath || '');
@@ -913,6 +967,13 @@
       if (baths.length > 0) return `入浴：${baths.join('・')}`;
       if (detail) return `入浴：${detail}`;
       return '';
+    }
+
+    function getCostSummaryText(item) {
+      const parts = [];
+      if (item.mealCost) parts.push(`食費: ${item.mealCost}`);
+      if (item.stayCost) parts.push(`滞在費: ${item.stayCost}`);
+      return parts.join(' ／ ');
     }
 
     function highlightChip(btn, isSelected, variant = 'purple') {
@@ -939,6 +1000,13 @@
         <button type="button" data-roomtype="${escapeHtml(rt)}" onclick="toggleArrayFilter('roomTypes', '${escapeHtml(rt)}', this, 'indigo')"
           class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-indigo-50/60 text-xs font-medium text-slate-700">
           ${escapeHtml(rt)}
+        </button>
+      `).join('');
+
+      document.getElementById('shortFacilityTypeFilters').innerHTML = SHORT_FACILITY_TYPE_OPTIONS.map(ft => `
+        <button type="button" data-shortft="${escapeHtml(ft)}" onclick="toggleArrayFilter('shortFacilityTypes', '${escapeHtml(ft)}', this, 'purple')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-purple-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(ft)}
         </button>
       `).join('');
 
@@ -1001,6 +1069,12 @@
           if (!filterState.roomTypes.every(rt => itemRooms.includes(rt))) return false;
         }
 
+        if (filterState.shortFacilityTypes.length > 0) {
+          const isShort = item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical';
+          const fts = getItemShortFacilityTypes(item);
+          if (!isShort || !filterState.shortFacilityTypes.some(ft => fts.includes(ft))) return false;
+        }
+
         if (filterState.shortBaths.length > 0) {
           const isShort = item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical';
           const baths = getItemShortBathTypes(item);
@@ -1016,7 +1090,8 @@
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, getRoomSummaryText(item), getShortBathSummaryText(item),
+            item.homepage, attNames, getRoomSummaryText(item), getCostSummaryText(item),
+            getItemShortFacilityTypes(item).join(' '), getShortBathSummaryText(item),
             item.shortBooking, item.shortTransport, item.shokiboCap, item.shokiboFee,
             item.resDeposit, item.resMonthlyFee, item.resVacancy, item.resCareLimit, item.resExitCareLimit, item.resDementia,
             st.name, ...(item.careTags || []), ...(item.additions || [])
@@ -1040,7 +1115,8 @@
       document.getElementById('mobileResultCount').textContent = filtered.length;
       document.getElementById('totalCount').textContent = baseList.length;
 
-      let count = filterState.serviceTypes.length + filterState.roomTypes.length + filterState.shortBaths.length +
+      let count = filterState.serviceTypes.length + filterState.roomTypes.length +
+        filterState.shortFacilityTypes.length + filterState.shortBaths.length +
         filterState.areas.length + filterState.careTags.length + filterState.schedules.length +
         (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
       document.getElementById('activeFilterCount').textContent = count;
@@ -1073,7 +1149,13 @@
 
       let specSummary = '';
       if (item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical') {
-        specSummary = [escapeHtml(item.shortBooking), escapeHtml(item.shortTransport), escapeHtml(getShortBathSummaryText(item))].filter(Boolean).join(' ／ ');
+        const fts = getItemShortFacilityTypes(item);
+        specSummary = [
+          fts.length > 0 ? `形態: ${escapeHtml(fts.join('・'))}` : '',
+          escapeHtml(item.shortBooking),
+          escapeHtml(item.shortTransport),
+          escapeHtml(getShortBathSummaryText(item))
+        ].filter(Boolean).join(' ／ ');
       } else if (item.serviceType === 'shokibo' || item.serviceType === 'kan_shokibo') {
         specSummary = [escapeHtml(item.shokiboCap), escapeHtml(item.shokiboFee)].filter(Boolean).join(' ／ ');
       } else {
@@ -1085,7 +1167,8 @@
       }
 
       const roomSummary = getRoomSummaryText(item);
-      const showHours = !RESIDENTIAL_NO_HOURS_IDS.has(item.serviceType) && Boolean(item.hours);
+      const costSummary = getCostSummaryText(item);
+      const showHours = !NO_HOURS_SERVICE_IDS.has(item.serviceType) && Boolean(item.hours);
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
 
       return `
@@ -1118,6 +1201,7 @@
                 ${showHours ? `<div><i class="fa-regular fa-clock text-slate-400 w-4"></i>${escapeHtml(item.hours)}（休: ${escapeHtml(item.holidays || '-')}）</div>` : ''}
               </div>
               ${roomSummary ? `<div class="bg-indigo-50/80 border border-indigo-200 rounded-lg px-2.5 py-1.5 mb-2 text-[11px] text-indigo-950 font-medium">${escapeHtml(roomSummary)}</div>` : ''}
+              ${costSummary ? `<div class="bg-emerald-50/80 border border-emerald-200 rounded-lg px-2.5 py-1.5 mb-2 text-[11px] text-emerald-950 font-medium">${escapeHtml(costSummary)}</div>` : ''}
               ${specSummary ? `<div class="bg-purple-50/80 border border-purple-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-purple-950 font-medium">${specSummary}</div>` : ''}
               ${tagsHtml ? `<div class="flex flex-wrap gap-1.5 mb-3">${tagsHtml}</div>` : ''}
               ${item.memo ? `<div class="bg-amber-50/80 border border-amber-200 rounded-lg px-3 py-2 text-xs text-slate-700 line-clamp-2">${escapeHtml(item.memo)}</div>` : ''}
@@ -1148,7 +1232,7 @@
                 ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold shrink-0">HP</a>` : ''}
                 ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
               </div>
-              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')} ${item.resMonthlyFee ? `/ 月額: ${escapeHtml(item.resMonthlyFee)}` : ''}</div>
+              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')} ${item.mealCost ? `/ 食費: ${escapeHtml(item.mealCost)}` : ''} ${item.stayCost ? `/ 滞在費: ${escapeHtml(item.stayCost)}` : ''}</div>
             </div>
           </div>
           <div class="flex items-center justify-between lg:justify-end gap-3 shrink-0">
@@ -1191,7 +1275,7 @@
       if (!item) return;
       currentDetailId = id;
       const st = getServiceTypeObj(item.serviceType);
-      const isNoHoursType = RESIDENTIAL_NO_HOURS_IDS.has(item.serviceType);
+      const isNoHoursType = NO_HOURS_SERVICE_IDS.has(item.serviceType);
 
       document.getElementById('detailTopBar').className = `h-2 w-full shrink-0 ${st.bar}`;
       document.getElementById('detailBadges').innerHTML = `
@@ -1264,11 +1348,21 @@
         roomSec.classList.add('hidden');
       }
 
+      // 食費・滞在費詳細
+      const costRows = [];
+      if (item.mealCost) costRows.push(`<div class="bg-white p-2.5 rounded-lg border border-emerald-200"><div class="text-[11px] text-slate-500 font-bold">食費</div><div class="mt-0.5 font-medium">${escapeHtml(item.mealCost)}</div></div>`);
+      if (item.stayCost) costRows.push(`<div class="bg-white p-2.5 rounded-lg border border-emerald-200"><div class="text-[11px] text-slate-500 font-bold">滞在費（居住費）</div><div class="mt-0.5 font-medium">${escapeHtml(item.stayCost)}</div></div>`);
+      const costSec = document.getElementById('detailCommonCostSection');
+      document.getElementById('detailCommonCostBody').innerHTML = costRows.join('');
+      costSec.classList.toggle('hidden', costRows.length === 0);
+
       const rows = [];
       const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-purple-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
       if (item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical') {
+        const fts = getItemShortFacilityTypes(item);
+        if (fts.length > 0) addRow('施設形態', fts.join('・'));
         addRow('予約開始時期・緊急ショート可否', item.shortBooking);
-        addRow('送迎対応曜日・時間帯・滞在費目安', item.shortTransport);
+        addRow('送迎対応曜日・時間帯・補足', item.shortTransport);
         const bathTypes = getItemShortBathTypes(item);
         const bathDetail = (item.shortBath || '').trim();
         if (bathTypes.length > 0 || bathDetail) {
@@ -1368,7 +1462,7 @@
       ['fields_short_stay', 'fields_shokibo', 'fields_residential'].forEach(id => document.getElementById(id).classList.add('hidden'));
 
       const isTokuyou = stId === 'tokuyou';
-      const isNoHoursType = RESIDENTIAL_NO_HOURS_IDS.has(stId);
+      const isNoHoursType = NO_HOURS_SERVICE_IDS.has(stId);
 
       document.getElementById('resCareLimitRow').classList.toggle('hidden', isTokuyou);
       document.getElementById('resRulesRow').classList.toggle('hidden', isTokuyou);
@@ -1398,6 +1492,11 @@
         document.querySelectorAll('input[name="formRoomType"]').forEach(c => c.checked = roomTypes.includes(c.value));
         document.getElementById('formRoomNote').value = item.roomNote || '';
 
+        document.getElementById('formMealCost').value = item.mealCost || '';
+        document.getElementById('formStayCost').value = item.stayCost || '';
+
+        const shortFacilityTypes = getItemShortFacilityTypes(item);
+        document.querySelectorAll('input[name="formShortFacilityType"]').forEach(c => c.checked = shortFacilityTypes.includes(c.value));
         document.getElementById('formShortBooking').value = item.shortBooking || '';
         document.getElementById('formShortTransport').value = item.shortTransport || '';
         const shortBathTypes = getItemShortBathTypes(item);
@@ -1449,7 +1548,7 @@
       const stId = document.getElementById('formServiceType').value;
       const isTokuyou = stId === 'tokuyou';
       const isShortStay = stId === 'short_stay' || stId === 'short_stay_medical';
-      const isNoHoursType = RESIDENTIAL_NO_HOURS_IDS.has(stId);
+      const isNoHoursType = NO_HOURS_SERVICE_IDS.has(stId);
       const today = new Date().toISOString().split('T')[0];
 
       const attachments = Array.from(document.querySelectorAll('#attachmentRowsContainer .attachment-row')).map(row => ({
@@ -1467,6 +1566,10 @@
         roomTypes: Array.from(document.querySelectorAll('input[name="formRoomType"]:checked')).map(c => c.value),
         roomNote: document.getElementById('formRoomNote').value.trim(),
 
+        mealCost: document.getElementById('formMealCost').value.trim(),
+        stayCost: document.getElementById('formStayCost').value.trim(),
+
+        shortFacilityTypes: isShortStay ? Array.from(document.querySelectorAll('input[name="formShortFacilityType"]:checked')).map(c => c.value) : [],
         shortBooking: document.getElementById('formShortBooking').value.trim(),
         shortTransport: document.getElementById('formShortTransport').value.trim(),
         shortBathTypes: isShortStay ? Array.from(document.querySelectorAll('input[name="formShortBathType"]:checked')).map(c => c.value) : [],
@@ -1637,8 +1740,8 @@
 
     function exportCSV() {
       document.getElementById('dataMenuDropdown').classList.add('hidden');
-      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', 'ホームページURL', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
-      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.homepage||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', 'ホームページURL', '食費', '滞在費', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
+      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.homepage||'', f.mealCost||'', f.stayCost||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
       const blob = new Blob([new Uint8Array([0xEF,0xBB,0xBF]), [headers.join(','), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `介護事業所一覧_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
@@ -1652,7 +1755,7 @@
         for (let i = 1; i < lines.length; i++) {
           const c = lines[i].split(',').map(s => s.replace(/^"|"$/g, '').replace(/""/g, '"'));
           if (c.length < 7 || !c[1]) continue;
-          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], homepage: c[11], hours: c[12], holidays: c[13], careTags: c[14]?c[14].split('|'):[], additions: c[15]?c[15].split('|'):[], memo: c[16], favorite: c[17]==='1', updatedAt: c[18]||new Date().toISOString().slice(0,10) };
+          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], homepage: c[11], mealCost: c[12], stayCost: c[13], hours: c[14], holidays: c[15], careTags: c[16]?c[16].split('|'):[], additions: c[17]?c[17].split('|'):[], memo: c[18], favorite: c[19]==='1', updatedAt: c[20]||new Date().toISOString().slice(0,10) };
           const idx = facilities.findIndex(f => f.id === obj.id);
           if (idx !== -1) facilities[idx] = { ...facilities[idx], ...obj }; else facilities.unshift(obj);
         }
@@ -1690,7 +1793,7 @@
     function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
 
     function resetAllFilters() {
-      filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+      filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
       syncSearchInputs('');
       document.getElementById('favoriteOnlyToggle').checked = false;
       document.querySelectorAll('.filter-chip').forEach(b => highlightChip(b, false));
