@@ -194,6 +194,27 @@
           <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
+        <!-- 通所系：利用定員絞り込み -->
+        <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-users text-emerald-600"></i><span>利用定員（通所介護・通所リハ）</span>
+            </label>
+          </div>
+          <div id="dayCapacityFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- 通所系：入浴設備絞り込み -->
+        <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-bath text-sky-600"></i><span>入浴設備（通所系・AND）</span>
+            </label>
+            <span class="text-[10px] text-slate-400">複数選択可</span>
+          </div>
+          <div id="dayBathFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
         <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2.5">
           <div class="flex items-center justify-between">
             <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
@@ -427,7 +448,7 @@
               <div><label class="block text-xs font-bold text-slate-700 mb-1">同行援護・総合事業・自費対応</label><input type="text" id="formHomeCareExtra" placeholder="例：総合事業A2対応可・自費1時間2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 訪問看護専用：チェックボックス（緊急時訪問看護・看取り・精神科訪問看護）＋自由記載欄 -->
+            <!-- 訪問看護専用 -->
             <div id="fields_home_nursing" class="hidden space-y-2.5">
               <label class="block text-xs font-bold text-slate-700">対応体制・特色（チェック ＆ 自由記載）</label>
               <div class="flex flex-wrap gap-2">
@@ -454,11 +475,56 @@
               <div><label class="block text-xs font-bold text-slate-700 mb-1">訪問可能枠・短期集中リハ対応</label><input type="text" id="formHomeRehabSlot" placeholder="例：退院直後の短期集中リハ優先受入可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <div id="fields_day" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">利用定員・規模区分</label><input type="text" id="formDayCapacity" placeholder="例：定員35名（通常規模型）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">入浴設備（一般浴・個浴・機械浴・リフト浴）</label><input type="text" id="formDayBath" placeholder="例：個浴3槽・特殊機械浴完備" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">食費・おやつ代目安</label><input type="text" id="formDayMeal" placeholder="例：昼食650円・おやつ100円（刻み・ミキサー食可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">プログラム特色・延長/短時間対応</label><input type="text" id="formDayProgram" placeholder="例：個別機能訓練強化・半日利用相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 通所介護・通所リハビリ専用 -->
+            <div id="fields_day" class="hidden space-y-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="bg-white p-3 rounded-lg border border-emerald-200 space-y-2">
+                  <label class="block text-xs font-bold text-emerald-900"><i class="fa-solid fa-users text-emerald-600 mr-1"></i>利用定員（絞り込み対象）</label>
+                  <div class="flex flex-wrap gap-1.5">
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
+                      <input type="radio" name="formDayCapacityCategory" value="20人以下" class="text-emerald-600">
+                      <span>20人以下</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
+                      <input type="radio" name="formDayCapacityCategory" value="20～40人" class="text-emerald-600">
+                      <span>20～40人</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
+                      <input type="radio" name="formDayCapacityCategory" value="41人以上" class="text-emerald-600">
+                      <span>41人以上</span>
+                    </label>
+                  </div>
+                  <input type="text" id="formDayCapacity" placeholder="具体的な定員・規模補足（例：定員35名・通常規模型）" class="w-full px-2.5 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
+                </div>
+
+                <div class="bg-white p-3 rounded-lg border border-sky-200 space-y-2">
+                  <label class="block text-xs font-bold text-sky-900"><i class="fa-solid fa-bath text-sky-600 mr-1"></i>入浴設備（絞り込み対象・複数選択可）</label>
+                  <div class="flex flex-wrap gap-1.5">
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
+                      <input type="checkbox" name="formDayBathType" value="個浴" class="rounded text-sky-600">
+                      <span>個浴</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
+                      <input type="checkbox" name="formDayBathType" value="特浴" class="rounded text-sky-600">
+                      <span>特浴</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
+                      <input type="checkbox" name="formDayBathType" value="機械浴" class="rounded text-sky-600">
+                      <span>機械浴</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
+                      <input type="checkbox" name="formDayBathType" value="リフト浴" class="rounded text-sky-600">
+                      <span>リフト浴</span>
+                    </label>
+                  </div>
+                  <input type="text" id="formDayBath" placeholder="入浴設備補足（例：個浴3槽・特殊機械浴完備）" class="w-full px-2.5 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">食費・おやつ代目安</label><input type="text" id="formDayMeal" placeholder="例：昼食650円・おやつ100円（刻み・ミキサー食可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">プログラム特色・延長/短時間対応</label><input type="text" id="formDayProgram" placeholder="例：個別機能訓練強化・半日利用相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
             </div>
 
             <div id="fields_welfare_equip" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -589,6 +655,9 @@
     const FONT_KEY = 'carenavi_fontsize_v1';
     const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
 
+    const DAY_CAPACITY_OPTIONS = ['20人以下', '20～40人', '41人以上'];
+    const DAY_BATH_OPTIONS = ['個浴', '特浴', '機械浴', 'リフト浴'];
+
     const COLOR_THEMES = [
       { id: 'sky', label: 'スカイブルー', color: 'bg-sky-100 text-sky-800 border-sky-200', bar: 'bg-sky-500' },
       { id: 'rose', label: 'ローズピンク', color: 'bg-rose-100 text-rose-800 border-rose-200', bar: 'bg-rose-500' },
@@ -659,7 +728,9 @@
         homepage: '', attachments: [],
         areaDetail: '淵・緑が丘・西浦上・江平・小江原エリア', hours: '8:30〜17:30', holidays: '日曜・12/31〜1/3',
         schedules: ['weekend'], careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', 'PT在籍', '男性スタッフ在籍'],
-        dayCapacity: '定員35名（通常規模型）', dayBath: '個浴3槽・特殊機械浴完備', dayMeal: '昼食650円・おやつ100円（刻み・ミキサー食可）', dayProgram: '個別機能訓練強化・半日利用相談可',
+        dayCapacityCategory: '20～40人', dayCapacity: '定員35名（通常規模型）',
+        dayBathTypes: ['個浴', '機械浴'], dayBath: '個浴3槽・特殊機械浴完備',
+        dayMeal: '昼食650円・おやつ100円（刻み・ミキサー食可）', dayProgram: '個別機能訓練強化・半日利用相談可',
         additions: ['入浴介助加算Ⅱ', '個別機能訓練加算Ⅰ・Ⅱ', '中重度者ケア体制加算'],
         memo: '機械浴完備で重度の方も安心。体験利用（昼食代のみ）随時受付中。', favorite: true, updatedAt: '2026-11-12'
       }
@@ -670,7 +741,16 @@
     let currentViewMode = 'card';
     let currentDetailId = null;
     let currentMasterTab = 'serviceTypes';
-    let filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], areas: [], careTags: [], schedules: [] };
+    let filterState = {
+      keyword: '',
+      favoriteOnly: false,
+      serviceTypes: [],
+      dayCapacities: [],
+      dayBaths: [],
+      areas: [],
+      careTags: [],
+      schedules: []
+    };
 
     document.addEventListener('DOMContentLoaded', async () => {
       loadLocalCache();
@@ -815,9 +895,45 @@
       return [...feats, note].filter(Boolean).join(' ／ ');
     }
 
+    function getItemDayCapacityCategory(item) {
+      if (item.dayCapacityCategory) return item.dayCapacityCategory;
+      const text = String(item.dayCapacity || '');
+      const m = text.match(/(\d+)\s*[人名]/);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (n <= 20) return '20人以下';
+        if (n <= 40) return '20～40人';
+        return '41人以上';
+      }
+      return '';
+    }
+
+    function getItemDayBathTypes(item) {
+      if (Array.isArray(item.dayBathTypes) && item.dayBathTypes.length > 0) return item.dayBathTypes;
+      const text = String(item.dayBath || '');
+      return DAY_BATH_OPTIONS.filter(opt => text.includes(opt));
+    }
+
+    function getDaySummaryText(item) {
+      const capCat = getItemDayCapacityCategory(item);
+      const capDetail = item.dayCapacity || '';
+      const capStr = [capCat, capDetail && capDetail !== capCat ? capDetail : ''].filter(Boolean).join('（') + (capCat && capDetail && capDetail !== capCat ? '）' : '');
+
+      const baths = getItemDayBathTypes(item);
+      const bathDetail = item.dayBath || '';
+      const bathStr = baths.length > 0
+        ? `入浴：${baths.join('・')}${bathDetail ? `（${bathDetail}）` : ''}`
+        : (bathDetail ? `入浴：${bathDetail}` : '');
+
+      return [capStr ? `定員：${capStr}` : '', bathStr].filter(Boolean).join(' ／ ');
+    }
+
     function highlightChip(btn, isSelected, variant = 'brand') {
       if (!btn) return;
-      const activeClasses = variant === 'rose' ? ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'] : ['bg-brand-600', 'text-white', 'border-brand-600', 'shadow-2xs'];
+      let activeClasses = ['bg-brand-600', 'text-white', 'border-brand-600', 'shadow-2xs'];
+      if (variant === 'rose') activeClasses = ['bg-rose-600', 'text-white', 'border-rose-600', 'shadow-2xs'];
+      else if (variant === 'emerald') activeClasses = ['bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-2xs'];
+      else if (variant === 'sky') activeClasses = ['bg-sky-600', 'text-white', 'border-sky-600', 'shadow-2xs'];
       const inactiveClasses = ['bg-white', 'text-slate-700', 'border-slate-200'];
       activeClasses.forEach(c => btn.classList.toggle(c, isSelected));
       inactiveClasses.forEach(c => btn.classList.toggle(c, !isSelected));
@@ -829,6 +945,20 @@
         <button type="button" data-service="${escapeHtml(st.id)}" onclick="toggleArrayFilter('serviceTypes', '${escapeHtml(st.id)}', this, 'brand')"
           class="filter-chip text-left px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-1.5 max-w-full">
           <span class="w-2 h-2 rounded-full ${st.bar} shrink-0"></span><span class="truncate">${escapeHtml(st.name)}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('dayCapacityFilters').innerHTML = DAY_CAPACITY_OPTIONS.map(cap => `
+        <button type="button" data-daycap="${escapeHtml(cap)}" onclick="toggleArrayFilter('dayCapacities', '${escapeHtml(cap)}', this, 'emerald')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-emerald-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(cap)}
+        </button>
+      `).join('');
+
+      document.getElementById('dayBathFilters').innerHTML = DAY_BATH_OPTIONS.map(bath => `
+        <button type="button" data-daybath="${escapeHtml(bath)}" onclick="toggleArrayFilter('dayBaths', '${escapeHtml(bath)}', this, 'sky')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-sky-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(bath)}
         </button>
       `).join('');
 
@@ -885,6 +1015,19 @@
       let filtered = baseList.filter(item => {
         if (filterState.favoriteOnly && !item.favorite) return false;
         if (filterState.serviceTypes.length > 0 && !filterState.serviceTypes.includes(item.serviceType)) return false;
+
+        if (filterState.dayCapacities.length > 0) {
+          const isDay = item.serviceType === 'day_service' || item.serviceType === 'day_care';
+          const capCat = getItemDayCapacityCategory(item);
+          if (!isDay || !filterState.dayCapacities.includes(capCat)) return false;
+        }
+
+        if (filterState.dayBaths.length > 0) {
+          const isDay = item.serviceType === 'day_service' || item.serviceType === 'day_care';
+          const bathTypes = getItemDayBathTypes(item);
+          if (!isDay || !filterState.dayBaths.every(b => bathTypes.includes(b))) return false;
+        }
+
         if (filterState.areas.length > 0 && !filterState.areas.includes(item.area) && item.area !== '全市対応') return false;
         if (filterState.careTags.length > 0 && !filterState.careTags.every(t => (item.careTags || []).includes(t))) return false;
         if (filterState.schedules.length > 0 && !filterState.schedules.every(sc => (item.schedules || []).includes(sc))) return false;
@@ -894,7 +1037,8 @@
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, getNurseSummaryText(item),
+            item.homepage, attNames, getNurseSummaryText(item), getDaySummaryText(item),
+            item.dayMeal, item.dayProgram,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
           if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
@@ -916,7 +1060,8 @@
       document.getElementById('mobileResultCount').textContent = filtered.length;
       document.getElementById('totalCount').textContent = baseList.length;
 
-      let count = filterState.serviceTypes.length + filterState.areas.length + filterState.careTags.length + filterState.schedules.length +
+      let count = filterState.serviceTypes.length + filterState.dayCapacities.length + filterState.dayBaths.length +
+        filterState.areas.length + filterState.careTags.length + filterState.schedules.length +
         (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
       document.getElementById('activeFilterCount').textContent = count;
       document.getElementById('bottomFilterBadge').textContent = count;
@@ -954,7 +1099,7 @@
       else if (item.serviceType === 'home_nursing') specSummary = escapeHtml(getNurseSummaryText(item));
       else if (item.serviceType === 'home_rehab') specSummary = [escapeHtml(item.homeRehabClinic), escapeHtml(item.homeRehabSlot)].filter(Boolean).join(' ／ ');
       else if (item.serviceType === 'welfare_equip') specSummary = [escapeHtml(item.welfareMaker), escapeHtml(item.welfareSpeed)].filter(Boolean).join(' ／ ');
-      else specSummary = [escapeHtml(item.dayCapacity), escapeHtml(item.dayBath)].filter(Boolean).join(' ／ ');
+      else specSummary = escapeHtml(getDaySummaryText(item));
 
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
 
@@ -1134,8 +1279,22 @@
         addRow('取扱メーカー・得意品目', item.welfareMaker);
         addRow('当日納品・住宅改修・販売対応', item.welfareSpeed);
       } else {
-        addRow('利用定員・規模区分', item.dayCapacity);
-        addRow('入浴設備', item.dayBath);
+        const capCat = getItemDayCapacityCategory(item);
+        const capDetail = item.dayCapacity || '';
+        if (capCat || capDetail) {
+          const badge = capCat ? `<span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold mr-1.5">${escapeHtml(capCat)}</span>` : '';
+          const txt = capDetail && capDetail !== capCat ? `<span class="text-xs sm:text-sm text-slate-800">${escapeHtml(capDetail)}</span>` : '';
+          rows.push(`<div class="bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">利用定員</div><div>${badge}${txt}</div></div>`);
+        }
+
+        const bathTypes = getItemDayBathTypes(item);
+        const bathDetail = item.dayBath || '';
+        if (bathTypes.length > 0 || bathDetail) {
+          const badges = bathTypes.map(b => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 text-xs font-bold mr-1.5 mb-1">${escapeHtml(b)}</span>`).join('');
+          const txt = bathDetail ? `<div class="mt-0.5 text-xs sm:text-sm text-slate-800">${escapeHtml(bathDetail)}</div>` : '';
+          rows.push(`<div class="bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">入浴設備</div><div>${badges}</div>${txt}</div>`);
+        }
+
         addRow('食費・おやつ代目安', item.dayMeal);
         addRow('プログラム特色・延長/短時間対応', item.dayProgram);
       }
@@ -1244,8 +1403,15 @@
 
         document.getElementById('formHomeRehabClinic').value = item.homeRehabClinic || '';
         document.getElementById('formHomeRehabSlot').value = item.homeRehabSlot || '';
+
+        const capCat = getItemDayCapacityCategory(item);
+        document.querySelectorAll('input[name="formDayCapacityCategory"]').forEach(r => r.checked = (r.value === capCat));
         document.getElementById('formDayCapacity').value = item.dayCapacity || '';
+
+        const bathTypes = getItemDayBathTypes(item);
+        document.querySelectorAll('input[name="formDayBathType"]').forEach(c => c.checked = bathTypes.includes(c.value));
         document.getElementById('formDayBath').value = item.dayBath || '';
+
         document.getElementById('formDayMeal').value = item.dayMeal || '';
         document.getElementById('formDayProgram').value = item.dayProgram || '';
         document.getElementById('formWelfareMaker').value = item.welfareMaker || '';
@@ -1287,6 +1453,8 @@
         url: row.querySelector('.att-url').value.trim()
       })).filter(a => a.url);
 
+      const selectedDayCapCat = document.querySelector('input[name="formDayCapacityCategory"]:checked');
+
       const payload = {
         id: id || 'fac_' + Date.now(),
         name: document.getElementById('formName').value.trim(),
@@ -1300,7 +1468,9 @@
         nurseNote: document.getElementById('formNurseNote').value.trim(),
         homeRehabClinic: document.getElementById('formHomeRehabClinic').value.trim(),
         homeRehabSlot: document.getElementById('formHomeRehabSlot').value.trim(),
+        dayCapacityCategory: selectedDayCapCat ? selectedDayCapCat.value : '',
         dayCapacity: document.getElementById('formDayCapacity').value.trim(),
+        dayBathTypes: Array.from(document.querySelectorAll('input[name="formDayBathType"]:checked')).map(c => c.value),
         dayBath: document.getElementById('formDayBath').value.trim(),
         dayMeal: document.getElementById('formDayMeal').value.trim(),
         dayProgram: document.getElementById('formDayProgram').value.trim(),
@@ -1519,7 +1689,16 @@
     function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
 
     function resetAllFilters() {
-      filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], areas: [], careTags: [], schedules: [] };
+      filterState = {
+        keyword: '',
+        favoriteOnly: false,
+        serviceTypes: [],
+        dayCapacities: [],
+        dayBaths: [],
+        areas: [],
+        careTags: [],
+        schedules: []
+      };
       syncSearchInputs('');
       document.getElementById('favoriteOnlyToggle').checked = false;
       document.querySelectorAll('.filter-chip').forEach(b => highlightChip(b, false));
