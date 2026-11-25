@@ -32,7 +32,6 @@
     .filter-chip { transition: all 0.15s ease-in-out; }
     .filter-chip:active { transform: scale(0.97); }
     .pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
-   
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-900 pb-20 lg:pb-0">
@@ -348,6 +347,34 @@
             </div>
           </div>
 
+          <!-- ==================== 事業所写真スライダー ==================== -->
+          <div id="detailPhotoSliderSection" class="hidden bg-slate-900 rounded-xl overflow-hidden border border-slate-200 shadow-xs">
+            <div id="sliderViewport" class="relative aspect-video bg-slate-950 flex items-center justify-center select-none touch-pan-y">
+              <img id="sliderCurrentImg" src="" alt="事業所写真" class="max-h-full max-w-full object-contain transition-opacity duration-200" />
+              
+              <!-- 左右ナビゲーションボタン -->
+              <button type="button" id="sliderPrevBtn" onclick="movePhotoSlide(-1)" aria-label="前の写真"
+                class="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <button type="button" id="sliderNextBtn" onclick="movePhotoSlide(1)" aria-label="次の写真"
+                class="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+
+              <!-- 枚数バッジ -->
+              <div id="sliderCounter" class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-black/60 text-white text-xs font-mono font-bold">
+                1 / 1
+              </div>
+            </div>
+
+            <!-- キャプション＆サムネイル一覧 -->
+            <div class="bg-slate-800 px-3.5 py-2.5 space-y-2">
+              <div id="sliderCaption" class="text-xs sm:text-sm text-white font-medium truncate"></div>
+              <div id="sliderThumbnails" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+            </div>
+          </div>
+
           <!-- ホームページ・添付資料セクション -->
           <div id="detailLinksSection" class="hidden bg-blue-50/60 border border-blue-200 rounded-xl p-4 space-y-3">
             <h3 class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
@@ -546,6 +573,26 @@
             <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
           </div>
 
+          <!-- 事業所写真（複数登録・スライダー表示用） -->
+          <div class="p-4 rounded-xl bg-teal-50/50 border border-teal-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="text-xs font-bold text-teal-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-images text-teal-600"></i><span>事業所写真（複数添付・スライダー表示）</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <label class="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer">
+                  <i class="fa-solid fa-camera"></i><span>画像ファイルを選択</span>
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="handlePhotoFilesUpload(event)" />
+                </label>
+                <button type="button" onclick="addPhotoRow()" class="px-2.5 py-1 rounded-lg bg-white border border-teal-300 hover:bg-teal-50 text-teal-800 text-xs font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-link"></i><span>URLで追加</span>
+                </button>
+              </div>
+            </div>
+            <div id="photoRowsContainer" class="space-y-2"></div>
+            <p class="text-[11px] text-slate-500">※選択した画像は自動で軽量リサイズされます。Googleドライブの画像共有URLも自動変換して表示できます。</p>
+          </div>
+
           <!-- ホームページアドレス・添付ファイル（Googleドライブ等URL） -->
           <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3">
             <div class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
@@ -720,7 +767,7 @@
       {
         id: 'fac_001', name: '訪問看護ステーション みなと長崎', corp: '医療法人 みなと会', code: '4260190123', serviceType: 'home_nursing',
         phone: '095-822-4510', fax: '095-822-4511', contact: '佐藤 美咲（管理者）', area: '大浦', address: '長崎市大浦町5-12',
-        homepage: '', attachments: [],
+        homepage: '', photos: [], attachments: [],
         areaDetail: '大浦・小島・戸町・土井首・桜馬場エリア', hours: '8:30〜17:30（24時間オンコール対応）', holidays: '日曜・年末年始',
         schedules: ['weekend', 'early_late', 'emergency_24h'],
         careTags: ['経管栄養法（胃ろうを含む）', '在宅中心静脈栄養法（IVH)', '点滴・静脈注射', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '気管カニューレ', '吸引', '麻薬を用いた疼痛管理', '看護師', 'PT在籍', 'OT在籍'],
@@ -733,7 +780,7 @@
       {
         id: 'fac_003', name: 'デイサービスセンター あじさいの里', corp: '社会福祉法人 長崎福祉会', code: '4270103344', serviceType: 'day_service',
         phone: '095-861-3300', fax: '095-861-3301', contact: '田中 健一（生活相談員）', area: '淵', address: '長崎市梁川町12-8',
-        homepage: '', attachments: [],
+        homepage: '', photos: [], attachments: [],
         areaDetail: '淵・緑が丘・西浦上・江平・小江原エリア', hours: '8:30〜17:30', holidays: '日曜・12/31〜1/3',
         schedules: ['weekend'], careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '看護師', 'PT在籍', '男性スタッフ在籍'],
         staffNote: '看護師常勤2名配置',
@@ -750,6 +797,9 @@
     let currentViewMode = 'card';
     let currentDetailId = null;
     let currentMasterTab = 'serviceTypes';
+    let currentSliderPhotos = [];
+    let currentSlideIndex = 0;
+
     let filterState = {
       keyword: '',
       favoriteOnly: false,
@@ -766,6 +816,7 @@
       initFilterUI();
       initFormUI();
       initEventListeners();
+      initSliderTouchEvents();
       applySavedFontSize();
       applyFilters();
 
@@ -906,6 +957,17 @@
       const trimmed = String(url).trim();
       if (/^https?:\/\//i.test(trimmed)) return trimmed;
       return 'https://' + trimmed;
+    }
+
+    // Googleドライブ共有URLを直接表示可能な画像URLへ自動変換
+    function normalizeImageUrl(url) {
+      if (!url) return '';
+      const trimmed = String(url).trim();
+      const driveMatch = trimmed.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]+)/);
+      if (driveMatch && driveMatch[1]) {
+        return `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w1200`;
+      }
+      return trimmed.startsWith('data:image/') ? trimmed : sanitizeUrl(trimmed);
     }
 
     function getNurseSummaryText(item) {
@@ -1061,9 +1123,10 @@
         if (kw) {
           const st = getServiceTypeObj(item.serviceType);
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
+          const photoCaptions = (item.photos || []).map(p => p.caption || '').join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, getNurseSummaryText(item), getDaySummaryText(item),
+            item.homepage, attNames, photoCaptions, getNurseSummaryText(item), getDaySummaryText(item),
             item.dayMeal, item.dayProgram, item.staffNote,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
@@ -1128,6 +1191,7 @@
       else specSummary = escapeHtml(getDaySummaryText(item));
 
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
+      const photoCount = Array.isArray(item.photos) ? item.photos.length : 0;
 
       return `
         <article class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
@@ -1139,6 +1203,7 @@
                   <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
                   <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>${escapeHtml(item.area)}</span>
                   ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-globe"></i><span>HP</span></a>` : ''}
+                  ${photoCount > 0 ? `<button type="button" onclick="openDetailModal('${item.id}')" class="px-2 py-0.5 rounded bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-images"></i><span>写真${photoCount}枚</span></button>` : ''}
                   ${attCount > 0 ? `<button type="button" onclick="openDetailModal('${item.id}')" class="px-2 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-paperclip"></i><span>資料${attCount}件</span></button>` : ''}
                 </div>
                 <button type="button" onclick="toggleFavorite('${item.id}', event)" class="p-2 -mt-1.5 -mr-1.5 rounded-lg hover:bg-amber-50 text-lg">
@@ -1167,7 +1232,7 @@
             <span class="text-[11px] text-slate-400">更新: ${escapeHtml(item.updatedAt || '-')}</span>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="px-2.5 py-1.5 rounded-lg text-xs text-slate-600 hover:bg-slate-200/70"><i class="fa-solid fa-pen"></i></button>
-              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-brand-500 text-xs font-semibold text-slate-700">詳細・資料・メモ</button>
+              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-brand-500 text-xs font-semibold text-slate-700">詳細・写真・資料</button>
             </div>
           </div>
         </article>
@@ -1177,6 +1242,7 @@
     function renderListHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
+      const photoCount = Array.isArray(item.photos) ? item.photos.length : 0;
       return `
         <div class="bg-white rounded-xl border border-slate-200 hover:border-brand-400 px-4 py-3 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -1186,6 +1252,7 @@
               <div class="flex items-center gap-2">
                 <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-brand-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
                 ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold shrink-0">HP</a>` : ''}
+                ${photoCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 text-[11px] font-bold shrink-0">写真${photoCount}</span>` : ''}
                 ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
               </div>
               <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')}</div>
@@ -1226,6 +1293,65 @@
       showToast(`${label}（${text}）をコピーしました`, 'success');
     }
 
+    // ==================== 写真スライダー制御 ====================
+    function initDetailPhotoSlider(photos) {
+      const section = document.getElementById('detailPhotoSliderSection');
+      currentSliderPhotos = Array.isArray(photos) ? photos.filter(p => p && p.url) : [];
+      currentSlideIndex = 0;
+
+      if (currentSliderPhotos.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+      section.classList.remove('hidden');
+      renderPhotoSlide();
+    }
+
+    function movePhotoSlide(step) {
+      if (currentSliderPhotos.length <= 1) return;
+      currentSlideIndex = (currentSlideIndex + step + currentSliderPhotos.length) % currentSliderPhotos.length;
+      renderPhotoSlide();
+    }
+
+    function goToPhotoSlide(index) {
+      currentSlideIndex = index;
+      renderPhotoSlide();
+    }
+
+    function renderPhotoSlide() {
+      const total = currentSliderPhotos.length;
+      const current = currentSliderPhotos[currentSlideIndex];
+      document.getElementById('sliderCurrentImg').src = normalizeImageUrl(current.url);
+      document.getElementById('sliderCounter').textContent = `${currentSlideIndex + 1} / ${total}`;
+      document.getElementById('sliderCaption').textContent = current.caption || `写真 ${currentSlideIndex + 1}`;
+
+      const showNav = total > 1;
+      document.getElementById('sliderPrevBtn').classList.toggle('hidden', !showNav);
+      document.getElementById('sliderNextBtn').classList.toggle('hidden', !showNav);
+
+      document.getElementById('sliderThumbnails').innerHTML = currentSliderPhotos.map((p, idx) => `
+        <button type="button" onclick="goToPhotoSlide(${idx})"
+          class="relative w-14 h-10 rounded overflow-hidden shrink-0 border-2 transition ${idx === currentSlideIndex ? 'border-brand-400 opacity-100 scale-105' : 'border-transparent opacity-60 hover:opacity-90'}">
+          <img src="${escapeHtml(normalizeImageUrl(p.url))}" alt="" class="w-full h-full object-cover" />
+        </button>
+      `).join('');
+    }
+
+    function initSliderTouchEvents() {
+      const viewport = document.getElementById('sliderViewport');
+      if (!viewport) return;
+      let startX = 0;
+      viewport.addEventListener('touchstart', e => {
+        startX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      viewport.addEventListener('touchend', e => {
+        const diffX = e.changedTouches[0].screenX - startX;
+        if (Math.abs(diffX) > 40) {
+          movePhotoSlide(diffX < 0 ? 1 : -1);
+        }
+      }, { passive: true });
+    }
+
     function openDetailModal(id) {
       const item = facilities.find(f => f.id === id);
       if (!item) return;
@@ -1249,6 +1375,9 @@
       document.getElementById('detailFaxBtn').onclick = () => copyText(item.fax, 'FAX番号');
       document.getElementById('detailContact').textContent = item.contact || '未設定';
       document.getElementById('detailMemo').textContent = item.memo || '（独自メモなし）';
+
+      // 写真スライダー初期化
+      initDetailPhotoSlider(item.photos || []);
 
       // HP & 添付資料
       const hasHp = Boolean(item.homepage && item.homepage.trim());
@@ -1367,6 +1496,62 @@
 
     function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); currentDetailId = null; }
 
+    // ==================== フォーム用写真追加・圧縮 ====================
+    function addPhotoRow(caption = '', url = '') {
+      const container = document.getElementById('photoRowsContainer');
+      const row = document.createElement('div');
+      row.className = 'photo-row flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white p-2 rounded-lg border border-teal-200';
+      const previewSrc = url ? normalizeImageUrl(url) : '';
+      row.innerHTML = `
+        <img src="${escapeHtml(previewSrc)}" class="photo-preview w-12 h-12 rounded object-cover border border-slate-200 bg-slate-100 shrink-0 ${previewSrc ? '' : 'hidden'}" alt="プレビュー" />
+        <input type="text" class="photo-caption sm:w-1/3 px-2.5 py-1.5 border border-slate-300 rounded text-xs" placeholder="説明（例：外観・浴室・機能訓練室）" value="${escapeHtml(caption)}" />
+        <input type="text" class="photo-url flex-1 px-2.5 py-1.5 border border-slate-300 rounded text-xs font-mono" placeholder="画像URL または ファイル選択で自動入力" value="${escapeHtml(url)}" oninput="updatePhotoRowPreview(this)" />
+        <button type="button" onclick="this.parentElement.remove()" class="px-2.5 py-1.5 rounded text-rose-600 hover:bg-rose-50 text-xs font-semibold shrink-0"><i class="fa-solid fa-trash-can mr-1"></i>削除</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function updatePhotoRowPreview(input) {
+      const row = input.closest('.photo-row');
+      const img = row.querySelector('.photo-preview');
+      const src = normalizeImageUrl(input.value);
+      if (src) {
+        img.src = src;
+        img.classList.remove('hidden');
+      } else {
+        img.classList.add('hidden');
+      }
+    }
+
+    function handlePhotoFilesUpload(event) {
+      const files = Array.from(event.target.files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const maxWidth = 900;
+            let w = img.width;
+            let h = img.height;
+            if (w > maxWidth) {
+              h = Math.round((h * maxWidth) / w);
+              w = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+            const baseName = file.name.replace(/\.[^/.]+$/, '');
+            addPhotoRow(baseName, compressedDataUrl);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      event.target.value = '';
+    }
+
     function addAttachmentRow(title = '', url = '') {
       const container = document.getElementById('attachmentRowsContainer');
       const row = document.createElement('div');
@@ -1417,6 +1602,7 @@
 
     function openFormModal(editId = null) {
       document.getElementById('facilityForm').reset();
+      document.getElementById('photoRowsContainer').innerHTML = '';
       document.getElementById('attachmentRowsContainer').innerHTML = '';
       if (editId) {
         const item = facilities.find(f => f.id === editId);
@@ -1457,6 +1643,7 @@
         document.getElementById('formArea').value = item.area;
         document.getElementById('formAddress').value = item.address || '';
         document.getElementById('formHomepage').value = item.homepage || '';
+        (item.photos || []).forEach(p => addPhotoRow(p.caption || '', p.url || ''));
         (item.attachments || []).forEach(att => addAttachmentRow(att.title || '', att.url || ''));
         document.getElementById('formHours').value = item.hours || '';
         document.getElementById('formHolidays').value = item.holidays || '';
@@ -1482,6 +1669,11 @@
       e.preventDefault();
       const id = document.getElementById('formId').value;
       const today = new Date().toISOString().split('T')[0];
+
+      const photos = Array.from(document.querySelectorAll('#photoRowsContainer .photo-row')).map(row => ({
+        caption: row.querySelector('.photo-caption').value.trim(),
+        url: row.querySelector('.photo-url').value.trim()
+      })).filter(p => p.url);
 
       const attachments = Array.from(document.querySelectorAll('#attachmentRowsContainer .attachment-row')).map(row => ({
         title: row.querySelector('.att-title').value.trim(),
@@ -1519,6 +1711,7 @@
         area: document.getElementById('formArea').value,
         address: document.getElementById('formAddress').value.trim(),
         homepage: document.getElementById('formHomepage').value.trim(),
+        photos,
         attachments,
         hours: document.getElementById('formHours').value.trim(),
         holidays: document.getElementById('formHolidays').value.trim(),
