@@ -32,6 +32,23 @@
     .filter-chip { transition: all 0.15s ease-in-out; }
     .filter-chip:active { transform: scale(0.97); }
     .pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+    /* 写真スライダー用スタイル */
+.photo-slider-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.photo-slider-track::-webkit-scrollbar {
+  display: none;
+}
+.photo-slide-item {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+}
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-purple-100 selection:text-purple-900 pb-20 lg:pb-0">
