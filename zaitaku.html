@@ -380,7 +380,7 @@
           </div>
 
           <!-- 対応可能な医療処置・専門職体制 -->
-          <div>
+          <div id="detailTagsSection">
             <h3 id="detailTagsHeading" class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">対応可能な医療処置・専門職体制</h3>
             <div id="detailTags" class="flex flex-wrap gap-1.5"></div>
             <div id="detailStaffNoteBox" class="hidden mt-2 text-xs sm:text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
@@ -658,19 +658,19 @@
               <div><label class="block text-xs font-bold text-slate-700 mb-1">営業時間・診療時間</label><input type="text" id="formHours" placeholder="例：8:30〜17:30" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
               <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日・休診日</label><input type="text" id="formHolidays" placeholder="例：日曜・祝日・年末年始" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             </div>
-            <div>
+            <div id="formScheduleSection">
               <label class="block text-xs font-bold text-slate-700 mb-1.5">営業曜日・時間帯の対応</label>
               <div id="formSchedules" class="flex flex-wrap gap-2"></div>
             </div>
           </div>
 
           <!-- 対応可能な医療処置・専門職 -->
-          <div class="pt-2 border-t border-slate-100 space-y-3">
+          <div id="formTagsOuterSection" class="pt-2 border-t border-slate-100 space-y-3">
             <div id="formMedicalCareSection">
               <label class="block text-xs font-bold text-rose-800 mb-1.5"><i class="fa-solid fa-notes-medical text-rose-600 mr-1"></i>対応可能な医療処置</label>
               <div id="formMedicalCareTags" class="flex flex-wrap gap-1.5 bg-rose-50/40 p-2.5 rounded-xl border border-rose-100"></div>
             </div>
-            <div>
+            <div id="formStaffSection">
               <label class="block text-xs font-bold text-slate-700 mb-1.5"><i class="fa-solid fa-user-nurse text-brand-600 mr-1"></i>専門職・職員体制</label>
               <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 space-y-2">
                 <div id="formFacilityStaffTags" class="flex flex-wrap gap-1.5"></div>
@@ -1244,8 +1244,9 @@
 
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
-      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
-      const visibleCareTags = (item.careTags || []).filter(tag => {
+      const isHospital = item.serviceType === 'hospital_clinic';
+      const hideMedCare = isHospital || item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
+      const visibleCareTags = isHospital ? [] : (item.careTags || []).filter(tag => {
         if (hideMedCare && masterData.medicalCareTags.includes(tag)) return false;
         return true;
       });
@@ -1593,21 +1594,28 @@
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
       specSec.classList.toggle('hidden', rows.length === 0);
 
-      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
-      document.getElementById('detailTagsHeading').textContent = hideMedCare ? '専門職・職員体制' : '対応可能な医療処置・専門職体制';
-      const detailVisibleTags = (item.careTags || []).filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag)));
-      document.getElementById('detailTags').innerHTML = detailVisibleTags.map(tag => {
-        const isMed = masterData.medicalCareTags.includes(tag);
-        const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
-        return `<span class="px-2.5 py-1 rounded-lg text-xs font-medium border ${cls}">${escapeHtml(tag)}</span>`;
-      }).join('') || '<span class="text-xs text-slate-400">登録なし</span>';
-
-      const staffNoteBox = document.getElementById('detailStaffNoteBox');
-      if (item.staffNote && item.staffNote.trim()) {
-        document.getElementById('detailStaffNoteText').textContent = item.staffNote.trim();
-        staffNoteBox.classList.remove('hidden');
+      const isHospital = item.serviceType === 'hospital_clinic';
+      const detailTagsSec = document.getElementById('detailTagsSection');
+      if (isHospital) {
+        if (detailTagsSec) detailTagsSec.classList.add('hidden');
       } else {
-        staffNoteBox.classList.add('hidden');
+        if (detailTagsSec) detailTagsSec.classList.remove('hidden');
+        const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
+        document.getElementById('detailTagsHeading').textContent = hideMedCare ? '専門職・職員体制' : '対応可能な医療処置・専門職体制';
+        const detailVisibleTags = (item.careTags || []).filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag)));
+        document.getElementById('detailTags').innerHTML = detailVisibleTags.map(tag => {
+          const isMed = masterData.medicalCareTags.includes(tag);
+          const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
+          return `<span class="px-2.5 py-1 rounded-lg text-xs font-medium border ${cls}">${escapeHtml(tag)}</span>`;
+        }).join('') || '<span class="text-xs text-slate-400">登録なし</span>';
+
+        const staffNoteBox = document.getElementById('detailStaffNoteBox');
+        if (item.staffNote && item.staffNote.trim()) {
+          document.getElementById('detailStaffNoteText').textContent = item.staffNote.trim();
+          staffNoteBox.classList.remove('hidden');
+        } else {
+          staffNoteBox.classList.add('hidden');
+        }
       }
 
       document.getElementById('detailAddress').textContent = item.address || '未登録';
@@ -1731,17 +1739,33 @@
       const stObj = getServiceTypeObj(stId);
       document.getElementById('serviceSpecificFormTitle').textContent = `詳細仕様（${stObj.name}）`;
       ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day', 'fields_welfare_equip', 'fields_care_management', 'fields_hospital_clinic'].forEach(id => document.getElementById(id).classList.add('hidden'));
+
+      const schedSec = document.getElementById('formScheduleSection');
+      const tagsOuterSec = document.getElementById('formTagsOuterSection');
       const medSec = document.getElementById('formMedicalCareSection');
-      if (stId === 'home_care' || stId === 'welfare_equip' || stId === 'care_management') {
+      const staffSec = document.getElementById('formStaffSection');
+
+      if (stId === 'hospital_clinic') {
+        if (schedSec) schedSec.classList.add('hidden');
+        if (tagsOuterSec) tagsOuterSec.classList.add('hidden');
         if (medSec) medSec.classList.add('hidden');
+        if (staffSec) staffSec.classList.add('hidden');
+        document.getElementById('fields_hospital_clinic').classList.remove('hidden');
+      } else if (stId === 'home_care' || stId === 'welfare_equip' || stId === 'care_management') {
+        if (schedSec) schedSec.classList.remove('hidden');
+        if (tagsOuterSec) tagsOuterSec.classList.remove('hidden');
+        if (medSec) medSec.classList.add('hidden');
+        if (staffSec) staffSec.classList.remove('hidden');
         if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
         else if (stId === 'welfare_equip') document.getElementById('fields_welfare_equip').classList.remove('hidden');
         else document.getElementById('fields_care_management').classList.remove('hidden');
       } else {
+        if (schedSec) schedSec.classList.remove('hidden');
+        if (tagsOuterSec) tagsOuterSec.classList.remove('hidden');
         if (medSec) medSec.classList.remove('hidden');
+        if (staffSec) staffSec.classList.remove('hidden');
         if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
         else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
-        else if (stId === 'hospital_clinic') document.getElementById('fields_hospital_clinic').classList.remove('hidden');
         else document.getElementById('fields_day').classList.remove('hidden');
       }
     }
@@ -1841,7 +1865,8 @@
 
       const selectedDayCapCats = Array.from(document.querySelectorAll('input[name="formDayCapacityCategory"]:checked')).map(c => c.value);
       const stVal = document.getElementById('formServiceType').value;
-      const hideMedCare = stVal === 'home_care' || stVal === 'welfare_equip' || stVal === 'care_management';
+      const isHospital = stVal === 'hospital_clinic';
+      const hideMedCare = isHospital || stVal === 'home_care' || stVal === 'welfare_equip' || stVal === 'care_management';
 
       const payload = {
         id: id || 'fac_' + Date.now(),
@@ -1888,11 +1913,11 @@
         attachments,
         hours: document.getElementById('formHours').value.trim(),
         holidays: document.getElementById('formHolidays').value.trim(),
-        schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
-        careTags: Array.from(document.querySelectorAll('input[name="formCareTag"]:checked'))
+        schedules: isHospital ? [] : Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
+        careTags: isHospital ? [] : Array.from(document.querySelectorAll('input[name="formCareTag"]:checked'))
           .map(c => c.value)
           .filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag))),
-        staffNote: document.getElementById('formStaffNote').value.trim(),
+        staffNote: isHospital ? '' : document.getElementById('formStaffNote').value.trim(),
         areaDetail: document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
         memo: document.getElementById('formMemo').value.trim(),
