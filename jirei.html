@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ja" class="font-normal">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>ケアナビ Pro【住宅改修・福祉用具 実施例】 | 写真付き事例集</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="config.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'], mono: ['"Inter"', 'monospace'] },
+          colors: {
+            brand: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html.font-normal { font-size: 15px; }
+    html.font-large { font-size: 17.5px; }
+    @media (max-width: 640px) { input[type="text"], select, textarea { font-size: 16px !important; } }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .filter-chip { transition: all 0.15s ease-in-out; }
+    .filter-chip:active { transform: scale(0.97); }
+    .pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-100 selection:text-emerald-900 pb-20 lg:pb-0">
+
+  <!-- ==================== ヘッダー ==================== -->
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-xs">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <button id="mobileFilterToggle" type="button" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 relative shrink-0" aria-label="絞り込み条件を開く">
+          <i class="fa-solid fa-sliders text-lg"></i>
+          <span id="mobileFilterBadge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-emerald-600 rounded-full ring-2 ring-white"></span>
+        </button>
+
+        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
+          <i class="fa-solid fa-hammer text-base sm:text-lg"></i>
+        </a>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight leading-tight truncate">ケアナビ Pro</h1>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 shrink-0">改修・福祉用具 実施例</span>
+          </div>
+          <p class="hidden md:block text-xs text-slate-500 truncate">住宅改修（手すり・段差解消等）・福祉用具貸与/購入の写真付き導入事例</p>
+        </div>
+      </div>
+
+      <!-- カテゴリ間ナビゲーション -->
+      <nav class="hidden xl:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 gap-1">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-compass"></i><span>トップ</span>
+        </a>
+        <a href="zaitaku.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house-medical"></i><span>在宅系</span>
+        </a>
+        <a href="shisetsu.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-building"></i><span>施設系</span>
+        </a>
+        <a href="sonota.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group"></i><span>他サービス</span>
+        </a>
+        <a href="jirei.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-2xs flex items-center gap-1.5">
+          <i class="fa-solid fa-camera-retro"></i><span>改修・用具実施例</span>
+        </a>
+      </nav>
+
+      <!-- 右側アクションバー -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <button type="button" onclick="syncFromCloud(true)" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-medium text-slate-600 flex items-center gap-1.5 transition" title="クリックで最新データを再読込">
+          <i id="syncStatusIcon" class="fa-solid fa-cloud text-slate-400"></i>
+          <span id="syncStatusText" class="hidden md:inline">確認中...</span>
+        </button>
+
+        <div class="hidden sm:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
+          <span class="text-xs text-slate-500 px-2"><i class="fa-solid fa-text-height mr-1"></i>文字</span>
+          <button type="button" onclick="setFontSize('normal')" class="px-2 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-xs transition">標準</button>
+          <button type="button" onclick="setFontSize('large')" class="px-2 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">大</button>
+        </div>
+
+        <button type="button" onclick="exportCasesJSON()" class="p-2.5 sm:px-3 sm:py-2 rounded-xl sm:rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition shadow-2xs" title="実施例データのJSONバックアップ">
+          <i class="fa-solid fa-download text-emerald-600"></i>
+          <span class="hidden md:inline">バックアップ</span>
+        </button>
+
+        <button type="button" onclick="openFormModal()" class="hidden sm:flex px-3.5 sm:px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold items-center gap-1.5 shadow-xs transition cursor-pointer">
+          <i class="fa-solid fa-plus"></i><span>実施例を新規登録</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- モバイル・タブレット用：カテゴリ切替バー＆クイック検索 -->
+    <div class="xl:hidden px-3 py-2 bg-slate-50 border-t border-slate-200/80 space-y-2">
+      <div class="grid grid-cols-5 gap-1 bg-slate-200/70 p-1 rounded-xl">
+        <a href="index.html" class="py-1.5 rounded-lg text-[11px] font-semibold text-slate-600 hover:bg-white/80 text-center">トップ</a>
+        <a href="zaitaku.html" class="py-1.5 rounded-lg text-[11px] font-semibold text-slate-600 hover:bg-white/80 text-center">在宅系</a>
+        <a href="shisetsu.html" class="py-1.5 rounded-lg text-[11px] font-semibold text-slate-600 hover:bg-white/80 text-center">施設系</a>
+        <a href="sonota.html" class="py-1.5 rounded-lg text-[11px] font-semibold text-slate-600 hover:bg-white/80 text-center">他</a>
+        <a href="jirei.html" class="py-1.5 rounded-lg text-[11px] font-bold bg-emerald-600 text-white text-center shadow-2xs">実施例</a>
+      </div>
+      <div class="lg:hidden relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input type="text" id="mobileSearchInput" placeholder="タイトル・場所・商品名・施工業者・工夫点..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== メインコンテナ ==================== -->
+  <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-4rem)]">
+    <div id="mobileFilterBackdrop" class="hidden fixed inset-0 bg-slate-900/50 z-40 lg:hidden backdrop-blur-xs" onclick="closeMobileFilter()"></div>
+
+    <!-- ==================== 左側：絞り込みサイドバー ==================== -->
+    <aside id="filterSidebar" class="fixed inset-y-0 left-0 z-50 w-[88vw] max-w-sm lg:w-80 xl:w-[340px] bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static lg:z-10 transition-transform duration-200 ease-out flex flex-col h-full lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16 shrink-0 shadow-2xl lg:shadow-none">
+      <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70 shrink-0">
+        <div class="flex items-center gap-2 font-bold text-slate-800">
+          <i class="fa-solid fa-filter text-emerald-600"></i>
+          <span>実施例の絞り込み</span>
+          <span id="activeFilterCount" class="hidden px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-600 text-white">0</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="resetAllFilters()" class="text-xs font-medium text-slate-500 hover:text-rose-600 px-2.5 py-1.5 rounded-lg hover:bg-rose-50 transition flex items-center gap-1">
+            <i class="fa-solid fa-xmark"></i><span>クリア</span>
+          </button>
+          <button type="button" onclick="closeMobileFilter()" class="lg:hidden p-2 text-slate-500 rounded-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 space-y-5">
+        <div class="hidden lg:block">
+          <label for="searchInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">フリーワード検索</label>
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input type="text" id="searchInput" placeholder="タイトル・商品名・施工業者・身体状況・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
+          </div>
+        </div>
+
+        <!-- お気に入り -->
+        <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-3">
+          <label class="flex items-center justify-between cursor-pointer select-none">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-star text-amber-500"></i>
+              <span class="text-sm font-semibold text-slate-800">参考になる事例（★お気に入り）</span>
+            </div>
+            <div class="relative inline-flex items-center">
+              <input type="checkbox" id="favoriteOnlyToggle" class="sr-only peer" onchange="syncFavoriteToggles(this.checked)">
+              <div class="w-10 h-5 bg-slate-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
+            </div>
+          </label>
+        </div>
+
+        <!-- 1. 区分 -->
+        <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3 space-y-2">
+          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-tags text-emerald-600"></i><span>区分（OR検索）</span>
+          </label>
+          <div id="categoryFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- 2. 設置・改修場所 -->
+        <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2">
+          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-house-chimney text-sky-600"></i><span>場所・空間（OR検索）</span>
+          </label>
+          <div id="placeFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- 3. 項目・種別 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-wheelchair text-teal-600"></i><span>改修内容・福祉用具種別（OR検索）</span>
+          </label>
+          <div id="itemTypeFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+
+      <div class="lg:hidden p-3 border-t border-slate-200 bg-white shrink-0 pb-safe">
+        <button type="button" onclick="closeMobileFilter()" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold shadow-sm">
+          この条件で表示する（<span id="mobileResultCount">0</span>件）
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==================== 右側：実施例一覧エリア ==================== -->
+    <main class="flex-1 p-3 sm:p-6 lg:p-8 min-w-0">
+      <div class="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div class="flex items-baseline gap-1.5">
+          <span class="text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 mr-1">写真付き実施例</span>
+          <span id="resultCount" class="text-xl sm:text-2xl font-bold text-emerald-700 font-mono">0</span>
+          <span class="text-xs sm:text-sm text-slate-600 font-medium">件</span>
+          <span class="text-xs text-slate-400 ml-1">/ 全 <span id="totalCount">0</span> 件</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label for="sortSelect" class="text-xs text-slate-500 whitespace-nowrap"><i class="fa-solid fa-arrow-down-wide-short mr-1"></i>並び替え:</label>
+          <select id="sortSelect" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium">
+            <option value="favorite">お気に入り優先</option>
+            <option value="updated">登録・更新日が新しい順</option>
+            <option value="title">タイトル順</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 事例カードグリッド -->
+      <div id="caseContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5"></div>
+
+      <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 text-center my-6">
+        <i class="fa-solid fa-camera-retro text-3xl text-slate-300 mb-3"></i>
+        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">該当する実施例が見つかりませんでした</h3>
+        <p class="text-xs sm:text-sm text-slate-500 mb-5">検索条件を変更するか、「実施例を新規登録」から写真付き事例を追加してください。</p>
+        <button type="button" onclick="resetAllFilters()" class="px-5 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl shadow-xs">絞り込み条件をリセット</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- モバイル下部バー -->
+  <nav class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 pt-2 pb-safe flex items-center justify-around gap-2 shadow-lg">
+    <button type="button" onclick="openMobileFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5 relative">
+      <div class="relative"><i class="fa-solid fa-sliders text-base text-emerald-600"></i><span id="bottomFilterBadge" class="hidden -top-1 -right-2.5 absolute px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-emerald-600 text-white">0</span></div>
+      <span>条件絞り込み</span>
+    </button>
+    <button type="button" onclick="toggleBottomFavoriteFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5">
+      <i class="fa-regular fa-star text-base text-amber-500"></i><span>お気に入り</span>
+    </button>
+    <button type="button" onclick="openFormModal()" class="flex-1 py-2 px-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex flex-col items-center justify-center gap-0.5 shadow-xs">
+      <i class="fa-solid fa-camera text-base"></i><span>実施例登録</span>
+    </button>
+  </nav>
+
+  <!-- ==================== モーダル1：実施例 詳細モーダル（Before/After写真スライダー付） ==================== -->
+  <div id="detailModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
+      <div class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs" onclick="closeDetailModal()"></div>
+      <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl overflow-hidden z-10 sm:my-4 max-h-[94vh] flex flex-col">
+        <div id="detailTopBar" class="h-2 bg-emerald-600 w-full shrink-0"></div>
+        <div class="px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-200 flex items-start justify-between gap-3 bg-slate-50/60 shrink-0">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-1.5 mb-1.5" id="detailBadges"></div>
+            <h2 id="detailTitle" class="text-lg sm:text-2xl font-bold text-slate-900 leading-snug"></h2>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button type="button" id="detailFavBtn" class="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-lg"></button>
+            <button type="button" onclick="closeDetailModal()" class="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+          </div>
+        </div>
+
+        <div class="p-4 sm:p-7 overflow-y-auto flex-1 space-y-5">
+          <!-- 写真スライダー -->
+          <div id="detailPhotoSliderSection" class="hidden bg-slate-900 rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+            <div id="sliderViewport" class="relative h-64 sm:h-96 bg-slate-950 flex items-center justify-center select-none">
+              <img id="sliderCurrentImg" src="" alt="実施例写真" class="max-h-full max-w-full object-contain transition-opacity duration-200" />
+              <button type="button" id="sliderPrevBtn" onclick="movePhotoSlide(-1)"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center shadow-md">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <button type="button" id="sliderNextBtn" onclick="movePhotoSlide(1)"
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center shadow-md">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+              <div id="sliderStageBadge" class="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-600/90 text-white text-xs font-bold shadow"></div>
+              <div id="sliderCounter" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/65 text-white text-xs font-mono font-bold">1 / 1</div>
+              <div id="sliderCaption" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent px-4 py-3 text-white text-xs sm:text-sm font-medium"></div>
+            </div>
+            <div id="sliderThumbnails" class="flex items-center gap-2 p-2.5 bg-slate-800 overflow-x-auto"></div>
+          </div>
+
+          <!-- 対象者像・導入前の課題 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-3.5">
+              <div class="text-xs font-bold text-sky-900 mb-1"><i class="fa-solid fa-user-check text-sky-600 mr-1"></i>対象者像・身体状況（匿名）</div>
+              <p id="detailUserProfile" class="text-sm text-slate-800 whitespace-pre-line"></p>
+            </div>
+            <div class="bg-rose-50/70 border border-rose-200 rounded-xl p-3.5">
+              <div class="text-xs font-bold text-rose-900 mb-1"><i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1"></i>導入前の課題・困りごと</div>
+              <p id="detailIssue" class="text-sm text-slate-800 whitespace-pre-line"></p>
+            </div>
+          </div>
+
+          <!-- 工夫した点・導入後の効果 -->
+          <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-4">
+            <div class="text-xs font-bold text-emerald-900 mb-1.5"><i class="fa-solid fa-lightbulb text-emerald-600 mr-1"></i>施工・選定の工夫点 ＆ 導入後の効果</div>
+            <p id="detailSolution" class="text-sm text-slate-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+
+          <!-- 費用・担当業者・製品名 -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm">
+            <div>
+              <span class="text-xs font-bold text-slate-400 block">使用製品・部材・型番</span>
+              <span id="detailProductName" class="font-bold text-slate-800 mt-0.5 block"></span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-slate-400 block">費用目安・自己負担割合</span>
+              <span id="detailCost" class="font-bold text-emerald-700 mt-0.5 block"></span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-slate-400 block">担当事業所・施工業者</span>
+              <span id="detailVendor" class="font-bold text-slate-800 mt-0.5 block"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4 sm:px-7 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0 pb-safe">
+          <span class="text-xs text-slate-400">登録・更新日: <span id="detailUpdatedAt"></span></span>
+          <div class="flex items-center gap-2">
+            <button type="button" id="detailDeleteBtn" class="px-3 py-2 text-xs sm:text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg">削除</button>
+            <button type="button" id="detailEditBtn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-2xs">編集する</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== モーダル2：実施例 新規登録・編集モーダル ==================== -->
+  <div id="formModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
+      <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeFormModal()"></div>
+      <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[94vh] flex flex-col">
+        <div class="px-5 sm:px-6 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
+          <h2 id="formModalTitle" class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-camera-retro text-emerald-600"></i><span>住宅改修・福祉用具 実施例の登録</span>
+          </h2>
+          <button type="button" onclick="closeFormModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+
+        <form id="caseForm" onsubmit="saveCase(event)" class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5">
+          <input type="hidden" id="formId" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">事例タイトル <span class="text-rose-500">*</span></label>
+              <input type="text" id="formTitle" required placeholder="例：玄関框（28cm）の昇降不安に対する式台＋縦手すり設置" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">区分 <span class="text-rose-500">*</span></label>
+              <select id="formCategory" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white font-semibold">
+                <option value="住宅改修">住宅改修</option>
+                <option value="福祉用具貸与">福祉用具貸与（レンタル）</option>
+                <option value="特定福祉用具販売">特定福祉用具販売（購入）</option>
+                <option value="住宅改修＋福祉用具併用">住宅改修＋福祉用具併用</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">主な場所・空間 <span class="text-rose-500">*</span></label>
+              <select id="formPlace" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">該当する改修内容・福祉用具種別（複数選択可）</label>
+              <div id="formItemTypes" class="flex flex-wrap gap-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-200"></div>
+            </div>
+          </div>
+
+          <!-- 写真アップロード・URL登録（改修前 / 改修後ラベル付き） -->
+          <div class="p-4 rounded-xl bg-teal-50/60 border border-teal-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="text-xs font-bold text-teal-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-images text-teal-600"></i><span>実施例写真（改修前・改修後・設置状況など複数枚OK）</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <label class="px-2.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer shadow-2xs">
+                  <i class="fa-solid fa-camera"></i><span>写真を選択（スマホカメラ可）</span>
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="handlePhotoFilesUpload(event)" />
+                </label>
+                <button type="button" onclick="addPhotoRow()" class="px-2.5 py-1.5 rounded-lg bg-white border border-teal-300 hover:bg-teal-50 text-teal-800 text-xs font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-link"></i><span>URL追加</span>
+                </button>
+              </div>
+            </div>
+            <div id="photoRowsContainer" class="space-y-2"></div>
+            <p class="text-[11px] text-slate-500">※プライバシー保護のため、表札や個人情報が写り込まないようご注意ください。選択画像は自動リサイズされます。</p>
+          </div>
+
+          <!-- 対象者像・課題・工夫 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-sky-900 mb-1">対象者像・身体状況（匿名）</label>
+              <textarea id="formUserProfile" rows="2" placeholder="例：80代女性・要介護2・円背と両膝変形性膝関節症あり・屋内伝い歩き" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-rose-900 mb-1">導入前の課題・困りごと</label>
+              <textarea id="formIssue" rows="2" placeholder="例：玄関框の段差が高く、外出時に家族の抱え上げが必要で転倒リスクが高かった" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"></textarea>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-emerald-900 mb-1">施工・選定の工夫点 ＆ 導入後の効果 <span class="text-rose-500">*</span></label>
+              <textarea id="formSolution" required rows="3" placeholder="例：式台（高さ14cm）を固定設置し、上がり框の縦手すりと玄関ポーチの横手すりを連続配置。見守りだけで安全に昇降できるようになりデイへの外出意欲が向上。" class="w-full px-3 py-2 border border-emerald-300 bg-emerald-50/30 rounded-lg text-sm"></textarea>
+            </div>
+          </div>
+
+          <!-- 製品名・費用・担当業者 -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">使用製品・部材名</label>
+              <input type="text" id="formProductName" placeholder="例：マツ六 フリーRレール / モルテン ルーツ" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">費用目安・自己負担額</label>
+              <input type="text" id="formCost" placeholder="例：総額 約8.5万円（1割負担 約8,500円）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">担当福祉用具事業所・施工業者</label>
+              <input type="text" id="formVendor" placeholder="例：〇〇福祉用具サービス / 〇〇工務店" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200 flex items-center justify-end gap-2.5 pb-safe">
+            <button type="button" onclick="closeFormModal()" class="px-4 py-2.5 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium">キャンセル</button>
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-cloud-arrow-up"></i><span>保存する</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== モーダル3：確認ダイアログ ==================== -->
+  <div id="confirmModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeConfirmModal()"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl border border-slate-200 max-w-md w-full p-6 z-10">
+        <h3 id="confirmTitle" class="text-lg font-bold text-slate-900 mb-2">確認</h3>
+        <p id="confirmMessage" class="text-sm text-slate-600 leading-relaxed mb-6"></p>
+        <div class="flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeConfirmModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium">キャンセル</button>
+          <button type="button" id="confirmExecuteBtn" class="px-4 py-2 rounded-lg bg-rose-600 text-white text-sm font-semibold">削除する</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="fixed bottom-20 lg:bottom-5 right-3 sm:right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    const CASES_STORAGE_KEY = 'carenavi_cases_v1';
+    const FONT_KEY = 'carenavi_fontsize_v1';
+    const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
+
+    const CATEGORY_OPTIONS = [
+      { id: '住宅改修', color: 'bg-emerald-100 text-emerald-800 border-emerald-300', bar: 'bg-emerald-500' },
+      { id: '福祉用具貸与', color: 'bg-amber-100 text-amber-800 border-amber-300', bar: 'bg-amber-500' },
+      { id: '特定福祉用具販売', color: 'bg-sky-100 text-sky-800 border-sky-300', bar: 'bg-sky-500' },
+      { id: '住宅改修＋福祉用具併用', color: 'bg-teal-100 text-teal-800 border-teal-300', bar: 'bg-teal-500' }
+    ];
+
+    const PLACE_OPTIONS = ['玄関・アプローチ', '廊下・階段', 'トイレ', '浴室・脱衣所', '寝室・居室', '屋外・庭', 'その他'];
+
+    const ITEM_TYPE_OPTIONS = [
+      '手すり取付け（壁付）', '据置型手すり（工事不要）', '段差解消（スロープ・式台）', '床材変更（滑り防止）',
+      '扉の取替え（引き戸化等）', '便器の取替え（和式→洋式等）', '特殊寝台（介護ベッド）', '車いす・クッション',
+      '歩行器・杖', '入浴補助用具（シャワーチェア・浴槽台）', '床ずれ防止用具', '認知症老人徘徊感知機器'
+    ];
+
+    const PHOTO_STAGE_OPTIONS = ['施工前（Before）', '施工後（After）', '設置状況・全体', '細部・工夫ポイント'];
+
+    const INITIAL_CASES = [
+      {
+        id: 'case_001',
+        title: '玄関框（26cm）＋玄関ポーチ階段への連続手すり・式台設置',
+        category: '住宅改修',
+        place: '玄関・アプローチ',
+        itemTypes: ['手すり取付け（壁付）', '段差解消（スロープ・式台）'],
+        photos: [],
+        userProfile: '80代後半・要介護2・両変形性膝関節症、坂道の多い地域在住',
+        issue: '玄関框の段差が高く、外出時に足が上がらず転倒しかけた。屋外アプローチにも手すりがなくデイサービスの送迎車までの移動が不安定。',
+        solution: '玄関土間に木製式台をアンカー固定し1段あたりの高さを13cmに軽減。室内側の縦手すりから屋外ポーチの横手すりまで動線が途切れないよう連続設置したことで、見守りレベルで安全に外出できるようになった。',
+        productName: 'マツ六 フリーRレール・木製式台',
+        cost: '総額 約11.2万円（1割負担 約11,200円）',
+        vendor: '長崎福祉住環境サポート',
+        favorite: true,
+        updatedAt: '2026-11-20'
+      },
+      {
+        id: 'case_002',
+        title: '賃貸住宅での工事不要「突っ張り型・据置型手すり」によるトイレ動線確保',
+        category: '福祉用具貸与',
+        place: 'トイレ',
+        itemTypes: ['据置型手すり（工事不要）'],
+        photos: [],
+        userProfile: '70代男性・要介護1・脳梗塞後遺症（左片麻痺）・市営住宅居住',
+        issue: '賃貸のため壁へのビス打ち工事の承諾に時間がかかる状況。トイレ内の立ち座りとズボンの上げ下げ時にバランスを崩しやすい。',
+        solution: '床と天井で突っ張るタイプの手すりと便器囲い型フレームをレンタルで即日導入。健側（右手）でしっかり引き寄せながら立ち上がれる位置に調整し、退院当日から安全にトイレ動作が自立した。',
+        productName: 'ベストポジションバー / たちあっぷ',
+        cost: 'レンタル月額 約600円（1割負担）',
+        vendor: 'みなと福祉用具レンタル',
+        favorite: true,
+        updatedAt: '2026-11-18'
+      }
+    ];
+
+    let cases = [];
+    let currentDetailId = null;
+    let currentSliderPhotos = [];
+    let currentSlideIndex = 0;
+
+    let filterState = {
+      keyword: '',
+      favoriteOnly: false,
+      categories: [],
+      places: [],
+      itemTypes: []
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      loadLocalCache();
+      initFilterUI();
+      initFormUI();
+      initEventListeners();
+      initSliderTouchEvents();
+      applySavedFontSize();
+      applyFilters();
+
+      if (!GAS_URL) setSyncUI('local', 'ローカル保存');
+      else await syncFromCloud(false);
+    });
+
+    function loadLocalCache() {
+      try {
+        const saved = localStorage.getItem(CASES_STORAGE_KEY);
+        if (saved) cases = JSON.parse(saved);
+        else cases = structuredClone(INITIAL_CASES);
+      } catch (e) {
+        cases = structuredClone(INITIAL_CASES);
+      }
+    }
+
+    function setSyncUI(state, text) {
+      const icon = document.getElementById('syncStatusIcon');
+      const label = document.getElementById('syncStatusText');
+      if (label) label.textContent = text;
+      if (!icon) return;
+      if (state === 'loading') icon.className = 'fa-solid fa-arrows-rotate fa-spin text-emerald-600';
+      else if (state === 'ok') icon.className = 'fa-solid fa-cloud-check text-emerald-600';
+      else if (state === 'error') icon.className = 'fa-solid fa-cloud-exclamation text-rose-500';
+      else icon.className = 'fa-solid fa-hard-drive text-amber-500';
+    }
+
+    async function syncFromCloud(manual = false) {
+      if (!GAS_URL) return;
+      setSyncUI('loading', '同期中...');
+      try {
+        const res = await fetch(GAS_URL);
+        const data = await res.json();
+        if (data.status === 'ok') {
+          if (Array.isArray(data.cases)) {
+            cases = data.cases;
+            localStorage.setItem(CASES_STORAGE_KEY, JSON.stringify(cases));
+          }
+          applyFilters();
+          setSyncUI('ok', 'クラウド同期済');
+          if (manual) showToast('クラウドから最新の実施例を取得しました', 'success');
+        } else {
+          setSyncUI('error', '同期エラー');
+        }
+      } catch (e) {
+        setSyncUI('error', 'オフライン');
+        if (manual) showToast('クラウド接続に失敗しました（キャッシュを表示中）');
+      }
+    }
+
+    async function saveCasesToStorage() {
+      localStorage.setItem(CASES_STORAGE_KEY, JSON.stringify(cases));
+      if (!GAS_URL) return;
+      setSyncUI('loading', '保存中...');
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ cases })
+        });
+        setSyncUI('ok', 'クラウド保存済');
+      } catch (e) {
+        setSyncUI('error', '保存エラー');
+        showToast('クラウドへの保存に失敗しました');
+      }
+    }
+
+    function getCategoryStyle(catId) {
+      return CATEGORY_OPTIONS.find(c => c.id === catId) || CATEGORY_OPTIONS[0];
+    }
+
+    function normalizeImageUrl(url) {
+      if (!url) return '';
+      const trimmed = String(url).trim();
+      const driveMatch = trimmed.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]+)/);
+      if (driveMatch && driveMatch[1]) {
+        return `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w1200`;
+      }
+      return trimmed.startsWith('data:image/') ? trimmed : (/^https?:\/\//i.test(trimmed) ? trimmed : 'https://' + trimmed);
+    }
+
+    function highlightChip(btn, isSelected, variant = 'emerald') {
+      if (!btn) return;
+      const activeMap = {
+        emerald: ['bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-2xs'],
+        sky: ['bg-sky-600', 'text-white', 'border-sky-600', 'shadow-2xs'],
+        teal: ['bg-teal-600', 'text-white', 'border-teal-600', 'shadow-2xs']
+      };
+      const activeClasses = activeMap[variant] || activeMap.emerald;
+      const inactiveClasses = ['bg-white', 'text-slate-700', 'border-slate-200'];
+      activeClasses.forEach(c => btn.classList.toggle(c, isSelected));
+      inactiveClasses.forEach(c => btn.classList.toggle(c, !isSelected));
+    }
+
+    function initFilterUI() {
+      document.getElementById('categoryFilters').innerHTML = CATEGORY_OPTIONS.map(cat => `
+        <button type="button" onclick="toggleArrayFilter('categories', '${escapeHtml(cat.id)}', this, 'emerald')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-emerald-50 text-xs font-medium text-slate-700">
+          ${escapeHtml(cat.id)}
+        </button>
+      `).join('');
+
+      document.getElementById('placeFilters').innerHTML = PLACE_OPTIONS.map(p => `
+        <button type="button" onclick="toggleArrayFilter('places', '${escapeHtml(p)}', this, 'sky')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-sky-50 text-xs font-medium text-slate-700">
+          ${escapeHtml(p)}
+        </button>
+      `).join('');
+
+      document.getElementById('itemTypeFilters').innerHTML = ITEM_TYPE_OPTIONS.map(it => `
+        <button type="button" onclick="toggleArrayFilter('itemTypes', '${escapeHtml(it)}', this, 'teal')"
+          class="filter-chip text-left px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-teal-50 text-xs font-medium text-slate-700">
+          ${escapeHtml(it)}
+        </button>
+      `).join('');
+    }
+
+    function toggleArrayFilter(key, val, btn, variant) {
+      const idx = filterState[key].indexOf(val);
+      const isSelected = idx === -1;
+      if (isSelected) filterState[key].push(val); else filterState[key].splice(idx, 1);
+      highlightChip(btn, isSelected, variant);
+      applyFilters();
+    }
+
+    function applyFilters() {
+      filterState.favoriteOnly = document.getElementById('favoriteOnlyToggle').checked;
+      const kw = filterState.keyword.trim().toLowerCase();
+
+      let filtered = cases.filter(item => {
+        if (filterState.favoriteOnly && !item.favorite) return false;
+        if (filterState.categories.length > 0 && !filterState.categories.includes(item.category)) return false;
+        if (filterState.places.length > 0 && !filterState.places.includes(item.place)) return false;
+        if (filterState.itemTypes.length > 0 && !filterState.itemTypes.some(t => (item.itemTypes || []).includes(t))) return false;
+
+        if (kw) {
+          const text = [
+            item.title, item.category, item.place, item.userProfile, item.issue, item.solution,
+            item.productName, item.cost, item.vendor, ...(item.itemTypes || [])
+          ].join(' ').toLowerCase();
+          if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
+        }
+        return true;
+      });
+
+      const sortBy = document.getElementById('sortSelect').value;
+      filtered.sort((a, b) => {
+        if (sortBy === 'favorite') {
+          if (a.favorite !== b.favorite) return b.favorite ? 1 : -1;
+          return (b.updatedAt || '').localeCompare(a.updatedAt || '');
+        }
+        if (sortBy === 'updated') return (b.updatedAt || '').localeCompare(a.updatedAt || '');
+        return a.title.localeCompare(b.title, 'ja');
+      });
+
+      document.getElementById('resultCount').textContent = filtered.length;
+      document.getElementById('mobileResultCount').textContent = filtered.length;
+      document.getElementById('totalCount').textContent = cases.length;
+
+      const count = filterState.categories.length + filterState.places.length + filterState.itemTypes.length +
+        (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
+      document.getElementById('activeFilterCount').textContent = count;
+      document.getElementById('bottomFilterBadge').textContent = count;
+      document.getElementById('activeFilterCount').classList.toggle('hidden', count === 0);
+      document.getElementById('mobileFilterBadge').classList.toggle('hidden', count === 0);
+      document.getElementById('bottomFilterBadge').classList.toggle('hidden', count === 0);
+
+      renderCases(filtered);
+    }
+
+    function renderCases(list) {
+      const container = document.getElementById('caseContainer');
+      const empty = document.getElementById('emptyState');
+      if (list.length === 0) {
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      container.innerHTML = list.map(renderCaseCardHTML).join('');
+    }
+
+    function renderCaseCardHTML(item) {
+      const catStyle = getCategoryStyle(item.category);
+      const photos = Array.isArray(item.photos) ? item.photos.filter(p => p && p.url) : [];
+      const coverPhoto = photos.length > 0 ? normalizeImageUrl(photos[photos.length - 1].url) : '';
+      const coverStage = photos.length > 0 ? (photos[photos.length - 1].stage || '') : '';
+
+      const itemBadges = (item.itemTypes || []).slice(0, 3).map(t =>
+        `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-[11px] font-medium">${escapeHtml(t)}</span>`
+      ).join('');
+
+      return `
+        <article class="bg-white rounded-2xl border border-slate-200 hover:border-emerald-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+          <div>
+            <div class="h-1.5 w-full ${catStyle.bar}"></div>
+            <!-- サムネイル画像エリア -->
+            <div onclick="openDetailModal('${item.id}')" class="relative h-44 bg-slate-100 border-b border-slate-200 cursor-pointer overflow-hidden flex items-center justify-center">
+              ${coverPhoto
+                ? `<img src="${escapeHtml(coverPhoto)}" alt="${escapeHtml(item.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />`
+                : `<div class="text-center text-slate-400"><i class="fa-solid fa-image text-3xl mb-1 block"></i><span class="text-xs">写真未登録</span></div>`
+              }
+              ${coverStage ? `<span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-black/65 text-white text-[11px] font-bold">${escapeHtml(coverStage)}</span>` : ''}
+              ${photos.length > 0 ? `<span class="absolute bottom-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-black/70 text-white text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-images"></i><span>${photos.length}枚</span></span>` : ''}
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-xs font-bold border ${catStyle.color}">${escapeHtml(item.category)}</span>
+                  <span class="px-2 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200 text-xs font-semibold">${escapeHtml(item.place)}</span>
+                </div>
+                <button type="button" onclick="toggleFavorite('${item.id}', event)" class="p-1.5 -mt-1 -mr-1 rounded-lg hover:bg-amber-50 text-lg">
+                  <i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i>
+                </button>
+              </div>
+
+              <h3 onclick="openDetailModal('${item.id}')" class="text-base font-bold text-slate-900 group-hover:text-emerald-700 cursor-pointer leading-snug mb-2 line-clamp-2">${escapeHtml(item.title)}</h3>
+
+              ${itemBadges ? `<div class="flex flex-wrap gap-1 mb-2.5">${itemBadges}</div>` : ''}
+
+              <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-200/70 mb-2.5">${escapeHtml(item.solution || '')}</p>
+
+              <div class="text-xs text-slate-500 space-y-0.5">
+                ${item.productName ? `<div class="truncate"><i class="fa-solid fa-box-open text-slate-400 w-4"></i>${escapeHtml(item.productName)}</div>` : ''}
+                ${item.cost ? `<div class="truncate font-semibold text-emerald-700"><i class="fa-solid fa-yen-sign text-emerald-500 w-4"></i>${escapeHtml(item.cost)}</div>` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="px-4 py-2.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400 truncate max-w-[55%]">${escapeHtml(item.vendor || item.updatedAt || '')}</span>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="openFormModal('${item.id}')" class="px-2.5 py-1.5 rounded-lg text-xs text-slate-600 hover:bg-slate-200/70"><i class="fa-solid fa-pen"></i></button>
+              <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-emerald-500 text-xs font-semibold text-slate-700">写真・詳細</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    async function toggleFavorite(id, e) {
+      if (e) e.stopPropagation();
+      const target = cases.find(c => c.id === id);
+      if (!target) return;
+      target.favorite = !target.favorite;
+      applyFilters();
+      if (currentDetailId === id) {
+        document.getElementById('detailFavBtn').innerHTML = target.favorite ? '<i class="fa-solid fa-star text-amber-400"></i>' : '<i class="fa-regular fa-star text-slate-400"></i>';
+      }
+      await saveCasesToStorage();
+    }
+
+    // ==================== 写真スライダー ====================
+    function initDetailPhotoSlider(photos) {
+      const section = document.getElementById('detailPhotoSliderSection');
+      currentSliderPhotos = Array.isArray(photos) ? photos.filter(p => p && p.url) : [];
+      currentSlideIndex = 0;
+
+      if (currentSliderPhotos.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+      section.classList.remove('hidden');
+      renderPhotoSlide();
+    }
+
+    function movePhotoSlide(step) {
+      if (currentSliderPhotos.length <= 1) return;
+      currentSlideIndex = (currentSlideIndex + step + currentSliderPhotos.length) % currentSliderPhotos.length;
+      renderPhotoSlide();
+    }
+
+    function goToPhotoSlide(index) {
+      currentSlideIndex = index;
+      renderPhotoSlide();
+    }
+
+    function renderPhotoSlide() {
+      const total = currentSliderPhotos.length;
+      const current = currentSliderPhotos[currentSlideIndex];
+      document.getElementById('sliderCurrentImg').src = normalizeImageUrl(current.url);
+      document.getElementById('sliderCounter').textContent = `${currentSlideIndex + 1} / ${total}`;
+      document.getElementById('sliderCaption').textContent = current.caption || `写真 ${currentSlideIndex + 1}`;
+
+      const stageBadge = document.getElementById('sliderStageBadge');
+      if (current.stage) {
+        stageBadge.textContent = current.stage;
+        stageBadge.classList.remove('hidden');
+      } else {
+        stageBadge.classList.add('hidden');
+      }
+
+      const showNav = total > 1;
+      document.getElementById('sliderPrevBtn').classList.toggle('hidden', !showNav);
+      document.getElementById('sliderNextBtn').classList.toggle('hidden', !showNav);
+
+      document.getElementById('sliderThumbnails').innerHTML = currentSliderPhotos.map((p, idx) => `
+        <button type="button" onclick="goToPhotoSlide(${idx})"
+          class="relative w-16 h-11 rounded overflow-hidden shrink-0 border-2 transition ${idx === currentSlideIndex ? 'border-emerald-400 opacity-100 scale-105' : 'border-transparent opacity-60 hover:opacity-90'}">
+          <img src="${escapeHtml(normalizeImageUrl(p.url))}" alt="" class="w-full h-full object-cover" />
+        </button>
+      `).join('');
+    }
+
+    function initSliderTouchEvents() {
+      const viewport = document.getElementById('sliderViewport');
+      if (!viewport) return;
+      let startX = 0;
+      viewport.addEventListener('touchstart', e => { startX = e.changedTouches[0].screenX; }, { passive: true });
+      viewport.addEventListener('touchend', e => {
+        const diffX = e.changedTouches[0].screenX - startX;
+        if (Math.abs(diffX) > 40) movePhotoSlide(diffX < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+
+    function openDetailModal(id) {
+      const item = cases.find(c => c.id === id);
+      if (!item) return;
+      currentDetailId = id;
+      const catStyle = getCategoryStyle(item.category);
+
+      document.getElementById('detailTopBar').className = `h-2 w-full shrink-0 ${catStyle.bar}`;
+      const itemBadges = (item.itemTypes || []).map(t => `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 text-xs font-medium">${escapeHtml(t)}</span>`).join('');
+      document.getElementById('detailBadges').innerHTML = `
+        <span class="px-2.5 py-0.5 rounded text-xs font-bold border ${catStyle.color}">${escapeHtml(item.category)}</span>
+        <span class="px-2.5 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200 text-xs font-bold">${escapeHtml(item.place)}</span>
+        ${itemBadges}
+      `;
+      document.getElementById('detailTitle').textContent = item.title;
+      document.getElementById('detailFavBtn').innerHTML = item.favorite ? '<i class="fa-solid fa-star text-amber-400"></i>' : '<i class="fa-regular fa-star text-slate-400"></i>';
+      document.getElementById('detailFavBtn').onclick = () => toggleFavorite(item.id);
+
+      initDetailPhotoSlider(item.photos || []);
+
+      document.getElementById('detailUserProfile').textContent = item.userProfile || '（記載なし）';
+      document.getElementById('detailIssue').textContent = item.issue || '（記載なし）';
+      document.getElementById('detailSolution').textContent = item.solution || '（記載なし）';
+      document.getElementById('detailProductName').textContent = item.productName || '未登録';
+      document.getElementById('detailCost').textContent = item.cost || '未登録';
+      document.getElementById('detailVendor').textContent = item.vendor || '未登録';
+      document.getElementById('detailUpdatedAt').textContent = item.updatedAt || '-';
+
+      document.getElementById('detailEditBtn').onclick = () => { closeDetailModal(); openFormModal(item.id); };
+      document.getElementById('detailDeleteBtn').onclick = () => {
+        document.getElementById('confirmTitle').textContent = '実施例の削除';
+        document.getElementById('confirmMessage').textContent = `「${item.title}」を削除しますか？`;
+        document.getElementById('confirmExecuteBtn').onclick = async () => {
+          cases = cases.filter(c => c.id !== item.id);
+          closeConfirmModal(); closeDetailModal(); applyFilters();
+          await saveCasesToStorage();
+          showToast('削除しました');
+        };
+        document.getElementById('confirmModal').classList.remove('hidden');
+      };
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); currentDetailId = null; }
+
+    // ==================== フォーム制御 ====================
+    function initFormUI() {
+      document.getElementById('formPlace').innerHTML = PLACE_OPTIONS.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+      document.getElementById('formItemTypes').innerHTML = ITEM_TYPE_OPTIONS.map(it => `
+        <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white cursor-pointer text-xs font-medium text-slate-700">
+          <input type="checkbox" name="formItemType" value="${escapeHtml(it)}" class="rounded text-emerald-600"><span>${escapeHtml(it)}</span>
+        </label>
+      `).join('');
+    }
+
+    function addPhotoRow(stage = '施工後（After）', caption = '', url = '') {
+      const container = document.getElementById('photoRowsContainer');
+      const row = document.createElement('div');
+      row.className = 'photo-row flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white p-2.5 rounded-lg border border-teal-200';
+      const previewSrc = url ? normalizeImageUrl(url) : '';
+      const stageOptionsHtml = PHOTO_STAGE_OPTIONS.map(st =>
+        `<option value="${escapeHtml(st)}" ${st === stage ? 'selected' : ''}>${escapeHtml(st)}</option>`
+      ).join('');
+      row.innerHTML = `
+        <img src="${escapeHtml(previewSrc)}" class="photo-preview w-12 h-12 rounded object-cover border border-slate-200 bg-slate-100 shrink-0 ${previewSrc ? '' : 'hidden'}" alt="プレビュー" />
+        <select class="photo-stage px-2 py-1.5 border border-slate-300 rounded text-xs font-bold bg-slate-50 shrink-0">${stageOptionsHtml}</select>
+        <input type="text" class="photo-caption sm:w-1/3 px-2.5 py-1.5 border border-slate-300 rounded text-xs" placeholder="説明（例：手すり高さ75cmに設定）" value="${escapeHtml(caption)}" />
+        <input type="text" class="photo-url flex-1 px-2.5 py-1.5 border border-slate-300 rounded text-xs font-mono" placeholder="画像URL または ファイル選択" value="${escapeHtml(url)}" oninput="updatePhotoRowPreview(this)" />
+        <button type="button" onclick="this.parentElement.remove()" class="px-2.5 py-1.5 rounded text-rose-600 hover:bg-rose-50 text-xs font-semibold shrink-0"><i class="fa-solid fa-trash-can"></i></button>
+      `;
+      container.appendChild(row);
+    }
+
+    function updatePhotoRowPreview(input) {
+      const row = input.closest('.photo-row');
+      const img = row.querySelector('.photo-preview');
+      const src = normalizeImageUrl(input.value);
+      if (src) { img.src = src; img.classList.remove('hidden'); }
+      else { img.classList.add('hidden'); }
+    }
+
+    function handlePhotoFilesUpload(event) {
+      const files = Array.from(event.target.files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const maxWidth = 900;
+            let w = img.width, h = img.height;
+            if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+            const baseName = file.name.replace(/\.[^/.]+$/, '');
+            addPhotoRow('施工後（After）', baseName, compressedDataUrl);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      event.target.value = '';
+    }
+
+    function openFormModal(editId = null) {
+      document.getElementById('caseForm').reset();
+      document.getElementById('photoRowsContainer').innerHTML = '';
+      if (editId) {
+        const item = cases.find(c => c.id === editId);
+        if (!item) return;
+        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-emerald-600"></i><span>実施例の編集</span>`;
+        document.getElementById('formId').value = item.id;
+        document.getElementById('formTitle').value = item.title;
+        document.getElementById('formCategory').value = item.category;
+        document.getElementById('formPlace').value = item.place;
+        document.querySelectorAll('input[name="formItemType"]').forEach(c => c.checked = (item.itemTypes || []).includes(c.value));
+        (item.photos || []).forEach(p => addPhotoRow(p.stage || '施工後（After）', p.caption || '', p.url || ''));
+        document.getElementById('formUserProfile').value = item.userProfile || '';
+        document.getElementById('formIssue').value = item.issue || '';
+        document.getElementById('formSolution').value = item.solution || '';
+        document.getElementById('formProductName').value = item.productName || '';
+        document.getElementById('formCost').value = item.cost || '';
+        document.getElementById('formVendor').value = item.vendor || '';
+      } else {
+        document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-camera-retro text-emerald-600"></i><span>住宅改修・福祉用具 実施例の登録</span>`;
+        document.getElementById('formId').value = '';
+      }
+      document.getElementById('formModal').classList.remove('hidden');
+    }
+
+    function closeFormModal() { document.getElementById('formModal').classList.add('hidden'); }
+
+    async function saveCase(e) {
+      e.preventDefault();
+      const id = document.getElementById('formId').value;
+      const today = new Date().toISOString().split('T')[0];
+
+      const photos = Array.from(document.querySelectorAll('#photoRowsContainer .photo-row')).map(row => ({
+        stage: row.querySelector('.photo-stage').value,
+        caption: row.querySelector('.photo-caption').value.trim(),
+        url: row.querySelector('.photo-url').value.trim()
+      })).filter(p => p.url);
+
+      const payload = {
+        id: id || 'case_' + Date.now(),
+        title: document.getElementById('formTitle').value.trim(),
+        category: document.getElementById('formCategory').value,
+        place: document.getElementById('formPlace').value,
+        itemTypes: Array.from(document.querySelectorAll('input[name="formItemType"]:checked')).map(c => c.value),
+        photos,
+        userProfile: document.getElementById('formUserProfile').value.trim(),
+        issue: document.getElementById('formIssue').value.trim(),
+        solution: document.getElementById('formSolution').value.trim(),
+        productName: document.getElementById('formProductName').value.trim(),
+        cost: document.getElementById('formCost').value.trim(),
+        vendor: document.getElementById('formVendor').value.trim(),
+        favorite: false,
+        updatedAt: today
+      };
+
+      if (id) {
+        const idx = cases.findIndex(c => c.id === id);
+        if (idx !== -1) {
+          payload.favorite = cases[idx].favorite;
+          cases[idx] = { ...cases[idx], ...payload };
+        }
+        showToast('実施例を更新しました', 'success');
+      } else {
+        cases.unshift(payload);
+        showToast('実施例を新規登録しました', 'success');
+      }
+      closeFormModal();
+      applyFilters();
+      await saveCasesToStorage();
+    }
+
+    function exportCasesJSON() {
+      const blob = new Blob([JSON.stringify({ version: '1.0', cases }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `ケアナビPro_改修福祉用具実施例_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+    }
+
+    function closeConfirmModal() { document.getElementById('confirmModal').classList.add('hidden'); }
+
+    function syncSearchInputs(val) {
+      filterState.keyword = val;
+      document.getElementById('searchInput').value = val;
+      document.getElementById('mobileSearchInput').value = val;
+      document.getElementById('clearSearchBtn').classList.toggle('hidden', !val);
+      document.getElementById('mobileClearSearchBtn').classList.toggle('hidden', !val);
+      applyFilters();
+    }
+    function clearSearchInput() { syncSearchInputs(''); }
+    function syncFavoriteToggles(c) { filterState.favoriteOnly = c; document.getElementById('favoriteOnlyToggle').checked = c; applyFilters(); }
+    function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
+
+    function resetAllFilters() {
+      filterState = { keyword: '', favoriteOnly: false, categories: [], places: [], itemTypes: [] };
+      syncSearchInputs('');
+      document.getElementById('favoriteOnlyToggle').checked = false;
+      document.querySelectorAll('.filter-chip').forEach(b => highlightChip(b, false));
+      applyFilters();
+    }
+
+    function setFontSize(size) {
+      document.documentElement.className = size === 'large' ? 'font-large' : 'font-normal';
+      localStorage.setItem(FONT_KEY, size);
+    }
+    function applySavedFontSize() { setFontSize(localStorage.getItem(FONT_KEY) || 'normal'); }
+    function openMobileFilter() { document.getElementById('filterSidebar').classList.remove('-translate-x-full'); document.getElementById('mobileFilterBackdrop').classList.remove('hidden'); }
+    function closeMobileFilter() { document.getElementById('filterSidebar').classList.add('-translate-x-full'); document.getElementById('mobileFilterBackdrop').classList.add('hidden'); }
+
+    function initEventListeners() {
+      document.getElementById('searchInput').addEventListener('input', e => syncSearchInputs(e.target.value));
+      document.getElementById('mobileSearchInput').addEventListener('input', e => syncSearchInputs(e.target.value));
+      document.getElementById('mobileFilterToggle').addEventListener('click', openMobileFilter);
+    }
+
+    function showToast(msg, type = 'info') {
+      const el = document.createElement('div');
+      el.className = `${type === 'success' ? 'bg-emerald-800' : 'bg-slate-800'} text-white px-4 py-3 rounded-xl shadow-lg text-xs sm:text-sm font-medium pointer-events-auto`;
+      el.textContent = msg;
+      document.getElementById('toastContainer').appendChild(el);
+      setTimeout(() => el.remove(), 2500);
+    }
+
+    function escapeHtml(s) {
+      return s == null ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+</body>
+</html>
