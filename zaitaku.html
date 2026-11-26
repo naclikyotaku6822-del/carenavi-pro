@@ -2,19 +2,17 @@
 <html lang="ja" class="font-normal">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>ケアナビ Pro【在宅系】 | 介護サービス事業所 情報検索・管理システム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ケアナビPro｜在宅系サービス（訪問・通所・福祉用具・居宅・病院診療所）</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="config.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'], mono: ['"Inter"', 'monospace'] },
+          fontFamily: { sans: ['"Noto Sans JP"', 'sans-serif'] },
           colors: {
             brand: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' }
           }
@@ -25,562 +23,590 @@
   <style>
     html.font-normal { font-size: 15px; }
     html.font-large { font-size: 17.5px; }
-    @media (max-width: 640px) { input[type="text"], input[type="tel"], input[type="url"], select, textarea { font-size: 16px !important; } }
+    body { background-color: #f8fafc; color: #1e293b; -webkit-tap-highlight-color: transparent; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-    .filter-chip { transition: all 0.15s ease-in-out; }
-    .filter-chip:active { transform: scale(0.97); }
-    .pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+    .filter-chip { transition: all 0.15s ease; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0.75rem); }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-900 pb-20 lg:pb-0">
+<body class="min-h-screen flex flex-col pb-16 lg:pb-0">
 
   <!-- ==================== ヘッダー ==================== -->
-  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-xs">
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-2xs">
     <div class="max-w-[1600px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-        <button id="mobileFilterToggle" type="button" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 relative shrink-0" aria-label="絞り込み条件を開く">
-          <i class="fa-solid fa-sliders text-lg"></i>
-          <span id="mobileFilterBadge" class="hidden absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-brand-600 rounded-full ring-2 ring-white"></span>
-        </button>
-
-        <a href="index.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-700 text-white flex items-center justify-center shadow-xs shrink-0" title="トップへ戻る">
-          <i class="fa-solid fa-house-medical text-base sm:text-lg"></i>
-        </a>
-        <div class="min-w-0">
-          <div class="flex items-center gap-2">
-            <h1 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight leading-tight truncate">ケアナビ Pro</h1>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-brand-100 text-brand-800 border border-brand-300 shrink-0">在宅系</span>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <a href="zaitaku.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-xs">
+            <i class="fa-solid fa-house-medical text-base"></i>
           </div>
-          <p class="hidden md:block text-xs text-slate-500 truncate">訪問介護・訪問看護・訪問リハ・通所介護・通所リハ・福祉用具貸与</p>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900">ケアナビ<span class="text-brand-600">Pro</span></h1>
+              <span class="px-1.5 py-0.5 text-[10px] font-bold bg-brand-50 text-brand-700 rounded border border-brand-200">在宅系</span>
+            </div>
+            <p class="hidden sm:block text-[11px] text-slate-500 -mt-0.5">長崎市 居宅介護支援・地域連携データベース</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- 検索バー（PC） -->
+      <div class="hidden md:flex flex-1 max-w-xl mx-2">
+        <div class="relative w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="searchInput" placeholder="事業所名・診療科目・訪問診療・往診・病床・メモで検索..."
+            class="w-full pl-10 pr-9 py-2 bg-slate-100 hover:bg-slate-200/60 focus:bg-white border border-transparent focus:border-brand-500 rounded-xl text-sm outline-none transition" />
+          <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </button>
         </div>
       </div>
 
-      <!-- カテゴリ間ナビゲーション -->
-      <nav class="hidden xl:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 gap-1">
-        <a href="index.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-compass"></i><span>トップ</span>
-        </a>
-        <a href="zaitaku.html" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white shadow-2xs flex items-center gap-1.5">
-          <i class="fa-solid fa-house-medical"></i><span>在宅系</span>
-        </a>
-        <a href="shisetsu.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-building"></i><span>施設系</span>
-        </a>
-        <a href="sonota.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-layer-group"></i><span>他サービス</span>
-        </a>
-      </nav>
-
-      <!-- 右側アクションバー -->
-      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-        <button type="button" onclick="syncFromCloud(true)" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-medium text-slate-600 flex items-center gap-1.5 transition" title="クリックで最新データを再読込">
+      <!-- 右側操作ボタン -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <button type="button" id="syncStatusBtn" onclick="syncFromCloud(true)" title="クリックで最新データを再取得"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-[11px] font-bold text-slate-600">
           <i id="syncStatusIcon" class="fa-solid fa-cloud text-slate-400"></i>
-          <span id="syncStatusText" class="hidden md:inline">確認中...</span>
+          <span id="syncStatusText" class="hidden sm:inline">読込中</span>
         </button>
 
-        <div class="hidden sm:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
-          <span class="text-xs text-slate-500 px-2"><i class="fa-solid fa-text-height mr-1"></i>文字</span>
-          <button id="fontNormalBtn" type="button" onclick="setFontSize('normal')" class="px-2 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-xs transition">標準</button>
-          <button id="fontLargeBtn" type="button" onclick="setFontSize('large')" class="px-2 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">大</button>
+        <div class="hidden xl:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
+          <button type="button" id="fontNormalBtn" onclick="setFontSize('normal')" class="px-2 py-1 text-xs font-semibold rounded-md bg-white text-brand-700 shadow-2xs">標準</button>
+          <button type="button" id="fontLargeBtn" onclick="setFontSize('large')" class="px-2 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900">文字大</button>
         </div>
 
-        <button type="button" onclick="openMasterModal()" class="p-2.5 sm:px-3 sm:py-2 rounded-xl sm:rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition shadow-2xs cursor-pointer">
-          <i class="fa-solid fa-gear text-brand-600 text-sm sm:text-base"></i>
-          <span class="hidden md:inline">マスター</span>
+        <button type="button" onclick="openMasterModal('serviceTypes')"
+          class="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium">
+          <i class="fa-solid fa-gear text-slate-500"></i><span class="hidden sm:inline">マスター</span>
         </button>
 
-        <div class="relative" id="dataMenuWrapper">
-          <button id="dataMenuBtn" type="button" class="p-2.5 sm:px-3 sm:py-2 rounded-xl sm:rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition shadow-2xs">
-            <i class="fa-solid fa-database text-slate-500 text-sm sm:text-base"></i>
-            <span class="hidden md:inline">データ</span>
-            <i class="fa-solid fa-chevron-down text-xs text-slate-400 hidden sm:inline"></i>
+        <div class="relative">
+          <button type="button" id="dataMenuBtn" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium">
+            <i class="fa-solid fa-database text-slate-500"></i><span class="hidden sm:inline">データ</span>
           </button>
-          <div id="dataMenuDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50">
-            <div class="px-3 py-1.5 text-xs font-semibold text-slate-400 border-b border-slate-100">全カテゴリ共通データ管理</div>
-            <button type="button" onclick="exportCSV()" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700 flex items-center gap-2.5">
-              <i class="fa-solid fa-file-export w-4 text-brand-600"></i>
-              <div><div class="font-medium">CSVエクスポート</div><div class="text-xs text-slate-400">全事業所データを出力</div></div>
+          <div id="dataMenuDropdown" class="hidden absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50 text-sm">
+            <button type="button" onclick="syncFromCloud(true)" class="w-full px-4 py-2.5 text-left hover:bg-slate-50 flex items-center gap-2.5 text-brand-700 font-semibold">
+              <i class="fa-solid fa-arrows-rotate w-4"></i><span>クラウドと再同期</span>
             </button>
-            <label class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700 flex items-center gap-2.5 cursor-pointer">
-              <i class="fa-solid fa-file-import w-4 text-blue-600"></i>
-              <div><div class="font-medium">CSVインポート</div><div class="text-xs text-slate-400">CSVから取込・クラウド保存</div></div>
+            <button type="button" onclick="openMasterModal('backup')" class="w-full px-4 py-2.5 text-left hover:bg-slate-50 flex items-center gap-2.5 text-slate-700">
+              <i class="fa-solid fa-shield-halved text-brand-600 w-4"></i><span>JSONバックアップ・復元</span>
+            </button>
+            <button type="button" onclick="exportCSV()" class="w-full px-4 py-2.5 text-left hover:bg-slate-50 flex items-center gap-2.5 text-slate-700">
+              <i class="fa-solid fa-file-csv text-emerald-600 w-4"></i><span>一覧をCSV出力</span>
+            </button>
+            <label class="w-full px-4 py-2.5 text-left hover:bg-slate-50 flex items-center gap-2.5 text-slate-700 cursor-pointer">
+              <i class="fa-solid fa-file-import text-sky-600 w-4"></i><span>CSVデータ取込</span>
               <input type="file" id="csvImportInput" accept=".csv" class="hidden" onchange="importCSV(event)" />
             </label>
-            <div class="border-t border-slate-100 my-1"></div>
-            <button type="button" onclick="openMasterModal('backup')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5">
-              <i class="fa-solid fa-sliders w-4 text-brand-600"></i><span>JSONバックアップ・復元</span>
-            </button>
-            <button type="button" onclick="openResetConfirmModal()" class="w-full text-left px-4 py-2.5 text-sm text-rose-600 hover:bg-rose-50 flex items-center gap-2.5">
-              <i class="fa-solid fa-rotate-left w-4"></i><span>初期サンプルデータに戻す</span>
+            <div class="my-1 border-t border-slate-100"></div>
+            <button type="button" onclick="openResetConfirmModal()" class="w-full px-4 py-2.5 text-left hover:bg-rose-50 flex items-center gap-2.5 text-rose-600">
+              <i class="fa-solid fa-rotate-left w-4"></i><span>初期データにリセット</span>
             </button>
           </div>
         </div>
 
-        <button type="button" onclick="openFormModal()" class="hidden sm:flex px-3.5 sm:px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold items-center gap-1.5 shadow-xs transition cursor-pointer">
-          <i class="fa-solid fa-plus"></i><span>在宅系を新規登録</span>
+        <button type="button" onclick="openFormModal()"
+          class="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold shadow-xs">
+          <i class="fa-solid fa-plus"></i><span class="hidden sm:inline">新規登録</span><span class="sm:hidden">登録</span>
         </button>
       </div>
     </div>
 
-    <!-- モバイル・タブレット用：カテゴリ切替バー＆クイック検索 -->
-    <div class="xl:hidden px-3 py-2 bg-slate-50 border-t border-slate-200/80 space-y-2">
-      <div class="grid grid-cols-4 gap-1 bg-slate-200/70 p-1 rounded-xl">
-        <a href="index.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">トップ</a>
-        <a href="zaitaku.html" class="py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white text-center shadow-2xs">在宅系</a>
-        <a href="shisetsu.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">施設系</a>
-        <a href="sonota.html" class="py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/80 text-center">他サービス</a>
+    <!-- 3ページ切り替えナビゲーションバー -->
+    <div class="bg-slate-50 border-t border-slate-200/80">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 flex items-center gap-1.5 py-1.5 overflow-x-auto">
+        <a href="zaitaku.html" class="px-3.5 py-1.5 rounded-lg bg-brand-600 text-white text-xs sm:text-sm font-bold shadow-2xs flex items-center gap-1.5 shrink-0">
+          <i class="fa-solid fa-house-medical"></i><span>1. 在宅系サービス（訪問・通所・病院診療所）</span>
+        </a>
+        <a href="shisetsu.html" class="px-3.5 py-1.5 rounded-lg bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-800 border border-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 shrink-0 transition">
+          <i class="fa-solid fa-building-user text-purple-600"></i><span>2. 施設系サービス（特養・老健・ショート等）</span>
+        </a>
+        <a href="sonota.html" class="px-3.5 py-1.5 rounded-lg bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-800 border border-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 shrink-0 transition">
+          <i class="fa-solid fa-taxi text-amber-600"></i><span>3. 他サービス（移送・配食・自費代行等）</span>
+        </a>
       </div>
-      <div class="lg:hidden relative">
-        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input type="text" id="mobileSearchInput" placeholder="在宅系の事業所名・エリア・加算・資料名・メモで検索..." class="w-full pl-9 pr-9 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
-        <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
+    </div>
+
+    <!-- スマホ検索バー -->
+    <div class="md:hidden px-3 pb-2.5 pt-2 bg-white border-t border-slate-100 flex items-center gap-2">
+      <div class="relative flex-1">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input type="text" id="mobileSearchInput" placeholder="事業所名・診療科・訪問診療・メモ検索..."
+          class="w-full pl-8 pr-8 py-2 bg-slate-100 focus:bg-white border border-transparent focus:border-brand-500 rounded-lg text-sm outline-none" />
+        <button type="button" id="mobileClearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 p-1">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
       </div>
+      <button type="button" id="mobileFilterToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs font-semibold text-slate-700 shrink-0">
+        <i class="fa-solid fa-sliders text-brand-600"></i><span>絞込</span>
+        <span id="mobileFilterBadge" class="hidden px-1.5 py-0.2 bg-brand-600 text-white rounded-full text-[10px]">0</span>
+      </button>
     </div>
   </header>
 
-  <!-- ==================== メインコンテナ ==================== -->
-  <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-4rem)]">
-    <div id="mobileFilterBackdrop" class="hidden fixed inset-0 bg-slate-900/50 z-40 lg:hidden backdrop-blur-xs" onclick="closeMobileFilter()"></div>
+  <!-- ==================== メインコンテンツ ==================== -->
+  <div class="flex-1 max-w-[1600px] w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex gap-6 relative">
+    <div id="mobileFilterBackdrop" onclick="closeMobileFilter()" class="hidden fixed inset-0 bg-slate-900/50 z-30 lg:hidden backdrop-blur-2xs"></div>
 
-    <!-- ==================== 左側：在宅系絞り込みサイドバー ==================== -->
-    <aside id="filterSidebar" class="fixed inset-y-0 left-0 z-50 w-[88vw] max-w-sm lg:w-80 xl:w-[340px] bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static lg:z-10 transition-transform duration-200 ease-out flex flex-col h-full lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16 shrink-0 shadow-2xl lg:shadow-none">
-      <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70 shrink-0">
-        <div class="flex items-center gap-2 font-bold text-slate-800">
-          <i class="fa-solid fa-filter text-brand-600"></i>
-          <span>在宅系の条件絞り込み</span>
-          <span id="activeFilterCount" class="hidden px-2 py-0.5 text-xs font-bold rounded-full bg-brand-600 text-white">0</span>
+    <!-- 左サイドバー：絞り込み -->
+    <aside id="filterSidebar" class="fixed inset-y-0 left-0 z-40 w-[86vw] max-w-[340px] bg-white lg:bg-transparent lg:static lg:w-80 lg:max-w-none shrink-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out flex flex-col h-full lg:h-auto shadow-2xl lg:shadow-none">
+      <div class="lg:hidden px-4 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
+        <div class="flex items-center gap-2 font-bold text-slate-800 text-sm">
+          <i class="fa-solid fa-filter text-brand-600"></i><span>在宅系サービス絞り込み</span>
         </div>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="resetAllFilters()" class="text-xs font-medium text-slate-500 hover:text-rose-600 px-2.5 py-1.5 rounded-lg hover:bg-rose-50 transition flex items-center gap-1">
-            <i class="fa-solid fa-xmark"></i><span>クリア</span>
-          </button>
-          <button type="button" onclick="closeMobileFilter()" class="lg:hidden p-2 text-slate-500 rounded-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <button type="button" onclick="closeMobileFilter()" class="p-2 text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 lg:p-0 space-y-4">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs p-4 space-y-5">
+          <div class="hidden lg:flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2 font-bold text-slate-800 text-sm">
+              <i class="fa-solid fa-filter text-brand-600"></i><span>絞り込み条件</span>
+              <span id="activeFilterCount" class="hidden px-2 py-0.5 text-xs font-bold bg-brand-100 text-brand-700 rounded-full">0</span>
+            </div>
+            <button type="button" onclick="resetAllFilters()" class="text-xs font-medium text-slate-500 hover:text-brand-600">クリア</button>
+          </div>
+
+          <!-- お気に入り -->
+          <div>
+            <label class="flex items-center justify-between cursor-pointer p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 hover:bg-amber-50">
+              <span class="flex items-center gap-2 text-sm font-semibold text-amber-900">
+                <i class="fa-solid fa-star text-amber-500"></i><span>お気に入り（よく使う事業所）</span>
+              </span>
+              <input type="checkbox" id="favoriteOnlyToggle" onchange="syncFavoriteToggles(this.checked)" class="w-4 h-4 accent-amber-500 rounded cursor-pointer" />
+            </label>
+          </div>
+
+          <!-- 1. 在宅系サービス種別 -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500">在宅系サービス種別（OR検索）</span>
+              <button type="button" onclick="toggleAllHomeServices()" class="text-[11px] font-semibold text-brand-700 hover:underline">全選択/解除</button>
+            </div>
+            <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <!-- 2. 通所系（デイサービス・デイケア）絞り込み -->
+          <div class="p-3 rounded-xl bg-emerald-50/50 border border-emerald-200/80 space-y-3">
+            <div class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-people-group text-emerald-600"></i><span>通所系（デイ・デイケア）条件</span>
+            </div>
+            <div>
+              <span class="block text-[11px] font-bold text-slate-600 mb-1.5">利用定員（OR検索）</span>
+              <div id="dayCapacityFilters" class="flex flex-wrap gap-1.5"></div>
+            </div>
+            <div>
+              <span class="block text-[11px] font-bold text-slate-600 mb-1.5">入浴設備（AND検索）</span>
+              <div id="dayBathFilters" class="flex flex-wrap gap-1.5"></div>
+            </div>
+          </div>
+
+          <!-- 3. 対応可能な医療処置 -->
+          <div>
+            <span class="block text-xs font-bold uppercase tracking-wider text-rose-700 mb-2">
+              <i class="fa-solid fa-notes-medical mr-1"></i>対応可能な医療処置（AND検索）
+            </span>
+            <div id="medicalCareFilters" class="flex flex-col gap-1.5 max-h-56 overflow-y-auto pr-1"></div>
+          </div>
+
+          <!-- 4. 専門職・職員体制 -->
+          <div>
+            <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">専門職・職員体制（AND検索）</span>
+            <div id="staffFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <!-- 5. 営業曜日・対応体制 -->
+          <div>
+            <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">営業曜日・対応体制（AND検索）</span>
+            <div id="scheduleFilters" class="flex flex-col gap-1.5"></div>
+          </div>
+
+          <!-- 6. 包括エリア -->
+          <div>
+            <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">主たる包括エリア（OR検索）</span>
+            <div id="areaFilters" class="grid grid-cols-3 gap-1.5"></div>
+          </div>
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto p-4 space-y-5">
-        <div class="hidden lg:block">
-          <label for="searchInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">フリーワード検索</label>
-          <div class="relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            <input type="text" id="searchInput" placeholder="事業所名・担当者・加算・資料名・メモ..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
-            <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 p-1"><i class="fa-solid fa-circle-xmark"></i></button>
-          </div>
-        </div>
-
-        <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-3">
-          <label class="flex items-center justify-between cursor-pointer select-none">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-star text-amber-500"></i>
-              <span class="text-sm font-semibold text-slate-800">お気に入り事業所のみ</span>
-            </div>
-            <div class="relative inline-flex items-center">
-              <input type="checkbox" id="favoriteOnlyToggle" class="sr-only peer" onchange="syncFavoriteToggles(this.checked)">
-              <div class="w-10 h-5 bg-slate-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
-            </div>
-          </label>
-        </div>
-
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-house-medical text-brand-600"></i><span>在宅系サービス種別</span>
-            </label>
-            <button type="button" onclick="toggleAllHomeServices()" class="text-[11px] font-medium text-brand-700 hover:underline">全選択/解除</button>
-          </div>
-          <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <!-- 通所系：利用定員絞り込み -->
-        <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3 space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-users text-emerald-600"></i><span>利用定員（通所介護・通所リハ）</span>
-            </label>
-            <span class="text-[10px] text-slate-400">複数選択可</span>
-          </div>
-          <div id="dayCapacityFilters" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <!-- 通所系：入浴設備絞り込み -->
-        <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-bath text-sky-600"></i><span>入浴設備（通所系・AND）</span>
-            </label>
-            <span class="text-[10px] text-slate-400">複数選択可</span>
-          </div>
-          <div id="dayBathFilters" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-notes-medical text-rose-600"></i><span>対応可能な医療処置（AND）</span>
-            </label>
-            <span class="text-[10px] text-slate-400">複数選択可</span>
-          </div>
-          <div id="medicalCareFilters" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
-          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-solid fa-user-nurse text-brand-600"></i><span>専門職・職員体制（AND）</span>
-          </label>
-          <div id="staffFilters" class="flex flex-wrap gap-1.5"></div>
-        </div>
-
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
-          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-regular fa-clock text-brand-600"></i><span>営業曜日・時間帯の対応</span>
-          </label>
-          <div id="scheduleFilters" class="flex flex-col gap-1.5"></div>
-        </div>
-
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
-          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <i class="fa-solid fa-map-location-dot text-brand-600"></i><span>対象包括エリア</span>
-          </label>
-          <div id="areaFilters" class="grid grid-cols-2 gap-1.5"></div>
-        </div>
-      </div>
-
-      <div class="lg:hidden p-3 border-t border-slate-200 bg-white shrink-0 pb-safe">
-        <button type="button" onclick="closeMobileFilter()" class="w-full py-3 rounded-xl bg-brand-600 text-white text-sm font-bold shadow-sm">
-          この条件で表示する（<span id="mobileResultCount">0</span>件）
+      <div class="lg:hidden p-3 border-t border-slate-200 bg-white flex items-center gap-2 shrink-0 pb-safe">
+        <button type="button" onclick="resetAllFilters()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-600">条件クリア</button>
+        <button type="button" onclick="closeMobileFilter()" class="flex-1 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-bold">
+          <span id="mobileResultCount">0</span>件の結果を表示
         </button>
       </div>
     </aside>
 
-    <!-- ==================== 右側：検索結果一覧エリア ==================== -->
-    <main class="flex-1 p-3 sm:p-6 lg:p-8 min-w-0">
-      <div class="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
-        <div class="flex flex-wrap items-center gap-2">
-          <div class="flex items-baseline gap-1.5">
-            <span class="text-xs sm:text-sm font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 mr-1">在宅系</span>
-            <span id="resultCount" class="text-xl sm:text-2xl font-bold text-brand-700 font-mono">0</span>
-            <span class="text-xs sm:text-sm text-slate-600 font-medium">件</span>
-            <span class="text-xs text-slate-400 ml-1">/ 在宅系全 <span id="totalCount">0</span> 件</span>
-          </div>
+    <!-- 右メインエリア -->
+    <main class="flex-1 min-w-0">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs sm:text-sm text-slate-600">検索結果:</span>
+          <span id="resultCount" class="text-lg sm:text-xl font-bold text-brand-700">0</span>
+          <span class="text-xs sm:text-sm text-slate-600">件</span>
+          <span class="text-xs text-slate-400">（在宅系全 <span id="totalCount">0</span> 件中）</span>
         </div>
 
-        <div class="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-          <div class="flex items-center gap-1.5 flex-1 sm:flex-initial">
-            <label for="sortSelect" class="text-xs text-slate-500 whitespace-nowrap"><i class="fa-solid fa-arrow-down-wide-short mr-1"></i>並び替え:</label>
-            <select id="sortSelect" onchange="applyFilters()" class="flex-1 sm:flex-initial bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium">
-              <option value="favorite">お気に入り優先</option>
-              <option value="updated">情報更新日が新しい順</option>
-              <option value="name">事業所名順 (五十音)</option>
-            </select>
-          </div>
-          <div class="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
+        <div class="flex items-center gap-2">
+          <select id="sortSelect" onchange="applyFilters()" class="text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 outline-none">
+            <option value="favorite">お気に入り優先</option>
+            <option value="updated">更新日が新しい順</option>
+            <option value="name">事業所名（五十音順）</option>
+          </select>
+
+          <div class="hidden sm:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
             <button type="button" id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-brand-700 shadow-2xs flex items-center gap-1">
-              <i class="fa-solid fa-grip"></i><span class="hidden md:inline">カード</span>
+              <i class="fa-solid fa-grip"></i><span>カード</span>
             </button>
             <button type="button" id="viewListBtn" onclick="setViewMode('list')" class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-600 flex items-center gap-1">
-              <i class="fa-solid fa-list"></i><span class="hidden md:inline">リスト</span>
+              <i class="fa-solid fa-list"></i><span>リスト</span>
             </button>
           </div>
         </div>
       </div>
 
-      <div id="facilityContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-3.5 sm:gap-5"></div>
+      <div id="facilityContainer"></div>
 
-      <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center my-6">
-        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">条件に一致する事業所が見つかりませんでした</h3>
-        <p class="text-xs sm:text-sm text-slate-500 mb-5">条件を減らすかリセットしてお試しください。</p>
-        <button type="button" onclick="resetAllFilters()" class="px-5 py-2.5 bg-brand-600 text-white text-sm font-semibold rounded-xl shadow-xs">絞り込み条件をリセット</button>
+      <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-10 text-center">
+        <i class="fa-solid fa-folder-open text-2xl text-slate-400 mb-2"></i>
+        <h3 class="text-base font-bold text-slate-800 mb-1">該当する在宅系事業所・医療機関がありません</h3>
+        <button type="button" onclick="resetAllFilters()" class="mt-3 px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-semibold">条件をリセット</button>
       </div>
     </main>
   </div>
 
-  <!-- モバイル下部バー -->
-  <nav class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 pt-2 pb-safe flex items-center justify-around gap-2 shadow-lg">
-    <button type="button" onclick="openMobileFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5 relative">
-      <div class="relative"><i class="fa-solid fa-sliders text-base text-brand-600"></i><span id="bottomFilterBadge" class="hidden -top-1 -right-2.5 absolute px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-brand-600 text-white">0</span></div>
-      <span>条件絞り込み</span>
+  <!-- スマホ下部固定バー -->
+  <nav class="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-white border-t border-slate-200 flex items-center justify-around py-1.5 pb-safe">
+    <button type="button" onclick="openMobileFilter()" class="flex flex-col items-center gap-0.5 px-3 py-1 text-slate-600 relative">
+      <i class="fa-solid fa-sliders text-base text-brand-600"></i><span class="text-[10px] font-bold">絞り込み</span>
+      <span id="bottomFilterBadge" class="hidden absolute top-0.5 right-2 px-1.5 py-0.2 bg-brand-600 text-white rounded-full text-[9px]">0</span>
     </button>
-    <button type="button" onclick="toggleBottomFavoriteFilter()" class="flex-1 py-2 px-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold flex flex-col items-center justify-center gap-0.5">
-      <i class="fa-regular fa-star text-base text-amber-500"></i><span>お気に入り</span>
+    <button type="button" id="bottomFavBtn" onclick="toggleBottomFavoriteFilter()" class="flex flex-col items-center gap-0.5 px-3 py-1 text-slate-600">
+      <i class="fa-solid fa-star text-base text-amber-400"></i><span class="text-[10px] font-bold">お気に入り</span>
     </button>
-    <button type="button" onclick="openFormModal()" class="flex-1 py-2 px-2 rounded-xl bg-brand-600 text-white text-xs font-bold flex flex-col items-center justify-center gap-0.5 shadow-xs">
-      <i class="fa-solid fa-plus text-base"></i><span>新規登録</span>
+    <button type="button" onclick="openFormModal()" class="flex flex-col items-center gap-0.5 px-3 py-1 text-brand-700">
+      <i class="fa-solid fa-circle-plus text-base"></i><span class="text-[10px] font-bold">新規登録</span>
     </button>
   </nav>
 
-  <!-- ==================== モーダル1：詳細モーダル ==================== -->
+  <!-- ==================== モーダル1：詳細表示（写真スライダー付） ==================== -->
   <div id="detailModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
       <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeDetailModal()"></div>
       <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[92vh] flex flex-col">
-        <div id="detailTopBar" class="h-2 bg-brand-600 w-full shrink-0"></div>
-        <div class="px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-200 flex items-start justify-between gap-3 bg-slate-50/50 shrink-0">
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-1.5 mb-1.5" id="detailBadges"></div>
-            <h2 id="detailName" class="text-lg sm:text-2xl font-bold text-slate-900 leading-snug"></h2>
+        <div id="detailTopBar" class="h-2 w-full bg-brand-600 shrink-0"></div>
+        <div class="px-5 sm:px-6 py-4 border-b border-slate-200 flex items-start justify-between gap-3 shrink-0">
+          <div>
+            <div id="detailBadges" class="flex flex-wrap items-center gap-1.5 mb-1.5"></div>
+            <h2 id="detailName" class="text-lg sm:text-2xl font-bold text-slate-900"></h2>
             <p id="detailCorp" class="text-xs sm:text-sm text-slate-500 mt-0.5"></p>
           </div>
           <div class="flex items-center gap-1.5 shrink-0">
-            <button type="button" id="detailFavBtn" class="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-lg"></button>
-            <button type="button" onclick="closeDetailModal()" class="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <button type="button" id="detailFavBtn" class="p-2 rounded-xl border border-slate-200 hover:bg-amber-50 text-lg"></button>
+            <button type="button" onclick="closeDetailModal()" class="p-2 rounded-xl border border-slate-200 text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
           </div>
         </div>
 
-        <div class="p-4 sm:p-7 overflow-y-auto flex-1 space-y-5">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
-              <div class="flex items-center gap-2">
-                <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-brand-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
-                <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-brand-600 text-white text-xs font-bold">発信</a>
-              </div>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">FAX番号</div>
-              <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
-              <div class="text-sm font-bold text-slate-800"><span id="detailContact"></span></div>
-            </div>
-          </div>
-
-          <!-- ==================== 事業所写真スライダー ==================== -->
-          <div id="detailPhotoSliderSection" class="hidden bg-slate-900 rounded-xl overflow-hidden border border-slate-200 shadow-xs">
-            <div id="sliderViewport" class="relative aspect-video bg-slate-950 flex items-center justify-center select-none touch-pan-y">
+        <div class="p-5 sm:p-6 space-y-5 overflow-y-auto flex-1">
+          <!-- 事業所写真スライダー -->
+          <div id="detailPhotoSliderSection" class="hidden bg-slate-900 rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+            <div id="sliderViewport" class="relative h-56 sm:h-72 flex items-center justify-center bg-slate-950 select-none">
               <img id="sliderCurrentImg" src="" alt="事業所写真" class="max-h-full max-w-full object-contain transition-opacity duration-200" />
-              
-              <!-- 左右ナビゲーションボタン -->
-              <button type="button" id="sliderPrevBtn" onclick="movePhotoSlide(-1)" aria-label="前の写真"
-                class="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition">
+              <button type="button" id="sliderPrevBtn" onclick="movePhotoSlide(-1)"
+                class="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center shadow-md">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
-              <button type="button" id="sliderNextBtn" onclick="movePhotoSlide(1)" aria-label="次の写真"
-                class="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition">
+              <button type="button" id="sliderNextBtn" onclick="movePhotoSlide(1)"
+                class="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center shadow-md">
                 <i class="fa-solid fa-chevron-right"></i>
               </button>
+              <div id="sliderCounter" class="absolute top-2.5 right-3 px-2.5 py-0.5 rounded-full bg-black/65 text-white text-xs font-mono font-bold">1 / 1</div>
+              <div id="sliderCaption" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-4 py-2.5 text-white text-xs sm:text-sm font-medium"></div>
+            </div>
+            <div id="sliderThumbnails" class="flex items-center gap-2 p-2 bg-slate-800 overflow-x-auto"></div>
+          </div>
 
-              <!-- 枚数バッジ -->
-              <div id="sliderCounter" class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-black/60 text-white text-xs font-mono font-bold">
-                1 / 1
+          <!-- 連絡先 -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+            <div>
+              <div class="text-xs text-slate-500">電話番号</div>
+              <div class="flex items-center gap-2 mt-0.5">
+                <a id="detailPhoneCallLink" href="#" class="text-base sm:text-lg font-bold text-brand-700 font-mono hover:underline"><span id="detailPhone"></span></a>
+                <button type="button" id="detailPhoneBtn" class="text-slate-400 hover:text-brand-600 p-1.5"><i class="fa-regular fa-copy"></i></button>
               </div>
             </div>
-
-            <!-- キャプション＆サムネイル一覧 -->
-            <div class="bg-slate-800 px-3.5 py-2.5 space-y-2">
-              <div id="sliderCaption" class="text-xs sm:text-sm text-white font-medium truncate"></div>
-              <div id="sliderThumbnails" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+            <div>
+              <div class="text-xs text-slate-500">FAX番号</div>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span id="detailFax" class="text-base sm:text-lg font-bold text-slate-800 font-mono"></span>
+                <button type="button" id="detailFaxBtn" class="text-slate-400 hover:text-brand-600 p-1.5"><i class="fa-regular fa-copy"></i></button>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">担当者・地域連携室</div>
+              <div id="detailContact" class="text-sm font-bold text-slate-800 mt-1"></div>
             </div>
           </div>
 
-          <!-- ホームページ・添付資料セクション -->
-          <div id="detailLinksSection" class="hidden bg-blue-50/60 border border-blue-200 rounded-xl p-4 space-y-3">
-            <h3 class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-folder-open text-blue-600"></i><span>ホームページ・添付資料（パンフレット・料金表等）</span>
+          <!-- HP & 添付資料 -->
+          <div id="detailLinksSection" class="hidden bg-blue-50/70 border border-blue-200 rounded-xl p-4 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-link text-blue-600"></i><span>ホームページ・添付資料</span>
             </h3>
             <div id="detailHomepageBox" class="hidden">
-              <a id="detailHomepageLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-blue-300 hover:bg-blue-600 hover:text-white text-blue-700 text-xs sm:text-sm font-bold transition shadow-2xs">
+              <a id="detailHomepageLink" href="#" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-2xs transition">
                 <i class="fa-solid fa-globe"></i>
                 <span id="detailHomepageText">公式ホームページを開く</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] opacity-80"></i>
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
               </a>
             </div>
             <div id="detailAttachmentsBox" class="hidden space-y-1.5">
-              <div class="text-[11px] font-bold text-slate-600">添付ファイル一覧（クリックで開く）</div>
+              <div class="text-xs font-bold text-slate-700">添付ファイル・パンフレット等</div>
               <div id="detailAttachmentsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
             </div>
           </div>
 
-          <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4">
-            <div class="text-xs font-bold text-amber-800 mb-1.5"><i class="fa-solid fa-note-sticky text-amber-600 mr-1"></i>ケアマネ独自メモ</div>
-            <p id="detailMemo" class="text-sm text-slate-800 leading-relaxed whitespace-pre-line"></p>
+          <!-- 独自メモ -->
+          <div class="bg-amber-50/90 border border-amber-200 rounded-xl p-4">
+            <div class="text-xs font-bold text-amber-900 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1.5"></i>ケアマネ独自メモ</div>
+            <p id="detailMemo" class="text-sm text-slate-800 whitespace-pre-line leading-relaxed"></p>
           </div>
 
-          <div id="detailServiceSpecificSection" class="hidden bg-brand-50/60 border border-brand-200 rounded-xl p-4 space-y-2.5">
-            <h3 class="text-xs font-bold text-brand-900">サービス詳細仕様</h3>
-            <div id="detailServiceSpecificBody" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800"></div>
+          <!-- サービス別詳細 -->
+          <div id="detailServiceSpecificSection" class="bg-brand-50/60 border border-brand-200 rounded-xl p-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-brand-900 mb-2.5"><i class="fa-solid fa-clipboard-list text-brand-600 mr-1.5"></i>サービス別詳細仕様</h3>
+            <div id="detailServiceSpecificBody" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm"></div>
           </div>
 
+          <!-- 対応可能な医療処置・専門職体制 -->
           <div>
-            <h3 id="detailTagsHeading" class="text-sm font-bold text-slate-800 mb-2">対応可能な医療処置・専門職体制</h3>
+            <h3 id="detailTagsHeading" class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">対応可能な医療処置・専門職体制</h3>
             <div id="detailTags" class="flex flex-wrap gap-1.5"></div>
-            <div id="detailStaffNoteBox" class="hidden mt-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700">
-              <span class="font-bold text-slate-600 mr-1">専門職・体制補足：</span><span id="detailStaffNoteText"></span>
+            <div id="detailStaffNoteBox" class="hidden mt-2 text-xs sm:text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+              <span class="font-bold text-slate-600 mr-1">職員体制備考：</span><span id="detailStaffNoteText"></span>
             </div>
           </div>
 
-          <div>
-            <h3 class="text-sm font-bold text-slate-800 mb-2">基本情報・対応エリア</h3>
-            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm border-t border-slate-200 pt-3">
-              <div><dt class="text-xs text-slate-500">所在地</dt><dd id="detailAddress" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">営業時間</dt><dd id="detailHours" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div><dt class="text-xs text-slate-500">定休日</dt><dd id="detailHolidays" class="font-medium text-slate-800 mt-0.5"></dd></div>
-              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">算定加算・特徴</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
-            </dl>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm border-t border-slate-100 pt-4">
+            <div><span class="text-xs font-bold text-slate-400 block">所在地</span><span id="detailAddress"></span></div>
+            <div><span class="text-xs font-bold text-slate-400 block">対応エリア詳細</span><span id="detailAreaDetail"></span></div>
+            <div><span class="text-xs font-bold text-slate-400 block">営業時間・診療時間</span><span id="detailHours"></span></div>
+            <div><span class="text-xs font-bold text-slate-400 block">定休日・休診日</span><span id="detailHolidays"></span></div>
+            <div class="sm:col-span-2"><span class="text-xs font-bold text-slate-400 block">算定加算・特徴</span><div id="detailAdditions" class="flex flex-wrap gap-1.5 mt-1"></div></div>
           </div>
         </div>
 
-        <div class="px-4 sm:px-7 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0 pb-safe">
-          <span class="text-xs text-slate-400">最終更新日: <span id="detailUpdatedAt"></span></span>
+        <div class="px-5 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0 pb-safe">
+          <button type="button" id="detailDeleteBtn" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-rose-600 hover:bg-rose-50">削除</button>
           <div class="flex items-center gap-2">
-            <button type="button" id="detailDeleteBtn" class="px-3 py-2 text-xs sm:text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg">削除</button>
-            <button type="button" id="detailEditBtn" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-2xs">情報を編集する</button>
+            <span class="hidden sm:inline text-xs text-slate-400 mr-2">更新: <span id="detailUpdatedAt"></span></span>
+            <button type="button" id="detailEditBtn" class="px-4 py-2 rounded-lg bg-brand-600 text-white text-xs sm:text-sm font-semibold">編集する</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== モーダル2：在宅系 新規登録・編集モーダル ==================== -->
+  <!-- ==================== モーダル2：新規登録・編集フォーム ==================== -->
   <div id="formModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-end sm:items-center justify-center min-h-screen p-0 sm:p-5">
       <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeFormModal()"></div>
-      <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[92vh] flex flex-col">
-        <div class="px-5 sm:px-6 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
+      <div class="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl overflow-hidden z-10 sm:my-4 max-h-[94vh] flex flex-col">
+        <div class="px-5 sm:px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
           <h2 id="formModalTitle" class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
             <i class="fa-solid fa-house-medical text-brand-600"></i><span>在宅系事業所 新規登録</span>
           </h2>
-          <button type="button" onclick="closeFormModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
+          <button type="button" onclick="closeFormModal()" class="text-slate-400 hover:text-slate-600 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
 
-        <form id="facilityForm" onsubmit="saveFacility(event)" class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5">
+        <form id="facilityForm" onsubmit="saveFacility(event)" class="p-5 sm:p-6 space-y-5 overflow-y-auto flex-1">
           <input type="hidden" id="formId" />
-
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">事業所名 <span class="text-rose-500">*</span></label>
-              <input type="text" id="formName" required placeholder="例：〇〇訪問介護ステーション" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+              <label class="block text-xs font-bold text-slate-700 mb-1">在宅系サービス種別 <span class="text-rose-500">*</span></label>
+              <select id="formServiceType" required onchange="updateServiceSpecificFormFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white font-semibold"></select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">事業所名・医療機関名 <span class="text-rose-500">*</span></label>
+              <input type="text" id="formName" required placeholder="例：〇〇クリニック / 訪問看護ステーション みなと長崎" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">運営法人名</label>
-              <input type="text" id="formCorp" placeholder="例：株式会社 〇〇ケア" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+              <input type="text" id="formCorp" placeholder="例：医療法人 〇〇会" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">介護保険事業所番号</label>
-              <input type="text" id="formCode" placeholder="例：4270101234" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">在宅系サービス種別 <span class="text-rose-500">*</span></label>
-              <select id="formServiceType" required onchange="updateServiceSpecificFormFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+              <label class="block text-xs font-bold text-slate-700 mb-1">事業所番号（10桁）・医療機関コード</label>
+              <input type="text" id="formCode" placeholder="4270100000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" />
             </div>
           </div>
 
-          <!-- 在宅系専用入力ブロック -->
-          <div id="serviceSpecificFormBlock" class="p-4 rounded-xl bg-brand-50/50 border border-brand-200 space-y-3">
+          <!-- サービス種別ごとの固有入力エリア -->
+          <div id="serviceSpecificFormBox" class="p-4 rounded-xl bg-brand-50/70 border border-brand-200 space-y-3">
             <div class="text-xs font-bold text-brand-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-sliders text-brand-600"></i><span id="serviceSpecificFormTitle">在宅サービス種別ごとの詳細仕様</span>
+              <i class="fa-solid fa-sliders text-brand-600"></i><span id="serviceSpecificFormTitle">詳細仕様</span>
             </div>
 
-            <div id="fields_home_care" class="hidden space-y-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（身体介護）</label><input type="text" id="formHomeCareSelfPayPhysical" placeholder="例：30分 2,000円 / 1時間 3,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（生活援助）</label><input type="text" id="formHomeCareSelfPayLife" placeholder="例：30分 1,500円 / 1時間 2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <!-- 訪問介護 -->
+            <div id="fields_home_care" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（身体介護）</label><input type="text" id="formHomeCareSelfPayPhysical" placeholder="例：30分 2,500円 / 1時間 4,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（生活援助）</label><input type="text" id="formHomeCareSelfPayLife" placeholder="例：30分 1,800円 / 1時間 3,000円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">備考</label><input type="text" id="formHomeCareNote" placeholder="例：総合事業・同行援護対応可、通院等乗降介助あり 等" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            </div>
+
+            <!-- 訪問看護 -->
+            <div id="fields_home_nursing" class="hidden space-y-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">対応体制・特色（複数選択可）</label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                    <input type="checkbox" name="formNurseFeature" value="緊急時訪問看護" class="rounded text-brand-600">
+                    <span>緊急時訪問看護</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                    <input type="checkbox" name="formNurseFeature" value="看取り" class="rounded text-brand-600">
+                    <span>看取り</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                    <input type="checkbox" name="formNurseFeature" value="精神科訪問看護" class="rounded text-brand-600">
+                    <span>精神科訪問看護</span>
+                  </label>
+                </div>
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">備考</label>
-                <textarea id="formHomeCareNote" rows="2" placeholder="例：自費サービスは介護保険利用者に限る・交通費別途など" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm"></textarea>
+                <label class="block text-xs font-bold text-slate-700 mb-1">自由記入（小児・難病・24時間オンコール詳細など）</label>
+                <input type="text" id="formNurseNote" placeholder="例：24時間オンコール対応・がん末期や難病の看取り実績豊富・小児対応可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
               </div>
             </div>
 
-            <!-- 訪問看護専用 -->
-            <div id="fields_home_nursing" class="hidden space-y-2.5">
-              <label class="block text-xs font-bold text-slate-700">対応体制・特色（チェック ＆ 自由記載）</label>
-              <div class="flex flex-wrap gap-2">
-                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
-                  <input type="checkbox" name="formNurseFeature" value="緊急時訪問看護" class="rounded text-brand-600">
-                  <span>緊急時訪問看護</span>
-                </label>
-                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
-                  <input type="checkbox" name="formNurseFeature" value="看取り" class="rounded text-brand-600">
-                  <span>看取り</span>
-                </label>
-                <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
-                  <input type="checkbox" name="formNurseFeature" value="精神科訪問看護" class="rounded text-brand-600">
-                  <span>精神科訪問看護</span>
-                </label>
-              </div>
-              <div>
-                <input type="text" id="formNurseNote" placeholder="自由記載（例：24時間オンコール対応・がん末期/難病の受入実績豊富・小児対応可など）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
-              </div>
-            </div>
-
+            <!-- 訪問リハビリ -->
             <div id="fields_home_rehab" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">母体医療機関・指示書要件</label><input type="text" id="formHomeRehabClinic" placeholder="例：〇〇整形外科併設（3ヶ月毎の診察要）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">訪問可能枠・短期集中リハ対応</label><input type="text" id="formHomeRehabSlot" placeholder="例：退院直後の短期集中リハ優先受入可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">母体医療機関・指示書要件</label><input type="text" id="formHomeRehabClinic" placeholder="例：〇〇病院併設（同院受診が必要）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">訪問可能枠・短期集中リハ対応</label><input type="text" id="formHomeRehabSlot" placeholder="例：退院直後の短期集中リハ週2回対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
             </div>
 
-            <!-- 通所介護・通所リハビリ専用 -->
-            <div id="fields_day" class="hidden space-y-3.5">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="bg-white p-3 rounded-lg border border-emerald-200 space-y-2">
-                  <label class="block text-xs font-bold text-emerald-900"><i class="fa-solid fa-users text-emerald-600 mr-1"></i>利用定員（絞り込み対象・複数選択可）</label>
-                  <div class="flex flex-wrap gap-1.5">
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
-                      <input type="checkbox" name="formDayCapacityCategory" value="20人以下" class="rounded text-emerald-600">
-                      <span>20人以下</span>
-                    </label>
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
-                      <input type="checkbox" name="formDayCapacityCategory" value="20～40人" class="rounded text-emerald-600">
-                      <span>20～40人</span>
-                    </label>
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-emerald-50">
-                      <input type="checkbox" name="formDayCapacityCategory" value="41人以上" class="rounded text-emerald-600">
-                      <span>41人以上</span>
-                    </label>
-                  </div>
-                  <input type="text" id="formDayCapacity" placeholder="具体的な定員・規模補足（例：定員35名・通常規模型）" class="w-full px-2.5 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
+            <!-- 通所介護・通所リハビリ -->
+            <div id="fields_day" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="bg-white p-2.5 rounded-lg border border-emerald-200/80 space-y-2">
+                <label class="block text-xs font-bold text-emerald-900">利用定員（絞り込み対象・複数選択可）</label>
+                <div class="flex flex-wrap gap-1.5">
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-emerald-300 bg-emerald-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayCapacityCategory" value="20人以下" class="rounded text-emerald-600"><span>20人以下</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-emerald-300 bg-emerald-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayCapacityCategory" value="20～40人" class="rounded text-emerald-600"><span>20～40人</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-emerald-300 bg-emerald-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayCapacityCategory" value="41人以上" class="rounded text-emerald-600"><span>41人以上</span>
+                  </label>
                 </div>
-
-                <div class="bg-white p-3 rounded-lg border border-sky-200 space-y-2">
-                  <label class="block text-xs font-bold text-sky-900"><i class="fa-solid fa-bath text-sky-600 mr-1"></i>入浴設備（絞り込み対象・複数選択可）</label>
-                  <div class="flex flex-wrap gap-1.5">
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
-                      <input type="checkbox" name="formDayBathType" value="個浴" class="rounded text-sky-600">
-                      <span>個浴</span>
-                    </label>
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
-                      <input type="checkbox" name="formDayBathType" value="特浴" class="rounded text-sky-600">
-                      <span>特浴</span>
-                    </label>
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
-                      <input type="checkbox" name="formDayBathType" value="機械浴" class="rounded text-sky-600">
-                      <span>機械浴</span>
-                    </label>
-                    <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-bold text-slate-700 hover:bg-sky-50">
-                      <input type="checkbox" name="formDayBathType" value="リフト浴" class="rounded text-sky-600">
-                      <span>リフト浴</span>
-                    </label>
-                  </div>
-                  <input type="text" id="formDayBath" placeholder="入浴設備補足（例：個浴3槽・特殊機械浴完備）" class="w-full px-2.5 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
-                </div>
+                <input type="text" id="formDayCapacity" placeholder="詳細メモ（例：定員35名・通常規模型）" class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-xs" />
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">食費・おやつ代目安</label><input type="text" id="formDayMeal" placeholder="例：昼食650円・おやつ100円（刻み・ミキサー食可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">プログラム特色・延長/短時間対応</label><input type="text" id="formDayProgram" placeholder="例：個別機能訓練強化・半日利用相談可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div class="bg-white p-2.5 rounded-lg border border-sky-200/80 space-y-2">
+                <label class="block text-xs font-bold text-sky-900">入浴設備（絞り込み対象・複数選択可）</label>
+                <div class="flex flex-wrap gap-1.5">
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-sky-300 bg-sky-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayBathType" value="個浴" class="rounded text-sky-600"><span>個浴</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-sky-300 bg-sky-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayBathType" value="特浴" class="rounded text-sky-600"><span>特浴</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-sky-300 bg-sky-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayBathType" value="機械浴" class="rounded text-sky-600"><span>機械浴</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-sky-300 bg-sky-50/40 cursor-pointer text-xs font-bold text-slate-800">
+                    <input type="checkbox" name="formDayBathType" value="リフト浴" class="rounded text-sky-600"><span>リフト浴</span>
+                  </label>
+                </div>
+                <input type="text" id="formDayBath" placeholder="詳細メモ（例：個浴3槽・特殊機械浴完備）" class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-xs" />
+              </div>
+
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">食費・おやつ代目安</label><input type="text" id="formDayMeal" placeholder="例：昼食650円・おやつ100円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">プログラム特色・延長/短時間対応</label><input type="text" id="formDayProgram" placeholder="例：半日リハ型・延長19時まで可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            </div>
+
+            <!-- 福祉用具貸与 -->
+            <div id="fields_welfare_equip" class="hidden space-y-3">
+              <div class="bg-white p-3 rounded-lg border border-amber-200 space-y-2.5">
+                <label class="inline-flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-bold text-slate-800">
+                  <input type="checkbox" id="formWelfareSelfPayAvailable" class="w-4 h-4 rounded text-amber-600">
+                  <span>介護保険外の自費利用が可能（軽度者向け自費ベッド・車いすレンタル等）</span>
+                </label>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">自費利用の料金目安・詳細</label>
+                  <input type="text" id="formWelfareSelfPayPrice" placeholder="例：自費特殊寝台一式 月額1,500円〜 / 自費車いす 月額1,000円〜" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+                </div>
               </div>
             </div>
 
-            <div id="fields_welfare_equip" class="hidden space-y-2">
-              <label class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
-                <input type="checkbox" id="formWelfareSelfPayAvailable" class="rounded text-brand-600">
-                <span>介護保険外の自費利用が可能</span>
-              </label>
+            <!-- 居宅介護支援事業所 -->
+            <div id="fields_care_management" class="hidden space-y-3">
+              <div class="bg-white p-3 rounded-lg border border-purple-200 space-y-2.5">
+                <label class="inline-flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-bold text-slate-800">
+                  <input type="checkbox" id="formCareMgmtChief" class="w-4 h-4 rounded text-purple-600">
+                  <span>主任介護支援専門員（主任ケアマネ）配置あり</span>
+                </label>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">特色・対応体制メモ</label>
+                  <input type="text" id="formCareMgmtNote" placeholder="例：特定事業所加算Ⅱ算定・ケアマネ5名在籍・医療連携や看取り支援に強い" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 病院、診療所 -->
+            <div id="fields_hospital_clinic" class="hidden space-y-3">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">自費利用の場合の料金</label>
-                <input type="text" id="formWelfareSelfPayPrice" placeholder="例：特殊寝台セット月額1,500円〜、車椅子月額500円〜" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">在宅医療の対応</label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-cyan-50">
+                    <input type="checkbox" name="formMedicalHomeFeature" value="訪問診療" class="rounded text-cyan-600">
+                    <span>訪問診療</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-cyan-50">
+                    <input type="checkbox" name="formMedicalHomeFeature" value="往診" class="rounded text-cyan-600">
+                    <span>往診</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">対応診療科目</label>
+                <input type="text" id="formMedicalDepartments" placeholder="例：内科・精神科・整形外科・リハビリテーション科・皮膚科" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+              </div>
+
+              <div class="bg-white p-3 rounded-lg border border-cyan-200 space-y-2">
+                <label class="block text-xs font-bold text-cyan-900"><i class="fa-solid fa-bed-pulse text-cyan-600 mr-1"></i>病床数（有床診療所・病院の場合に入力）</label>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">精神（床）</label>
+                    <input type="number" min="0" id="formBedsPsych" placeholder="0" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-sm font-mono" />
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">療養（床）</label>
+                    <input type="number" min="0" id="formBedsLongTerm" placeholder="0" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-sm font-mono" />
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">一般（床）</label>
+                    <input type="number" min="0" id="formBedsGeneral" placeholder="0" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-sm font-mono" />
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">回復期（床）</label>
+                    <input type="number" min="0" id="formBedsRehab" placeholder="0" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-sm font-mono" />
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">地域ケア（床）</label>
+                    <input type="number" min="0" id="formBedsCommunityCare" placeholder="0" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-sm font-mono" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
           <!-- 連絡先・住所 -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
             <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-1111" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
             <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-1112" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名</label><input type="text" id="formContact" placeholder="例：山田 花子（管理者）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者・地域連携室</label><input type="text" id="formContact" placeholder="例：山田 花子（地域連携室・相談員）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div><label class="block text-xs font-bold text-slate-700 mb-1">主たる包括エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
             <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
           </div>
@@ -608,7 +634,7 @@
           <!-- ホームページアドレス・添付ファイル（Googleドライブ等URL） -->
           <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3">
             <div class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-              <i class="fa-solid fa-paperclip text-blue-600"></i><span>ホームページアドレス・添付ファイル（パンフレット・料金表等）</span>
+              <i class="fa-solid fa-paperclip text-blue-600"></i><span>ホームページアドレス・添付ファイル（パンフレット・診療案内等）</span>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">ホームページURL</label>
@@ -629,8 +655,8 @@
           <!-- 営業時間・定休日・体制 -->
           <div class="pt-2 border-t border-slate-100 space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">営業時間</label><input type="text" id="formHours" placeholder="例：8:30〜17:30" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日</label><input type="text" id="formHolidays" placeholder="例：日曜・年末年始" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">営業時間・診療時間</label><input type="text" id="formHours" placeholder="例：8:30〜17:30" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日・休診日</label><input type="text" id="formHolidays" placeholder="例：日曜・祝日・年末年始" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1.5">営業曜日・時間帯の対応</label>
@@ -648,7 +674,7 @@
               <label class="block text-xs font-bold text-slate-700 mb-1.5"><i class="fa-solid fa-user-nurse text-brand-600 mr-1"></i>専門職・職員体制</label>
               <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 space-y-2">
                 <div id="formFacilityStaffTags" class="flex flex-wrap gap-1.5"></div>
-                <input type="text" id="formStaffNote" placeholder="追加記入・自由記入（例：看護師2名常勤・柔道整復師在籍・機能訓練指導員専従など）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
+                <input type="text" id="formStaffNote" placeholder="追加記入・自由記入（例：看護師2名常勤・MSW在籍・機能訓練指導員専従など）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm" />
               </div>
             </div>
           </div>
@@ -656,7 +682,7 @@
           <!-- エリア詳細・加算・独自メモ -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
             <div><label class="block text-xs font-bold text-slate-700 mb-1">対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市全域（片道20分圏内）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：特定事業所加算Ⅱ, 緊急時訪問看護加算" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：在宅療養支援診療所, 機能強化型" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-bold text-amber-800 mb-1"><i class="fa-solid fa-note-sticky text-amber-500 mr-1"></i>ケアマネ独自メモ</label>
               <textarea id="formMemo" rows="3" placeholder="例：急な退院調整や困難事例も柔軟に対応してくれる。" class="w-full px-3 py-2 border border-amber-300 bg-amber-50/40 rounded-lg text-sm"></textarea>
@@ -730,7 +756,9 @@
       { id: 'indigo', label: 'インディゴ', color: 'bg-indigo-100 text-indigo-800 border-indigo-200', bar: 'bg-indigo-500' },
       { id: 'emerald', label: 'エメラルド', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', bar: 'bg-emerald-500' },
       { id: 'teal', label: 'ティール', color: 'bg-teal-100 text-teal-800 border-teal-200', bar: 'bg-teal-500' },
-      { id: 'amber', label: 'アンバー', color: 'bg-amber-100 text-amber-800 border-amber-200', bar: 'bg-amber-500' }
+      { id: 'amber', label: 'アンバー', color: 'bg-amber-100 text-amber-800 border-amber-200', bar: 'bg-amber-500' },
+      { id: 'purple', label: 'パープル', color: 'bg-purple-100 text-purple-800 border-purple-200', bar: 'bg-purple-500' },
+      { id: 'cyan', label: 'シアン', color: 'bg-cyan-100 text-cyan-800 border-cyan-200', bar: 'bg-cyan-500' }
     ];
 
     const INITIAL_MEDICAL_CARE_TAGS = [
@@ -748,6 +776,8 @@
         { id: 'day_service', category: 'home', name: '通所介護（デイサービス）※地密含む', themeId: 'emerald', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', bar: 'bg-emerald-500' },
         { id: 'day_care', category: 'home', name: '通所リハビリ（デイケア）', themeId: 'teal', color: 'bg-teal-100 text-teal-800 border-teal-200', bar: 'bg-teal-500' },
         { id: 'welfare_equip', category: 'home', name: '福祉用具貸与', themeId: 'amber', color: 'bg-amber-100 text-amber-800 border-amber-200', bar: 'bg-amber-500' },
+        { id: 'care_management', category: 'home', name: '居宅介護支援事業所', themeId: 'purple', color: 'bg-purple-100 text-purple-800 border-purple-200', bar: 'bg-purple-500' },
+        { id: 'hospital_clinic', category: 'home', name: '病院、診療所', themeId: 'cyan', color: 'bg-cyan-100 text-cyan-800 border-cyan-200', bar: 'bg-cyan-500' },
         { id: 'short_stay', category: 'facility', name: '短期入所生活介護（ショート）', themeId: 'purple', color: 'bg-purple-100 text-purple-800 border-purple-200', bar: 'bg-purple-500' },
         { id: 'short_stay_medical', category: 'facility', name: '短期入所療養介護（医療型ショート）', themeId: 'violet', color: 'bg-violet-100 text-violet-800 border-violet-200', bar: 'bg-violet-500' },
         { id: 'shokibo', category: 'facility', name: '小規模多機能型居宅介護', themeId: 'orange', color: 'bg-orange-100 text-orange-800 border-orange-200', bar: 'bg-orange-500' },
@@ -842,20 +872,25 @@
       return list;
     }
 
+    function ensureDefaultServiceTypes(rawServices) {
+      const normalized = rawServices.map(st => {
+        if (st.category) return st;
+        const matched = INITIAL_MASTER_DATA.serviceTypes.find(i => i.id === st.id);
+        return { ...st, category: matched ? matched.category : 'home' };
+      });
+      INITIAL_MASTER_DATA.serviceTypes.forEach(initSt => {
+        if (!normalized.some(s => s.id === initSt.id)) normalized.push({ ...initSt });
+      });
+      return normalized;
+    }
+
     function loadLocalCache() {
       try {
         const saved = localStorage.getItem(MASTER_STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
           const rawServices = Array.isArray(parsed.serviceTypes) ? parsed.serviceTypes : structuredClone(INITIAL_MASTER_DATA.serviceTypes);
-          const normalizedServices = rawServices.map(st => {
-            if (st.category) return st;
-            const matched = INITIAL_MASTER_DATA.serviceTypes.find(i => i.id === st.id);
-            return { ...st, category: matched ? matched.category : 'home' };
-          });
-          INITIAL_MASTER_DATA.serviceTypes.forEach(initSt => {
-            if (!normalizedServices.some(s => s.id === initSt.id)) normalizedServices.push({ ...initSt });
-          });
+          const normalizedServices = ensureDefaultServiceTypes(rawServices);
           masterData = {
             ...INITIAL_MASTER_DATA, ...parsed, serviceTypes: normalizedServices,
             areas: Array.isArray(parsed.areas) ? parsed.areas : structuredClone(INITIAL_MASTER_DATA.areas),
@@ -899,6 +934,7 @@
             masterData = {
               ...INITIAL_MASTER_DATA,
               ...data.masters,
+              serviceTypes: ensureDefaultServiceTypes(data.masters.serviceTypes),
               facilityStaffTags: ensureDefaultStaffTags(data.masters.facilityStaffTags)
             };
             localStorage.setItem(MASTER_STORAGE_KEY, JSON.stringify(masterData));
@@ -971,7 +1007,6 @@
       return 'https://' + trimmed;
     }
 
-    // Googleドライブ共有URLを直接表示可能な画像URLへ自動変換
     function normalizeImageUrl(url) {
       if (!url) return '';
       const trimmed = String(url).trim();
@@ -986,6 +1021,20 @@
       const feats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
       const note = item.nurseNote || item.nurseSpecialty || '';
       return [...feats, note].filter(Boolean).join(' ／ ');
+    }
+
+    function getHospitalBedEntries(item) {
+      const b = item.medicalBeds || {};
+      const defs = [
+        { key: 'psych', label: '精神' },
+        { key: 'longTerm', label: '療養' },
+        { key: 'general', label: '一般' },
+        { key: 'rehab', label: '回復期' },
+        { key: 'communityCare', label: '地域ケア' }
+      ];
+      return defs
+        .filter(d => b[d.key] !== undefined && b[d.key] !== null && String(b[d.key]).trim() !== '')
+        .map(d => ({ label: d.label, count: String(b[d.key]).trim() }));
     }
 
     function getItemDayCapacityCategories(item) {
@@ -1136,11 +1185,15 @@
           const st = getServiceTypeObj(item.serviceType);
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const photoCaptions = (item.photos || []).map(p => p.caption || '').join(' ');
+          const medHomeText = Array.isArray(item.medicalHomeFeatures) ? item.medicalHomeFeatures.join(' ') : '';
+          const medBedText = getHospitalBedEntries(item).map(b => `${b.label} ${b.count}床`).join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
             item.homepage, attNames, photoCaptions, getNurseSummaryText(item), getDaySummaryText(item),
             item.homeCareSelfPayPhysical, item.homeCareSelfPayLife, item.homeCareNote, item.homeCareScope, item.homeCareExtra,
             item.welfareSelfPayAvailable ? '介護保険外の自費利用可 自費利用可能' : '', item.welfareSelfPayPrice,
+            item.careMgmtChief ? '主任介護支援専門員 主任ケアマネ' : '', item.careMgmtNote,
+            medHomeText, item.medicalDepartments, medBedText,
             item.dayMeal, item.dayProgram, item.staffNote,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
@@ -1191,8 +1244,9 @@
 
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
+      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
       const visibleCareTags = (item.careTags || []).filter(tag => {
-        if ((item.serviceType === 'home_care' || item.serviceType === 'welfare_equip') && masterData.medicalCareTags.includes(tag)) return false;
+        if (hideMedCare && masterData.medicalCareTags.includes(tag)) return false;
         return true;
       });
       const tagsHtml = visibleCareTags.map(tag => {
@@ -1219,6 +1273,21 @@
         if (item.welfareSelfPayAvailable) wParts.push('介護保険外の自費利用：可');
         if (item.welfareSelfPayPrice) wParts.push(`自費料金：${escapeHtml(item.welfareSelfPayPrice)}`);
         specSummary = wParts.join(' ／ ');
+      }
+      else if (item.serviceType === 'care_management') {
+        const cmParts = [];
+        if (item.careMgmtChief) cmParts.push('主任介護支援専門員配置');
+        if (item.careMgmtNote) cmParts.push(escapeHtml(item.careMgmtNote));
+        specSummary = cmParts.join(' ／ ');
+      }
+      else if (item.serviceType === 'hospital_clinic') {
+        const medParts = [];
+        const homeFeats = Array.isArray(item.medicalHomeFeatures) ? item.medicalHomeFeatures : [];
+        if (homeFeats.length > 0) medParts.push(`在宅医療：${homeFeats.map(escapeHtml).join('・')}`);
+        if (item.medicalDepartments) medParts.push(`診療科：${escapeHtml(item.medicalDepartments)}`);
+        const beds = getHospitalBedEntries(item);
+        if (beds.length > 0) medParts.push(`病床：${beds.map(b => `${b.label}${escapeHtml(b.count)}床`).join('・')}`);
+        specSummary = medParts.join(' ／ ');
       }
       else specSummary = escapeHtml(getDaySummaryText(item));
 
@@ -1477,6 +1546,28 @@
             : '';
           rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">介護保険外の自費利用</div><div>${badge}</div>${priceHtml}</div>`);
         }
+      } else if (item.serviceType === 'care_management') {
+        if (item.careMgmtChief || item.careMgmtNote) {
+          const badge = item.careMgmtChief
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-300 text-xs font-bold mb-1"><i class="fa-solid fa-check mr-1 text-[10px]"></i>主任介護支援専門員を配置</span>`
+            : '';
+          const noteHtml = item.careMgmtNote
+            ? `<div class="mt-0.5 text-xs sm:text-sm text-slate-800 font-medium">${escapeHtml(item.careMgmtNote)}</div>`
+            : '';
+          rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">居宅介護支援 体制・特色</div><div>${badge}</div>${noteHtml}</div>`);
+        }
+      } else if (item.serviceType === 'hospital_clinic') {
+        const homeFeats = Array.isArray(item.medicalHomeFeatures) ? item.medicalHomeFeatures : [];
+        if (homeFeats.length > 0) {
+          const badges = homeFeats.map(f => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-300 text-xs font-bold mr-1.5 mb-1"><i class="fa-solid fa-check mr-1 text-[10px]"></i>${escapeHtml(f)}</span>`).join('');
+          rows.push(`<div class="bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">在宅医療の対応</div><div>${badges}</div></div>`);
+        }
+        addRow('対応診療科目', item.medicalDepartments, homeFeats.length === 0);
+        const beds = getHospitalBedEntries(item);
+        if (beds.length > 0) {
+          const bedBadges = beds.map(b => `<span class="inline-flex items-center px-2.5 py-1 rounded bg-slate-100 text-slate-800 border border-slate-300 text-xs font-bold mr-1.5 mb-1">${escapeHtml(b.label)}：<span class="font-mono text-cyan-800 ml-0.5">${escapeHtml(b.count)}</span>床</span>`).join('');
+          rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">病床数</div><div>${bedBadges}</div></div>`);
+        }
       } else {
         const capCats = getItemDayCapacityCategories(item);
         const capDetail = item.dayCapacity || '';
@@ -1502,7 +1593,7 @@
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
       specSec.classList.toggle('hidden', rows.length === 0);
 
-      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip';
+      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
       document.getElementById('detailTagsHeading').textContent = hideMedCare ? '専門職・職員体制' : '対応可能な医療処置・専門職体制';
       const detailVisibleTags = (item.careTags || []).filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag)));
       document.getElementById('detailTags').innerHTML = detailVisibleTags.map(tag => {
@@ -1639,16 +1730,18 @@
       const stId = document.getElementById('formServiceType').value;
       const stObj = getServiceTypeObj(stId);
       document.getElementById('serviceSpecificFormTitle').textContent = `詳細仕様（${stObj.name}）`;
-      ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day', 'fields_welfare_equip'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day', 'fields_welfare_equip', 'fields_care_management', 'fields_hospital_clinic'].forEach(id => document.getElementById(id).classList.add('hidden'));
       const medSec = document.getElementById('formMedicalCareSection');
-      if (stId === 'home_care' || stId === 'welfare_equip') {
+      if (stId === 'home_care' || stId === 'welfare_equip' || stId === 'care_management') {
         if (medSec) medSec.classList.add('hidden');
         if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
-        else document.getElementById('fields_welfare_equip').classList.remove('hidden');
+        else if (stId === 'welfare_equip') document.getElementById('fields_welfare_equip').classList.remove('hidden');
+        else document.getElementById('fields_care_management').classList.remove('hidden');
       } else {
         if (medSec) medSec.classList.remove('hidden');
         if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
         else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
+        else if (stId === 'hospital_clinic') document.getElementById('fields_hospital_clinic').classList.remove('hidden');
         else document.getElementById('fields_day').classList.remove('hidden');
       }
     }
@@ -1690,6 +1783,18 @@
         document.getElementById('formDayProgram').value = item.dayProgram || '';
         document.getElementById('formWelfareSelfPayAvailable').checked = Boolean(item.welfareSelfPayAvailable);
         document.getElementById('formWelfareSelfPayPrice').value = item.welfareSelfPayPrice || '';
+        document.getElementById('formCareMgmtChief').checked = Boolean(item.careMgmtChief);
+        document.getElementById('formCareMgmtNote').value = item.careMgmtNote || '';
+
+        const medHomeFeats = Array.isArray(item.medicalHomeFeatures) ? item.medicalHomeFeatures : [];
+        document.querySelectorAll('input[name="formMedicalHomeFeature"]').forEach(c => c.checked = medHomeFeats.includes(c.value));
+        document.getElementById('formMedicalDepartments').value = item.medicalDepartments || '';
+        const beds = item.medicalBeds || {};
+        document.getElementById('formBedsPsych').value = beds.psych ?? '';
+        document.getElementById('formBedsLongTerm').value = beds.longTerm ?? '';
+        document.getElementById('formBedsGeneral').value = beds.general ?? '';
+        document.getElementById('formBedsRehab').value = beds.rehab ?? '';
+        document.getElementById('formBedsCommunityCare').value = beds.communityCare ?? '';
 
         document.getElementById('formPhone').value = item.phone;
         document.getElementById('formFax').value = item.fax || '';
@@ -1735,13 +1840,15 @@
       })).filter(a => a.url);
 
       const selectedDayCapCats = Array.from(document.querySelectorAll('input[name="formDayCapacityCategory"]:checked')).map(c => c.value);
+      const stVal = document.getElementById('formServiceType').value;
+      const hideMedCare = stVal === 'home_care' || stVal === 'welfare_equip' || stVal === 'care_management';
 
       const payload = {
         id: id || 'fac_' + Date.now(),
         name: document.getElementById('formName').value.trim(),
         corp: document.getElementById('formCorp').value.trim(),
         code: document.getElementById('formCode').value.trim(),
-        serviceType: document.getElementById('formServiceType').value,
+        serviceType: stVal,
 
         homeCareSelfPayPhysical: document.getElementById('formHomeCareSelfPayPhysical').value.trim(),
         homeCareSelfPayLife: document.getElementById('formHomeCareSelfPayLife').value.trim(),
@@ -1759,6 +1866,17 @@
         dayProgram: document.getElementById('formDayProgram').value.trim(),
         welfareSelfPayAvailable: document.getElementById('formWelfareSelfPayAvailable').checked,
         welfareSelfPayPrice: document.getElementById('formWelfareSelfPayPrice').value.trim(),
+        careMgmtChief: document.getElementById('formCareMgmtChief').checked,
+        careMgmtNote: document.getElementById('formCareMgmtNote').value.trim(),
+        medicalHomeFeatures: Array.from(document.querySelectorAll('input[name="formMedicalHomeFeature"]:checked')).map(c => c.value),
+        medicalDepartments: document.getElementById('formMedicalDepartments').value.trim(),
+        medicalBeds: {
+          psych: document.getElementById('formBedsPsych').value.trim(),
+          longTerm: document.getElementById('formBedsLongTerm').value.trim(),
+          general: document.getElementById('formBedsGeneral').value.trim(),
+          rehab: document.getElementById('formBedsRehab').value.trim(),
+          communityCare: document.getElementById('formBedsCommunityCare').value.trim()
+        },
 
         phone: document.getElementById('formPhone').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
@@ -1773,7 +1891,7 @@
         schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
         careTags: Array.from(document.querySelectorAll('input[name="formCareTag"]:checked'))
           .map(c => c.value)
-          .filter(tag => !((document.getElementById('formServiceType').value === 'home_care' || document.getElementById('formServiceType').value === 'welfare_equip') && masterData.medicalCareTags.includes(tag))),
+          .filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag))),
         staffNote: document.getElementById('formStaffNote').value.trim(),
         areaDetail: document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
@@ -1913,6 +2031,7 @@
         const parsed = JSON.parse(ev.target.result);
         if (parsed.masters && parsed.facilities) {
           masterData = parsed.masters;
+          masterData.serviceTypes = ensureDefaultServiceTypes(masterData.serviceTypes || []);
           masterData.facilityStaffTags = ensureDefaultStaffTags(masterData.facilityStaffTags);
           facilities = parsed.facilities;
           initFilterUI(); initFormUI(); applyFilters();
