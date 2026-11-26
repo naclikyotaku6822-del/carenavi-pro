@@ -404,7 +404,7 @@
           </div>
 
           <div>
-            <h3 class="text-sm font-bold text-slate-800 mb-2">対応可能な医療処置・専門職体制</h3>
+            <h3 id="detailTagsHeading" class="text-sm font-bold text-slate-800 mb-2">対応可能な医療処置・専門職体制</h3>
             <div id="detailTags" class="flex flex-wrap gap-1.5"></div>
             <div id="detailStaffNoteBox" class="hidden mt-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700">
               <span class="font-bold text-slate-600 mr-1">専門職・体制補足：</span><span id="detailStaffNoteText"></span>
@@ -474,9 +474,15 @@
               <i class="fa-solid fa-sliders text-brand-600"></i><span id="serviceSpecificFormTitle">在宅サービス種別ごとの詳細仕様</span>
             </div>
 
-            <div id="fields_home_care" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">生活援助・身体介護の対応範囲</label><input type="text" id="formHomeCareScope" placeholder="例：身体・生活とも空きあり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">同行援護・総合事業・自費対応</label><input type="text" id="formHomeCareExtra" placeholder="例：総合事業A2対応可・自費1時間2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <div id="fields_home_care" class="hidden space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（身体介護）</label><input type="text" id="formHomeCareSelfPayPhysical" placeholder="例：30分 2,000円 / 1時間 3,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">自費対応の料金（生活援助）</label><input type="text" id="formHomeCareSelfPayLife" placeholder="例：30分 1,500円 / 1時間 2,500円" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">備考</label>
+                <textarea id="formHomeCareNote" rows="2" placeholder="例：自費サービスは介護保険利用者に限る・交通費別途など" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm"></textarea>
+              </div>
             </div>
 
             <!-- 訪問看護専用 -->
@@ -558,9 +564,15 @@
               </div>
             </div>
 
-            <div id="fields_welfare_equip" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">取扱メーカー・得意品目</label><input type="text" id="formWelfareMaker" placeholder="例：パラマウント・フランスベッド・車椅子各種" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">当日納品・住宅改修・販売対応</label><input type="text" id="formWelfareSpeed" placeholder="例：退院時当日納品可・住宅改修施工可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <div id="fields_welfare_equip" class="hidden space-y-2">
+              <label class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-brand-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-brand-50">
+                <input type="checkbox" id="formWelfareSelfPayAvailable" class="rounded text-brand-600">
+                <span>介護保険外の自費利用が可能</span>
+              </label>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">自費利用の場合の料金</label>
+                <input type="text" id="formWelfareSelfPayPrice" placeholder="例：特殊寝台セット月額1,500円〜、車椅子月額500円〜" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" />
+              </div>
             </div>
           </div>
 
@@ -628,7 +640,7 @@
 
           <!-- 対応可能な医療処置・専門職 -->
           <div class="pt-2 border-t border-slate-100 space-y-3">
-            <div>
+            <div id="formMedicalCareSection">
               <label class="block text-xs font-bold text-rose-800 mb-1.5"><i class="fa-solid fa-notes-medical text-rose-600 mr-1"></i>対応可能な医療処置</label>
               <div id="formMedicalCareTags" class="flex flex-wrap gap-1.5 bg-rose-50/40 p-2.5 rounded-xl border border-rose-100"></div>
             </div>
@@ -1127,6 +1139,8 @@
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
             item.homepage, attNames, photoCaptions, getNurseSummaryText(item), getDaySummaryText(item),
+            item.homeCareSelfPayPhysical, item.homeCareSelfPayLife, item.homeCareNote, item.homeCareScope, item.homeCareExtra,
+            item.welfareSelfPayAvailable ? '介護保険外の自費利用可 自費利用可能' : '', item.welfareSelfPayPrice,
             item.dayMeal, item.dayProgram, item.staffNote,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
@@ -1177,17 +1191,35 @@
 
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
-      const tagsHtml = (item.careTags || []).map(tag => {
+      const visibleCareTags = (item.careTags || []).filter(tag => {
+        if ((item.serviceType === 'home_care' || item.serviceType === 'welfare_equip') && masterData.medicalCareTags.includes(tag)) return false;
+        return true;
+      });
+      const tagsHtml = visibleCareTags.map(tag => {
         const isMed = masterData.medicalCareTags.includes(tag);
         const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
         return `<span class="px-2 py-0.5 rounded-md text-xs font-medium border ${cls}">${escapeHtml(tag)}</span>`;
       }).join('');
 
       let specSummary = '';
-      if (item.serviceType === 'home_care') specSummary = [escapeHtml(item.homeCareScope), escapeHtml(item.homeCareExtra)].filter(Boolean).join(' ／ ');
+      if (item.serviceType === 'home_care') {
+        const hcParts = [];
+        if (item.homeCareSelfPayPhysical) hcParts.push(`自費(身体)：${escapeHtml(item.homeCareSelfPayPhysical)}`);
+        if (item.homeCareSelfPayLife) hcParts.push(`自費(生活)：${escapeHtml(item.homeCareSelfPayLife)}`);
+        if (item.homeCareNote) hcParts.push(escapeHtml(item.homeCareNote));
+        if (hcParts.length === 0) {
+          hcParts.push(...[escapeHtml(item.homeCareScope), escapeHtml(item.homeCareExtra)].filter(Boolean));
+        }
+        specSummary = hcParts.join(' ／ ');
+      }
       else if (item.serviceType === 'home_nursing') specSummary = escapeHtml(getNurseSummaryText(item));
       else if (item.serviceType === 'home_rehab') specSummary = [escapeHtml(item.homeRehabClinic), escapeHtml(item.homeRehabSlot)].filter(Boolean).join(' ／ ');
-      else if (item.serviceType === 'welfare_equip') specSummary = [escapeHtml(item.welfareMaker), escapeHtml(item.welfareSpeed)].filter(Boolean).join(' ／ ');
+      else if (item.serviceType === 'welfare_equip') {
+        const wParts = [];
+        if (item.welfareSelfPayAvailable) wParts.push('介護保険外の自費利用：可');
+        if (item.welfareSelfPayPrice) wParts.push(`自費料金：${escapeHtml(item.welfareSelfPayPrice)}`);
+        specSummary = wParts.join(' ／ ');
+      }
       else specSummary = escapeHtml(getDaySummaryText(item));
 
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
@@ -1417,8 +1449,13 @@
         if (val) rows.push(`<div class="${fullWidth ? 'sm:col-span-2 ' : ''}bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`);
       };
       if (item.serviceType === 'home_care') {
-        addRow('生活援助・身体介護の対応範囲', item.homeCareScope);
-        addRow('同行援護・総合事業・自費対応', item.homeCareExtra);
+        addRow('自費対応の料金（身体介護）', item.homeCareSelfPayPhysical);
+        addRow('自費対応の料金（生活援助）', item.homeCareSelfPayLife);
+        addRow('備考', item.homeCareNote, true);
+        if (!item.homeCareSelfPayPhysical && !item.homeCareSelfPayLife && !item.homeCareNote) {
+          addRow('生活援助・身体介護の対応範囲', item.homeCareScope);
+          addRow('同行援護・総合事業・自費対応', item.homeCareExtra);
+        }
       } else if (item.serviceType === 'home_nursing') {
         const feats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
         const note = item.nurseNote || item.nurseSpecialty || '';
@@ -1431,8 +1468,15 @@
         addRow('母体医療機関・指示書要件', item.homeRehabClinic);
         addRow('訪問可能枠・短期集中リハ対応', item.homeRehabSlot);
       } else if (item.serviceType === 'welfare_equip') {
-        addRow('取扱メーカー・得意品目', item.welfareMaker);
-        addRow('当日納品・住宅改修・販売対応', item.welfareSpeed);
+        if (item.welfareSelfPayAvailable || item.welfareSelfPayPrice) {
+          const badge = item.welfareSelfPayAvailable
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded bg-brand-100 text-brand-800 border border-brand-300 text-xs font-bold mb-1"><i class="fa-solid fa-check mr-1 text-[10px]"></i>介護保険外の自費利用が可能</span>`
+            : `<span class="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold mb-1">介護保険外の自費利用：未チェック</span>`;
+          const priceHtml = item.welfareSelfPayPrice
+            ? `<div class="mt-0.5 text-xs sm:text-sm text-slate-800 font-medium">料金：${escapeHtml(item.welfareSelfPayPrice)}</div>`
+            : '';
+          rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-brand-200"><div class="text-[11px] text-slate-500 font-bold mb-1">介護保険外の自費利用</div><div>${badge}</div>${priceHtml}</div>`);
+        }
       } else {
         const capCats = getItemDayCapacityCategories(item);
         const capDetail = item.dayCapacity || '';
@@ -1458,7 +1502,10 @@
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
       specSec.classList.toggle('hidden', rows.length === 0);
 
-      document.getElementById('detailTags').innerHTML = (item.careTags || []).map(tag => {
+      const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip';
+      document.getElementById('detailTagsHeading').textContent = hideMedCare ? '専門職・職員体制' : '対応可能な医療処置・専門職体制';
+      const detailVisibleTags = (item.careTags || []).filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag)));
+      document.getElementById('detailTags').innerHTML = detailVisibleTags.map(tag => {
         const isMed = masterData.medicalCareTags.includes(tag);
         const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
         return `<span class="px-2.5 py-1 rounded-lg text-xs font-medium border ${cls}">${escapeHtml(tag)}</span>`;
@@ -1593,11 +1640,17 @@
       const stObj = getServiceTypeObj(stId);
       document.getElementById('serviceSpecificFormTitle').textContent = `詳細仕様（${stObj.name}）`;
       ['fields_home_care', 'fields_home_nursing', 'fields_home_rehab', 'fields_day', 'fields_welfare_equip'].forEach(id => document.getElementById(id).classList.add('hidden'));
-      if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
-      else if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
-      else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
-      else if (stId === 'welfare_equip') document.getElementById('fields_welfare_equip').classList.remove('hidden');
-      else document.getElementById('fields_day').classList.remove('hidden');
+      const medSec = document.getElementById('formMedicalCareSection');
+      if (stId === 'home_care' || stId === 'welfare_equip') {
+        if (medSec) medSec.classList.add('hidden');
+        if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
+        else document.getElementById('fields_welfare_equip').classList.remove('hidden');
+      } else {
+        if (medSec) medSec.classList.remove('hidden');
+        if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
+        else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
+        else document.getElementById('fields_day').classList.remove('hidden');
+      }
     }
 
     function openFormModal(editId = null) {
@@ -1614,8 +1667,9 @@
         document.getElementById('formCode').value = item.code || '';
         document.getElementById('formServiceType').value = item.serviceType;
 
-        document.getElementById('formHomeCareScope').value = item.homeCareScope || '';
-        document.getElementById('formHomeCareExtra').value = item.homeCareExtra || '';
+        document.getElementById('formHomeCareSelfPayPhysical').value = item.homeCareSelfPayPhysical || '';
+        document.getElementById('formHomeCareSelfPayLife').value = item.homeCareSelfPayLife || '';
+        document.getElementById('formHomeCareNote').value = item.homeCareNote || [item.homeCareScope, item.homeCareExtra].filter(Boolean).join(' / ') || '';
 
         const nurseFeats = Array.isArray(item.nurseFeatures) ? item.nurseFeatures : [];
         document.querySelectorAll('input[name="formNurseFeature"]').forEach(c => c.checked = nurseFeats.includes(c.value));
@@ -1634,8 +1688,8 @@
 
         document.getElementById('formDayMeal').value = item.dayMeal || '';
         document.getElementById('formDayProgram').value = item.dayProgram || '';
-        document.getElementById('formWelfareMaker').value = item.welfareMaker || '';
-        document.getElementById('formWelfareSpeed').value = item.welfareSpeed || '';
+        document.getElementById('formWelfareSelfPayAvailable').checked = Boolean(item.welfareSelfPayAvailable);
+        document.getElementById('formWelfareSelfPayPrice').value = item.welfareSelfPayPrice || '';
 
         document.getElementById('formPhone').value = item.phone;
         document.getElementById('formFax').value = item.fax || '';
@@ -1689,8 +1743,9 @@
         code: document.getElementById('formCode').value.trim(),
         serviceType: document.getElementById('formServiceType').value,
 
-        homeCareScope: document.getElementById('formHomeCareScope').value.trim(),
-        homeCareExtra: document.getElementById('formHomeCareExtra').value.trim(),
+        homeCareSelfPayPhysical: document.getElementById('formHomeCareSelfPayPhysical').value.trim(),
+        homeCareSelfPayLife: document.getElementById('formHomeCareSelfPayLife').value.trim(),
+        homeCareNote: document.getElementById('formHomeCareNote').value.trim(),
         nurseFeatures: Array.from(document.querySelectorAll('input[name="formNurseFeature"]:checked')).map(c => c.value),
         nurseNote: document.getElementById('formNurseNote').value.trim(),
         homeRehabClinic: document.getElementById('formHomeRehabClinic').value.trim(),
@@ -1702,8 +1757,8 @@
         dayBath: document.getElementById('formDayBath').value.trim(),
         dayMeal: document.getElementById('formDayMeal').value.trim(),
         dayProgram: document.getElementById('formDayProgram').value.trim(),
-        welfareMaker: document.getElementById('formWelfareMaker').value.trim(),
-        welfareSpeed: document.getElementById('formWelfareSpeed').value.trim(),
+        welfareSelfPayAvailable: document.getElementById('formWelfareSelfPayAvailable').checked,
+        welfareSelfPayPrice: document.getElementById('formWelfareSelfPayPrice').value.trim(),
 
         phone: document.getElementById('formPhone').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
@@ -1716,7 +1771,9 @@
         hours: document.getElementById('formHours').value.trim(),
         holidays: document.getElementById('formHolidays').value.trim(),
         schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
-        careTags: Array.from(document.querySelectorAll('input[name="formCareTag"]:checked')).map(c => c.value),
+        careTags: Array.from(document.querySelectorAll('input[name="formCareTag"]:checked'))
+          .map(c => c.value)
+          .filter(tag => !((document.getElementById('formServiceType').value === 'home_care' || document.getElementById('formServiceType').value === 'welfare_equip') && masterData.medicalCareTags.includes(tag))),
         staffNote: document.getElementById('formStaffNote').value.trim(),
         areaDetail: document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
