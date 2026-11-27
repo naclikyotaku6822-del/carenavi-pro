@@ -32,7 +32,6 @@
     .filter-chip { transition: all 0.15s ease-in-out; }
     .filter-chip:active { transform: scale(0.97); }
     .pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
- 
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-purple-100 selection:text-purple-900 pb-20 lg:pb-0">
@@ -204,6 +203,33 @@
           <div id="roomTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
+        <!-- 飲酒・喫煙・生活保護入居 絞り込み -->
+        <div class="bg-rose-50/50 border border-rose-200/80 rounded-xl p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check text-rose-600"></i><span>飲酒・喫煙・生活保護入居</span>
+            </label>
+            <span class="text-[10px] text-slate-400">AND</span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-rose-300 cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="checkbox" id="filterDrinkCheck" onchange="applyFilters()" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+              <i class="fa-solid fa-wine-glass text-rose-500 w-3.5 text-center"></i>
+              <span>飲酒</span>
+            </label>
+            <label class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-rose-300 cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="checkbox" id="filterSmokeCheck" onchange="applyFilters()" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+              <i class="fa-solid fa-smoking text-rose-500 w-3.5 text-center"></i>
+              <span>喫煙</span>
+            </label>
+            <label class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-rose-300 cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="checkbox" id="filterWelfareCheck" onchange="applyFilters()" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+              <i class="fa-solid fa-hand-holding-heart text-rose-500 w-3.5 text-center"></i>
+              <span>生活保護入居</span>
+            </label>
+          </div>
+        </div>
+
         <!-- 短期入所系：施設形態・入浴設備絞り込み -->
         <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-3 space-y-2.5">
           <div class="flex items-center justify-between">
@@ -270,6 +296,8 @@
             <label for="sortSelect" class="text-xs text-slate-500 whitespace-nowrap"><i class="fa-solid fa-arrow-down-wide-short mr-1"></i>並び替え:</label>
             <select id="sortSelect" onchange="applyFilters()" class="flex-1 sm:flex-initial bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium">
               <option value="favorite">お気に入り優先</option>
+              <option value="monthly_asc">月額利用料金が安い順</option>
+              <option value="monthly_desc">月額利用料金が高い順</option>
               <option value="updated">情報更新日が新しい順</option>
               <option value="name">施設名順 (五十音)</option>
             </select>
@@ -542,6 +570,30 @@
               <i class="fa-solid fa-sliders text-purple-600"></i><span id="serviceSpecificFormTitle">施設種別ごとの詳細仕様</span>
             </div>
 
+            <!-- 受入可能条件（飲酒・喫煙・生活保護入居）チェックボックス -->
+            <div class="bg-white p-3 rounded-lg border border-rose-200 space-y-2">
+              <div class="text-xs font-bold text-rose-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-rose-600"></i><span>受入・対応可能項目（可能な場合のみチェック）</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50/50 hover:bg-rose-100/70 cursor-pointer text-xs font-bold text-slate-800 select-none">
+                  <input type="checkbox" id="formAllowDrink" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+                  <i class="fa-solid fa-wine-glass text-rose-500"></i>
+                  <span>飲酒可</span>
+                </label>
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50/50 hover:bg-rose-100/70 cursor-pointer text-xs font-bold text-slate-800 select-none">
+                  <input type="checkbox" id="formAllowSmoke" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+                  <i class="fa-solid fa-smoking text-rose-500"></i>
+                  <span>喫煙可</span>
+                </label>
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50/50 hover:bg-rose-100/70 cursor-pointer text-xs font-bold text-slate-800 select-none">
+                  <input type="checkbox" id="formAllowWelfare" class="w-4 h-4 accent-rose-600 rounded cursor-pointer" />
+                  <i class="fa-solid fa-hand-holding-heart text-rose-500"></i>
+                  <span>生活保護入居可</span>
+                </label>
+              </div>
+            </div>
+
             <!-- 1. 短期入所系（短期入所生活介護・短期入所療養介護） -->
             <div id="fields_short_stay" class="hidden space-y-3">
               <div class="bg-white p-3 rounded-lg border border-purple-200 space-y-2">
@@ -684,7 +736,7 @@
             </div>
           </div>
 
-          <!-- エリア詳細・加算・独自メモ -->
+          <!-- エリア詳細・加算・独自メモ（備考欄） -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
             <div id="formAreaDetailWrap"><label class="block text-xs font-bold text-slate-700 mb-1">送迎・訪問対応エリア詳細</label><input type="text" id="formAreaDetail" placeholder="例：長崎市全域（片道30分圏内）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div id="formAdditionsWrap"><label class="block text-xs font-bold text-slate-700 mb-1">算定加算・特徴（カンマ区切り）</label><input type="text" id="formAdditions" placeholder="例：看取り介護加算, 看護体制強化加算" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
@@ -832,6 +884,7 @@
         homepage: '', photos: [], attachments: [],
         roomTypes: ['ユニット型個室', '従来型個室', '居室内トイレ'], roomNote: 'ユニット型個室20床（居室内トイレ完備）・従来型個室10床',
         mealCost: '1,445円/日', stayCost: 'ユニット型個室 2,066円/日・従来型個室 1,171円/日',
+        allowDrink: false, allowSmoke: false, allowWelfare: true,
         shortFacilityTypes: ['併設型'],
         shortBathTypes: ['個浴', '機械浴'], shortBath: '個浴2槽・特殊機械浴完備',
         areaDetail: '', hours: '', holidays: '',
@@ -847,6 +900,7 @@
         homepage: '', photos: [], attachments: [],
         roomTypes: ['ユニット型個室', '居室内トイレ'], roomNote: '全室ユニット型個室（定員80名・全室トイレ洗面完備）',
         mealCost: '約4.4万円/月（1,445円/日）', stayCost: '約6.2万円/月（2,066円/日）',
+        allowDrink: false, allowSmoke: false, allowWelfare: true,
         areaDetail: '', hours: '', holidays: '',
         schedules: [],
         careTags: ['経管栄養法（胃ろうを含む）', '膀胱留置カテーテル', '在宅酸素療法（HOT)', '人工肛門（ストマ）', '吸引', '麻薬を用いた疼痛管理'],
@@ -864,7 +918,71 @@
     let currentMasterTab = 'serviceTypes';
     let currentSliderPhotos = [];
     let currentSlideIndex = 0;
-    let filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+    let filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+
+    function parseMonthlyFeeNumbers(item) {
+      const raw = String(item.resMonthlyFee || '').trim();
+      if (!raw) return [];
+      const normalized = raw.replace(/[，,]/g, '').replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+      const values = [];
+      const regex = /(\d+(?:\.\d+)?)\s*(万)?(?:\s*(\d+(?:\.\d+)?)\s*千)?(?:\s*円)?/g;
+      let m;
+      while ((m = regex.exec(normalized)) !== null) {
+        if (!m[0].trim()) continue;
+        const base = parseFloat(m[1]);
+        if (isNaN(base)) continue;
+        if (m[2] === '万') {
+          let yen = base * 10000;
+          if (m[3]) yen += parseFloat(m[3]) * 1000;
+          values.push(yen);
+        } else if (m[3]) {
+          values.push(base * 1000);
+        } else if (base >= 10000) {
+          values.push(base);
+        }
+      }
+      return values;
+    }
+
+    function getMonthlyFeeSortValue(item, mode) {
+      const nums = parseMonthlyFeeNumbers(item);
+      if (!nums.length) return mode === 'asc' ? Infinity : -Infinity;
+      return mode === 'asc' ? Math.min(...nums) : Math.max(...nums);
+    }
+
+    function matchesRuleCondition(item, type) {
+      const memo = String(item.memo || '');
+      const additions = Array.isArray(item.additions) ? item.additions.join(' ') : '';
+      if (type === 'drink') {
+        if (item.allowDrink === true) return true;
+        const rule = String(item.resAlcohol || '');
+        const text = rule || memo;
+        if (!text) return false;
+        const hasNeg = /(不可|禁止|禁酒|NG|お断り|できません)/i.test(text);
+        const hasPos = /(可|相談|居室内|条件|OK|一部)/i.test(text);
+        if (rule) return hasPos || !hasNeg;
+        return /飲酒/.test(memo) && !/(飲酒不可|飲酒禁止|禁酒)/.test(memo);
+      }
+      if (type === 'smoke') {
+        if (item.allowSmoke === true) return true;
+        const rule = String(item.resSmoking || '');
+        const text = rule || memo;
+        if (!text) return false;
+        const isStrictBan = /(全面禁煙|敷地内禁煙|禁煙|不可|禁止|NG|お断り)/.test(text);
+        const hasAllowedArea = /(喫煙所|喫煙室|屋外|可|相談|条件|OK)/.test(text);
+        if (rule) return hasAllowedArea || !isStrictBan;
+        return /喫煙/.test(memo) && !/(全面禁煙|敷地内禁煙|喫煙不可|喫煙禁止)/.test(memo);
+      }
+      if (type === 'welfare') {
+        if (item.allowWelfare === true) return true;
+        const combined = [item.resMonthlyFee, item.resDeposit, item.resCareLimit, item.resDementia, item.resTrial, additions, memo].join(' ');
+        if (!/生活保護/.test(combined)) return false;
+        const hasExplicitDeny = /生活保護.{0,12}(不可|非対応|お断り|NG)/.test(combined);
+        const hasExplicitAllow = /生活保護.{0,15}(可|受入|相談|対応|OK)/.test(combined);
+        return hasExplicitAllow || !hasExplicitDeny;
+      }
+      return true;
+    }
 
     document.addEventListener('DOMContentLoaded', async () => {
       loadLocalCache();
@@ -1004,7 +1122,6 @@
       return 'https://' + trimmed;
     }
 
-    // Googleドライブ共有URLを直接表示可能な画像URLへ自動変換
     function normalizeImageUrl(url) {
       if (!url) return '';
       const trimmed = String(url).trim();
@@ -1145,11 +1262,17 @@
 
     function applyFilters() {
       filterState.favoriteOnly = document.getElementById('favoriteOnlyToggle').checked;
+      filterState.allowDrink = document.getElementById('filterDrinkCheck')?.checked || false;
+      filterState.allowSmoke = document.getElementById('filterSmokeCheck')?.checked || false;
+      filterState.allowWelfare = document.getElementById('filterWelfareCheck')?.checked || false;
       const kw = filterState.keyword.trim().toLowerCase();
       const baseList = getCategoryFacilities();
 
       let filtered = baseList.filter(item => {
         if (filterState.favoriteOnly && !item.favorite) return false;
+        if (filterState.allowDrink && !matchesRuleCondition(item, 'drink')) return false;
+        if (filterState.allowSmoke && !matchesRuleCondition(item, 'smoke')) return false;
+        if (filterState.allowWelfare && !matchesRuleCondition(item, 'welfare')) return false;
         if (filterState.serviceTypes.length > 0 && !filterState.serviceTypes.includes(item.serviceType)) return false;
 
         if (filterState.roomTypes.length > 0) {
@@ -1177,9 +1300,14 @@
           const st = getServiceTypeObj(item.serviceType);
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const photoCaptions = (item.photos || []).map(p => p.caption || '').join(' ');
+          const allowFlags = [
+            item.allowDrink ? '飲酒可' : '',
+            item.allowSmoke ? '喫煙可' : '',
+            item.allowWelfare ? '生活保護入居可' : ''
+          ].join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, photoCaptions, getRoomSummaryText(item), getCostSummaryText(item),
+            item.homepage, attNames, photoCaptions, allowFlags, getRoomSummaryText(item), getCostSummaryText(item),
             getItemShortFacilityTypes(item).join(' '), getShortBathSummaryText(item),
             item.shortBooking, item.shortTransport, item.shokiboCap, item.shokiboFee,
             item.resDeposit, item.resMonthlyFee, item.resVacancy, item.resCareLimit, item.resExitCareLimit, item.resDementia,
@@ -1192,6 +1320,18 @@
 
       const sortBy = document.getElementById('sortSelect').value;
       filtered.sort((a, b) => {
+        if (sortBy === 'monthly_asc') {
+          const va = getMonthlyFeeSortValue(a, 'asc');
+          const vb = getMonthlyFeeSortValue(b, 'asc');
+          if (va !== vb) return va - vb;
+          return a.name.localeCompare(b.name, 'ja');
+        }
+        if (sortBy === 'monthly_desc') {
+          const va = getMonthlyFeeSortValue(a, 'desc');
+          const vb = getMonthlyFeeSortValue(b, 'desc');
+          if (va !== vb) return vb - va;
+          return a.name.localeCompare(b.name, 'ja');
+        }
         if (sortBy === 'favorite') {
           if (a.favorite !== b.favorite) return b.favorite ? 1 : -1;
           return (b.updatedAt || '').localeCompare(a.updatedAt || '');
@@ -1207,7 +1347,8 @@
       let count = filterState.serviceTypes.length + filterState.roomTypes.length +
         filterState.shortFacilityTypes.length + filterState.shortBaths.length +
         filterState.areas.length + filterState.careTags.length + filterState.schedules.length +
-        (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
+        (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0) +
+        (filterState.allowDrink ? 1 : 0) + (filterState.allowSmoke ? 1 : 0) + (filterState.allowWelfare ? 1 : 0);
       document.getElementById('activeFilterCount').textContent = count;
       document.getElementById('bottomFilterBadge').textContent = count;
       document.getElementById('activeFilterCount').classList.toggle('hidden', count === 0);
@@ -1231,10 +1372,19 @@
       }
     }
 
+    function renderAllowBadgesHTML(item) {
+      const badges = [];
+      if (item.allowDrink) badges.push(`<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold inline-flex items-center gap-1"><i class="fa-solid fa-wine-glass text-[10px]"></i>飲酒可</span>`);
+      if (item.allowSmoke) badges.push(`<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold inline-flex items-center gap-1"><i class="fa-solid fa-smoking text-[10px]"></i>喫煙可</span>`);
+      if (item.allowWelfare) badges.push(`<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-heart text-[10px]"></i>生活保護入居可</span>`);
+      return badges.join('');
+    }
+
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
       const medTags = (item.careTags || []).filter(tag => masterData.medicalCareTags.includes(tag));
       const tagsHtml = medTags.map(tag => `<span class="px-2 py-0.5 rounded-md text-xs font-medium border bg-rose-50 text-rose-800 border-rose-200">${escapeHtml(tag)}</span>`).join('');
+      const allowBadgesHtml = renderAllowBadgesHTML(item);
 
       let specSummary = '';
       if (item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical') {
@@ -1291,6 +1441,7 @@
                 ${item.address ? `<div class="truncate"><i class="fa-solid fa-map-pin text-slate-400 w-4"></i>${escapeHtml(item.address)}</div>` : ''}
                 ${showHours ? `<div><i class="fa-regular fa-clock text-slate-400 w-4"></i>${escapeHtml(item.hours)}（休: ${escapeHtml(item.holidays || '-')}）</div>` : ''}
               </div>
+              ${allowBadgesHtml ? `<div class="flex flex-wrap gap-1.5 mb-2">${allowBadgesHtml}</div>` : ''}
               ${roomSummary ? `<div class="bg-indigo-50/80 border border-indigo-200 rounded-lg px-2.5 py-1.5 mb-2 text-[11px] text-indigo-950 font-medium">${escapeHtml(roomSummary)}</div>` : ''}
               ${costSummary ? `<div class="bg-emerald-50/80 border border-emerald-200 rounded-lg px-2.5 py-1.5 mb-2 text-[11px] text-emerald-950 font-medium">${escapeHtml(costSummary)}</div>` : ''}
               ${specSummary ? `<div class="bg-purple-50/80 border border-purple-200 rounded-lg px-2.5 py-1.5 mb-2.5 text-[11px] text-purple-950 font-medium">${specSummary}</div>` : ''}
@@ -1434,6 +1585,7 @@
         <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-purple-50 text-purple-800 border-purple-200">施設系</span>
         <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-medium">${escapeHtml(item.area)}</span>
+        ${renderAllowBadgesHTML(item)}
       `;
       document.getElementById('detailName').textContent = item.name;
       document.getElementById('detailCorp').textContent = item.corp || '';
@@ -1514,6 +1666,15 @@
 
       const rows = [];
       const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-purple-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
+
+      const allowLabels = [];
+      if (item.allowDrink) allowLabels.push('飲酒可');
+      if (item.allowSmoke) allowLabels.push('喫煙可');
+      if (item.allowWelfare) allowLabels.push('生活保護入居可');
+      if (allowLabels.length > 0) {
+        rows.push(`<div class="sm:col-span-2 bg-white p-2.5 rounded-lg border border-rose-200"><div class="text-[11px] text-rose-800 font-bold mb-1">受入・対応可能項目</div><div class="flex flex-wrap gap-1.5">${allowLabels.map(l => `<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold">${escapeHtml(l)}</span>`).join('')}</div></div>`);
+      }
+
       if (item.serviceType === 'short_stay' || item.serviceType === 'short_stay_medical') {
         const fts = getItemShortFacilityTypes(item);
         if (fts.length > 0) addRow('施設形態', fts.join('・'));
@@ -1713,6 +1874,10 @@
         document.getElementById('formCode').value = item.code || '';
         document.getElementById('formServiceType').value = item.serviceType;
 
+        document.getElementById('formAllowDrink').checked = Boolean(item.allowDrink);
+        document.getElementById('formAllowSmoke').checked = Boolean(item.allowSmoke);
+        document.getElementById('formAllowWelfare').checked = Boolean(item.allowWelfare);
+
         const roomTypes = getItemRoomTypes(item);
         const targetContainerId = YUURYOU_CARE_ROOM_SERVICE_IDS.has(item.serviceType)
           ? '#formRoomOptionsYuuryouCare'
@@ -1801,6 +1966,10 @@
         corp: document.getElementById('formCorp').value.trim(),
         code: document.getElementById('formCode').value.trim(),
         serviceType: stId,
+
+        allowDrink: document.getElementById('formAllowDrink').checked,
+        allowSmoke: document.getElementById('formAllowSmoke').checked,
+        allowWelfare: document.getElementById('formAllowWelfare').checked,
 
         roomTypes: NO_ROOM_SERVICE_IDS.has(stId)
           ? []
@@ -2035,9 +2204,12 @@
     function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
 
     function resetAllFilters() {
-      filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+      filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
       syncSearchInputs('');
       document.getElementById('favoriteOnlyToggle').checked = false;
+      if (document.getElementById('filterDrinkCheck')) document.getElementById('filterDrinkCheck').checked = false;
+      if (document.getElementById('filterSmokeCheck')) document.getElementById('filterSmokeCheck').checked = false;
+      if (document.getElementById('filterWelfareCheck')) document.getElementById('filterWelfareCheck').checked = false;
       document.querySelectorAll('.filter-chip').forEach(b => highlightChip(b, false));
       applyFilters();
     }
