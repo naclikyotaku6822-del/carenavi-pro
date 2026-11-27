@@ -1248,9 +1248,11 @@
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
       const isHospital = item.serviceType === 'hospital_clinic';
-      const hideMedCare = isHospital || item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
+      const hideMedCare = isHospital || item.serviceType === 'home_care' || item.serviceType === 'home_rehab' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
       const visibleCareTags = isHospital ? [] : (item.careTags || []).filter(tag => {
         if (hideMedCare && masterData.medicalCareTags.includes(tag)) return false;
+        if (item.serviceType === 'home_care' && !['看護師', '男性スタッフ在籍'].includes(tag)) return false;
+        if (item.serviceType === 'home_rehab' && ['個浴', '機械浴', '特浴'].includes(tag)) return false;
         return true;
       });
       const tagsHtml = visibleCareTags.map(tag => {
@@ -1603,9 +1605,14 @@
         if (detailTagsSec) detailTagsSec.classList.add('hidden');
       } else {
         if (detailTagsSec) detailTagsSec.classList.remove('hidden');
-        const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
+        const hideMedCare = item.serviceType === 'home_care' || item.serviceType === 'home_rehab' || item.serviceType === 'welfare_equip' || item.serviceType === 'care_management';
         document.getElementById('detailTagsHeading').textContent = hideMedCare ? '専門職・職員体制' : '対応可能な医療処置・専門職体制';
-        const detailVisibleTags = (item.careTags || []).filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag)));
+        const detailVisibleTags = (item.careTags || []).filter(tag => {
+          if (hideMedCare && masterData.medicalCareTags.includes(tag)) return false;
+          if (item.serviceType === 'home_care' && !['看護師', '男性スタッフ在籍'].includes(tag)) return false;
+          if (item.serviceType === 'home_rehab' && ['個浴', '機械浴', '特浴'].includes(tag)) return false;
+          return true;
+        });
         document.getElementById('detailTags').innerHTML = detailVisibleTags.map(tag => {
           const isMed = masterData.medicalCareTags.includes(tag);
           const cls = isMed ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-700 border-slate-200';
@@ -1748,18 +1755,36 @@
       const medSec = document.getElementById('formMedicalCareSection');
       const staffSec = document.getElementById('formStaffSection');
 
+      // 専門職・職員体制のチェックボックス表示制御
+      const homeCareAllowedStaff = ['看護師', '男性スタッフ在籍'];
+      const homeRehabHiddenStaff = ['個浴', '機械浴', '特浴'];
+      document.querySelectorAll('#formFacilityStaffTags label').forEach(label => {
+        const input = label.querySelector('input[name="formCareTag"]');
+        if (!input) return;
+        const val = input.value;
+        let show = true;
+        if (stId === 'home_care') {
+          show = homeCareAllowedStaff.includes(val);
+        } else if (stId === 'home_rehab') {
+          show = !homeRehabHiddenStaff.includes(val);
+        }
+        label.classList.toggle('hidden', !show);
+        if (!show) input.checked = false;
+      });
+
       if (stId === 'hospital_clinic') {
         if (schedSec) schedSec.classList.add('hidden');
         if (tagsOuterSec) tagsOuterSec.classList.add('hidden');
         if (medSec) medSec.classList.add('hidden');
         if (staffSec) staffSec.classList.add('hidden');
         document.getElementById('fields_hospital_clinic').classList.remove('hidden');
-      } else if (stId === 'home_care' || stId === 'welfare_equip' || stId === 'care_management') {
+      } else if (stId === 'home_care' || stId === 'home_rehab' || stId === 'welfare_equip' || stId === 'care_management') {
         if (schedSec) schedSec.classList.remove('hidden');
         if (tagsOuterSec) tagsOuterSec.classList.remove('hidden');
         if (medSec) medSec.classList.add('hidden');
         if (staffSec) staffSec.classList.remove('hidden');
         if (stId === 'home_care') document.getElementById('fields_home_care').classList.remove('hidden');
+        else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
         else if (stId === 'welfare_equip') document.getElementById('fields_welfare_equip').classList.remove('hidden');
         else document.getElementById('fields_care_management').classList.remove('hidden');
       } else {
@@ -1768,7 +1793,6 @@
         if (medSec) medSec.classList.remove('hidden');
         if (staffSec) staffSec.classList.remove('hidden');
         if (stId === 'home_nursing') document.getElementById('fields_home_nursing').classList.remove('hidden');
-        else if (stId === 'home_rehab') document.getElementById('fields_home_rehab').classList.remove('hidden');
         else document.getElementById('fields_day').classList.remove('hidden');
       }
     }
@@ -1869,7 +1893,7 @@
       const selectedDayCapCats = Array.from(document.querySelectorAll('input[name="formDayCapacityCategory"]:checked')).map(c => c.value);
       const stVal = document.getElementById('formServiceType').value;
       const isHospital = stVal === 'hospital_clinic';
-      const hideMedCare = isHospital || stVal === 'home_care' || stVal === 'welfare_equip' || stVal === 'care_management';
+      const hideMedCare = isHospital || stVal === 'home_care' || stVal === 'home_rehab' || stVal === 'welfare_equip' || stVal === 'care_management';
 
       const payload = {
         id: id || 'fac_' + Date.now(),
@@ -1919,7 +1943,12 @@
         schedules: isHospital ? [] : Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
         careTags: isHospital ? [] : Array.from(document.querySelectorAll('input[name="formCareTag"]:checked'))
           .map(c => c.value)
-          .filter(tag => !(hideMedCare && masterData.medicalCareTags.includes(tag))),
+          .filter(tag => {
+            if (hideMedCare && masterData.medicalCareTags.includes(tag)) return false;
+            if (stVal === 'home_care' && !['看護師', '男性スタッフ在籍'].includes(tag)) return false;
+            if (stVal === 'home_rehab' && ['個浴', '機械浴', '特浴'].includes(tag)) return false;
+            return true;
+          }),
         staffNote: isHospital ? '' : document.getElementById('formStaffNote').value.trim(),
         areaDetail: document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
