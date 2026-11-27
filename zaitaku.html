@@ -926,7 +926,7 @@
       if (!GAS_URL) return;
       setSyncUI('loading', '同期中...');
       try {
-        const res = await fetch(GAS_URL);
+        const res = await fetch(`${GAS_URL}?t=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.status === 'ok') {
           if (Array.isArray(data.facilities)) {
