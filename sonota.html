@@ -193,7 +193,40 @@
           <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
-        <div class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
+        <!-- 移送支援専用絞り込みブロック -->
+        <div id="transportFilterSection" class="hidden bg-slate-100/90 border border-slate-300 rounded-xl p-3 space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-car-side text-slate-700"></i><span>移送支援の条件絞り込み</span>
+            </label>
+          </div>
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-bold text-slate-600">移送区分</div>
+            <div id="transportCategoryFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
+          <div class="space-y-1.5 pt-1 border-t border-slate-200">
+            <div class="text-[11px] font-bold text-slate-600">対応オプション</div>
+            <div id="transportOptionFilters" class="flex flex-col gap-1.5"></div>
+          </div>
+        </div>
+
+        <!-- 配食専用絞り込みブロック -->
+        <div id="mealFilterSection" class="hidden bg-orange-50/90 border border-orange-200 rounded-xl p-3 space-y-3">
+          <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-utensils text-orange-600"></i><span>配食の条件絞り込み</span>
+          </label>
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-bold text-slate-600">配達形態</div>
+            <div id="mealDeliveryTypeFilters" class="flex flex-wrap gap-1.5"></div>
+          </div>
+          <div class="space-y-1.5 pt-1 border-t border-orange-200">
+            <div class="text-[11px] font-bold text-slate-600">営業曜日・時間帯の対応</div>
+            <div id="mealScheduleFilters" class="space-y-1.5"></div>
+          </div>
+        </div>
+
+        <!-- 営業曜日・時間帯の対応（配食以外の汎用） -->
+        <div id="generalScheduleFilterSection" class="bg-slate-50/90 border border-slate-200 rounded-xl p-3 space-y-2">
           <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
             <i class="fa-regular fa-clock text-amber-600"></i><span>営業曜日・時間帯の対応</span>
           </label>
@@ -371,6 +404,7 @@
               <div><dt class="text-xs text-slate-500">配達・対応エリア詳細</dt><dd id="detailAreaDetail" class="font-medium text-slate-800 mt-0.5"></dd></div>
               <div><dt class="text-xs text-slate-500">営業時間・受付時間</dt><dd id="detailHours" class="font-medium text-slate-800 mt-0.5"></dd></div>
               <div><dt class="text-xs text-slate-500">定休日</dt><dd id="detailHolidays" class="font-medium text-slate-800 mt-0.5"></dd></div>
+              <div class="sm:col-span-2"><dt class="text-xs text-slate-500">営業曜日・時間帯の対応</dt><dd id="detailSchedules" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
               <div class="sm:col-span-2"><dt class="text-xs text-slate-500">特徴・サービスタグ</dt><dd id="detailAdditions" class="font-medium text-slate-800 mt-1 flex flex-wrap gap-1.5"></dd></div>
             </dl>
           </div>
@@ -434,9 +468,38 @@
             </div>
 
             <!-- 2. 移送支援（介護タクシー・福祉有償運送） -->
-            <div id="fields_transport_support" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">対応車両・機材（ストレッチャー等）</label><input type="text" id="formTransVehicle" placeholder="例：車椅子2台同乗可・リクライニング・ストレッチャー対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">料金体系・迎車/介助料・チケット対応</label><input type="text" id="formTransFee" placeholder="例：初乗り700円・院内介助30分1,500円・福祉タクシー券可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <div id="fields_transport_support" class="hidden space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1.5">移送区分（複数選択可）</label>
+                  <div class="flex flex-wrap gap-2">
+                    <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                      <input type="checkbox" name="formTransCategory" value="移送支援" class="rounded text-amber-600"><span>移送支援</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                      <input type="checkbox" name="formTransCategory" value="介護タクシー" class="rounded text-amber-600"><span>介護タクシー</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                      <input type="checkbox" name="formTransCategory" value="福祉タクシー" class="rounded text-amber-600"><span>福祉タクシー</span>
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1.5">対応オプション</label>
+                  <div class="flex flex-wrap gap-2">
+                    <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                      <input type="checkbox" id="formTransTwoStaff" class="rounded text-amber-600"><span>二人対応可能</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                      <input type="checkbox" id="formTransWheelchairRental" class="rounded text-amber-600"><span>車いすレンタル可能</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">対応車両・機材（ストレッチャー等）</label><input type="text" id="formTransVehicle" placeholder="例：車椅子2台同乗可・リクライニング・ストレッチャー対応" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">料金体系・迎車/介助料・チケット対応</label><input type="text" id="formTransFee" placeholder="例：初乗り700円・院内介助30分1,500円・福祉タクシー券可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
             </div>
 
             <!-- 3. 自費代行サービス等 -->
@@ -446,9 +509,22 @@
             </div>
 
             <!-- 4. 配食 -->
-            <div id="fields_meal_delivery" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">治療食・形態食対応（きざみ・ムース等）</label><input type="text" id="formMealType" placeholder="例：普通食・きざみ・ムース食・カロリー/塩分調整食" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
-              <div><label class="block text-xs font-bold text-slate-700 mb-1">1食単価・安否確認・キャンセル締切</label><input type="text" id="formMealFee" placeholder="例：1食580円〜・手渡し安否確認あり・前日17時まで変更可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+            <div id="fields_meal_delivery" class="hidden space-y-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1.5">配達形態（複数選択可）</label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                    <input type="checkbox" name="formMealDeliveryType" value="個別宅配" class="rounded text-amber-600"><span>個別宅配</span>
+                  </label>
+                  <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white cursor-pointer text-xs font-medium">
+                    <input type="checkbox" name="formMealDeliveryType" value="冷凍配達" class="rounded text-amber-600"><span>冷凍配達</span>
+                  </label>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">治療食・形態食対応（きざみ・ムース等）</label><input type="text" id="formMealType" placeholder="例：普通食・きざみ・ムース食・カロリー/塩分調整食" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">1食単価・安否確認・キャンセル締切</label><input type="text" id="formMealFee" placeholder="例：1食580円〜・手渡し安否確認あり・前日17時まで変更可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
             </div>
 
             <!-- 5. 買い物、配達サービス -->
@@ -520,9 +596,11 @@
             <div><label class="block text-xs font-bold text-slate-700 mb-1">定休日</label><input type="text" id="formHolidays" placeholder="例：日曜・年末年始（予約応相談）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
           </div>
 
+          <!-- 営業曜日・時間帯の対応（サービス種別に応じて自動切替） -->
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1.5">営業曜日・時間帯の対応</label>
-            <div id="formSchedules" class="flex flex-wrap gap-2"></div>
+            <div id="formSchedulesGeneral" class="flex flex-wrap gap-2"></div>
+            <div id="formSchedulesMeal" class="hidden space-y-2"></div>
           </div>
 
           <!-- エリア詳細・特徴・独自メモ -->
@@ -592,6 +670,32 @@
     const FONT_KEY = 'carenavi_fontsize_v1';
     const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
 
+    const TRANSPORT_CATEGORIES = ['移送支援', '介護タクシー', '福祉タクシー'];
+    const TRANSPORT_OPTIONS = [
+      { id: 'twoStaff', label: '二人対応可能', icon: 'fa-people-carry-box' },
+      { id: 'wheelchairRental', label: '車いすレンタル可能', icon: 'fa-wheelchair' }
+    ];
+    const MEAL_DELIVERY_TYPES = ['個別宅配', '冷凍配達'];
+
+    // 汎用（配食以外）の営業曜日・時間帯
+    const GENERAL_SCHEDULE_ITEMS = [
+      { id: 'weekend', label: '土日祝対応' },
+      { id: 'early_late', label: '早朝・夜間対応' },
+      { id: 'emergency_24h', label: '24時間緊急対応' }
+    ];
+
+    // 配食専用の営業曜日・時間帯
+    const MEAL_SCHEDULE_ITEMS = [
+      { id: 'weekday', label: '平日', group: 'day' },
+      { id: 'saturday', label: '土', group: 'day' },
+      { id: 'sunday_holiday', label: '日祝', group: 'day' },
+      { id: 'morning', label: '朝', group: 'time' },
+      { id: 'noon', label: '昼', group: 'time' },
+      { id: 'evening', label: '夕', group: 'time' }
+    ];
+
+    const ALL_SCHEDULE_ITEMS = [...GENERAL_SCHEDULE_ITEMS, ...MEAL_SCHEDULE_ITEMS];
+
     const COLOR_THEMES = [
       { id: 'cyan', label: 'シアン', color: 'bg-cyan-100 text-cyan-800 border-cyan-200', bar: 'bg-cyan-500' },
       { id: 'slate', label: 'スレート', color: 'bg-slate-200 text-slate-800 border-slate-300', bar: 'bg-slate-600' },
@@ -634,11 +738,7 @@
         { id: 'shopping_delivery', category: 'other', name: '買い物、配達サービス', themeId: 'teal', color: 'bg-teal-100 text-teal-800 border-teal-200', bar: 'bg-teal-500' }
       ],
       areas: ['大浦', '小島', '桜馬場', '片淵', '戸町', '土井首', '深堀', '南部', '江平', '西浦上', '緑が丘', '淵', '小江原', '西部', '岩屋', '滑石', '東長崎', '日見', '北部'],
-      schedules: [
-        { id: 'weekend', label: '土日祝対応', icon: 'fa-calendar-week' },
-        { id: 'early_late', label: '早朝・夜間対応', icon: 'fa-clock' },
-        { id: 'emergency_24h', label: '24時間緊急対応', icon: 'fa-truck-medical' }
-      ],
+      schedules: [...GENERAL_SCHEDULE_ITEMS],
       medicalCareTags: [...INITIAL_MEDICAL_CARE_TAGS],
       facilityStaffTags: [...INITIAL_FACILITY_STAFF_TAGS],
       careTags: [...INITIAL_MEDICAL_CARE_TAGS, ...INITIAL_FACILITY_STAFF_TAGS]
@@ -651,6 +751,9 @@
         homepage: '', photos: [], attachments: [],
         areaDetail: '長崎市全域（坂道・階段介助も2名体制相談可）', hours: '7:30〜19:00', holidays: '日曜（事前予約は対応可）',
         schedules: ['weekend', 'early_late'],
+        transCategories: ['介護タクシー', '福祉タクシー'],
+        transTwoStaff: true,
+        transWheelchairRental: true,
         transVehicle: '車椅子2台同乗可・リクライニング・ストレッチャー完備', transFee: '初乗り700円・院内介助30分1,500円・長崎市福祉タクシー券利用可',
         additions: ['ストレッチャー対応', '階段昇降機あり', '福祉タクシー券対応'],
         memo: '階段介助経験が豊富。退院時の病院ベッドから自宅ベッドまでの移乗もスムーズ。', favorite: true, updatedAt: '2026-11-15'
@@ -660,7 +763,8 @@
         phone: '095-811-7744', fax: '095-811-7745', contact: '井上 美咲（栄養士・配達責任者）', area: '大浦', address: '長崎市大浦町8-15',
         homepage: '', photos: [], attachments: [],
         areaDetail: '大浦・小島・桜馬場・戸町・土井首・深堀エリア', hours: '9:00〜18:00', holidays: '元日のみ（364日配達）',
-        schedules: ['weekend'],
+        schedules: ['weekday', 'saturday', 'sunday_holiday', 'noon', 'evening'],
+        mealDeliveryTypes: ['個別宅配', '冷凍配達'],
         mealType: '普通食・きざみ食・ムース食・カロリー/塩分/たんぱく調整食', mealFee: '1食590円〜・手渡し安否確認無料・前日17時までキャンセル可',
         additions: ['手渡し安否確認', 'ムース食対応', '1食から注文可'],
         memo: '手渡し時に応答がない場合、指定の家族・ケアマネへ即電話連絡してくれるため独居支援で非常に頼りになる。', favorite: true, updatedAt: '2026-11-14'
@@ -674,7 +778,17 @@
     let currentMasterTab = 'serviceTypes';
     let currentSliderPhotos = [];
     let currentSlideIndex = 0;
-    let filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], areas: [], schedules: [] };
+    let filterState = {
+      keyword: '',
+      favoriteOnly: false,
+      serviceTypes: [],
+      areas: [],
+      schedules: [],
+      mealSchedules: [],
+      transCategories: [],
+      transOptions: [],
+      mealDeliveryTypes: []
+    };
 
     document.addEventListener('DOMContentLoaded', async () => {
       loadLocalCache();
@@ -706,7 +820,7 @@
           masterData = {
             ...INITIAL_MASTER_DATA, ...parsed, serviceTypes: normalizedServices,
             areas: Array.isArray(parsed.areas) ? parsed.areas : structuredClone(INITIAL_MASTER_DATA.areas),
-            schedules: Array.isArray(parsed.schedules) ? parsed.schedules : structuredClone(INITIAL_MASTER_DATA.schedules),
+            schedules: [...GENERAL_SCHEDULE_ITEMS],
             medicalCareTags: Array.isArray(parsed.medicalCareTags) ? parsed.medicalCareTags : [...INITIAL_MEDICAL_CARE_TAGS],
             facilityStaffTags: Array.isArray(parsed.facilityStaffTags) ? parsed.facilityStaffTags : [...INITIAL_FACILITY_STAFF_TAGS]
           };
@@ -743,7 +857,7 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(facilities));
           }
           if (data.masters && Array.isArray(data.masters.serviceTypes)) {
-            masterData = { ...INITIAL_MASTER_DATA, ...data.masters };
+            masterData = { ...INITIAL_MASTER_DATA, ...data.masters, schedules: [...GENERAL_SCHEDULE_ITEMS] };
             localStorage.setItem(MASTER_STORAGE_KEY, JSON.stringify(masterData));
           }
           initFilterUI();
@@ -807,6 +921,11 @@
       return masterData.serviceTypes.find(s => s.id === id) || { id, category: 'other', name: '未分類', color: 'bg-slate-100 text-slate-700 border-slate-200', bar: 'bg-slate-400' };
     }
 
+    function getScheduleLabel(id) {
+      const found = ALL_SCHEDULE_ITEMS.find(s => s.id === id);
+      return found ? found.label : '';
+    }
+
     function sanitizeUrl(url) {
       if (!url) return '';
       const trimmed = String(url).trim();
@@ -825,7 +944,7 @@
       return trimmed.startsWith('data:image/') ? trimmed : sanitizeUrl(trimmed);
     }
 
-    function highlightChip(btn, isSelected, variant = 'amber') {
+    function highlightChip(btn, isSelected) {
       if (!btn) return;
       const activeClasses = ['bg-amber-600', 'text-white', 'border-amber-600', 'shadow-2xs'];
       const inactiveClasses = ['bg-white', 'text-slate-700', 'border-slate-200'];
@@ -842,10 +961,54 @@
         </button>
       `).join('');
 
-      document.getElementById('scheduleFilters').innerHTML = masterData.schedules.map(sc => `
-        <button type="button" data-schedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('schedules', '${escapeHtml(sc.id)}', this)"
+      document.getElementById('transportCategoryFilters').innerHTML = TRANSPORT_CATEGORIES.map(cat => `
+        <button type="button" data-transcat="${escapeHtml(cat)}" onclick="toggleArrayFilter('transCategories', '${escapeHtml(cat)}', this)"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(cat)}
+        </button>
+      `).join('');
+
+      document.getElementById('transportOptionFilters').innerHTML = TRANSPORT_OPTIONS.map(opt => `
+        <button type="button" data-transopt="${escapeHtml(opt.id)}" onclick="toggleArrayFilter('transOptions', '${escapeHtml(opt.id)}', this)"
           class="filter-chip text-left px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700 flex items-center gap-2">
-          <i class="fa-solid ${sc.icon} text-slate-400 w-3.5 text-center"></i><span>${escapeHtml(sc.label)}</span>
+          <i class="fa-solid ${opt.icon} text-slate-500 w-3.5 text-center"></i><span>${escapeHtml(opt.label)}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('mealDeliveryTypeFilters').innerHTML = MEAL_DELIVERY_TYPES.map(mt => `
+        <button type="button" data-mealtype="${escapeHtml(mt)}" onclick="toggleArrayFilter('mealDeliveryTypes', '${escapeHtml(mt)}', this)"
+          class="filter-chip px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(mt)}
+        </button>
+      `).join('');
+
+      // 配食専用の営業曜日・時間帯フィルタ（平日・土・日祝・朝・昼・夕）
+      const dayItems = MEAL_SCHEDULE_ITEMS.filter(s => s.group === 'day');
+      const timeItems = MEAL_SCHEDULE_ITEMS.filter(s => s.group === 'time');
+      document.getElementById('mealScheduleFilters').innerHTML = `
+        <div class="grid grid-cols-3 gap-1.5">
+          ${dayItems.map(sc => `
+            <button type="button" data-mealschedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('mealSchedules', '${escapeHtml(sc.id)}', this)"
+              class="filter-chip px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700 text-center">
+              ${escapeHtml(sc.label)}
+            </button>
+          `).join('')}
+        </div>
+        <div class="grid grid-cols-3 gap-1.5">
+          ${timeItems.map(sc => `
+            <button type="button" data-mealschedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('mealSchedules', '${escapeHtml(sc.id)}', this)"
+              class="filter-chip px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700 text-center">
+              ${escapeHtml(sc.label)}
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      // 配食以外の汎用営業曜日・時間帯フィルタ（土日祝対応・早朝夜間対応・24時間緊急対応）
+      document.getElementById('scheduleFilters').innerHTML = GENERAL_SCHEDULE_ITEMS.map(sc => `
+        <button type="button" data-schedule="${escapeHtml(sc.id)}" onclick="toggleArrayFilter('schedules', '${escapeHtml(sc.id)}', this)"
+          class="filter-chip text-left px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-amber-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(sc.label)}
         </button>
       `).join('');
 
@@ -857,11 +1020,41 @@
       `).join('');
     }
 
+    function updateServiceFilterSectionsVisibility() {
+      const showTransport = filterState.serviceTypes.includes('transport_support');
+      const transportSec = document.getElementById('transportFilterSection');
+      transportSec.classList.toggle('hidden', !showTransport);
+      if (!showTransport && (filterState.transCategories.length > 0 || filterState.transOptions.length > 0)) {
+        filterState.transCategories = [];
+        filterState.transOptions = [];
+        document.querySelectorAll('#transportFilterSection .filter-chip').forEach(b => highlightChip(b, false));
+      }
+
+      const showMeal = filterState.serviceTypes.includes('meal_delivery');
+      const mealSec = document.getElementById('mealFilterSection');
+      mealSec.classList.toggle('hidden', !showMeal);
+      if (!showMeal && (filterState.mealDeliveryTypes.length > 0 || filterState.mealSchedules.length > 0)) {
+        filterState.mealDeliveryTypes = [];
+        filterState.mealSchedules = [];
+        document.querySelectorAll('#mealFilterSection .filter-chip').forEach(b => highlightChip(b, false));
+      }
+
+      // 配食「のみ」が選択されているときは、汎用営業曜日・時間帯セクションを隠す
+      const onlyMealSelected = filterState.serviceTypes.length === 1 && filterState.serviceTypes[0] === 'meal_delivery';
+      const generalSec = document.getElementById('generalScheduleFilterSection');
+      generalSec.classList.toggle('hidden', onlyMealSelected);
+      if (onlyMealSelected && filterState.schedules.length > 0) {
+        filterState.schedules = [];
+        document.querySelectorAll('#generalScheduleFilterSection .filter-chip').forEach(b => highlightChip(b, false));
+      }
+    }
+
     function toggleAllOtherServices() {
       const ids = getCategoryServices().map(i => i.id);
       const allSelected = ids.every(id => filterState.serviceTypes.includes(id));
       filterState.serviceTypes = allSelected ? [] : [...ids];
       ids.forEach(id => highlightChip(document.querySelector(`#serviceTypeFilters button[data-service="${id}"]`), !allSelected));
+      updateServiceFilterSectionsVisibility();
       applyFilters();
     }
 
@@ -870,6 +1063,7 @@
       const isSelected = idx === -1;
       if (isSelected) filterState[key].push(val); else filterState[key].splice(idx, 1);
       highlightChip(btn, isSelected);
+      if (key === 'serviceTypes') updateServiceFilterSectionsVisibility();
       applyFilters();
     }
 
@@ -883,13 +1077,35 @@
         if (filterState.serviceTypes.length > 0 && !filterState.serviceTypes.includes(item.serviceType)) return false;
         if (filterState.areas.length > 0 && !filterState.areas.includes(item.area) && item.area !== '全市対応') return false;
         if (filterState.schedules.length > 0 && !filterState.schedules.every(sc => (item.schedules || []).includes(sc))) return false;
+        if (filterState.mealSchedules.length > 0 && !filterState.mealSchedules.every(sc => (item.schedules || []).includes(sc))) return false;
+
+        if (filterState.transCategories.length > 0) {
+          const itemCats = Array.isArray(item.transCategories) ? item.transCategories : [];
+          if (!filterState.transCategories.some(cat => itemCats.includes(cat))) return false;
+        }
+        if (filterState.transOptions.length > 0) {
+          if (filterState.transOptions.includes('twoStaff') && !item.transTwoStaff) return false;
+          if (filterState.transOptions.includes('wheelchairRental') && !item.transWheelchairRental) return false;
+        }
+        if (filterState.mealDeliveryTypes.length > 0) {
+          const itemMealTypes = Array.isArray(item.mealDeliveryTypes) ? item.mealDeliveryTypes : [];
+          if (!filterState.mealDeliveryTypes.some(mt => itemMealTypes.includes(mt))) return false;
+        }
+
         if (kw) {
           const st = getServiceTypeObj(item.serviceType);
           const attNames = (item.attachments || []).map(a => a.title || '').join(' ');
           const photoCaptions = (item.photos || []).map(p => p.caption || '').join(' ');
+          const scheduleNames = (item.schedules || []).map(getScheduleLabel).join(' ');
+          const transTags = [
+            ...(item.transCategories || []),
+            item.transTwoStaff ? '二人対応可能' : '',
+            item.transWheelchairRental ? '車いすレンタル可能' : ''
+          ].join(' ');
+          const mealTags = (item.mealDeliveryTypes || []).join(' ');
           const text = [
             item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, photoCaptions,
+            item.homepage, attNames, photoCaptions, scheduleNames, transTags, mealTags,
             item.medProf, item.medDetail, item.transVehicle, item.transFee, item.proxyMenu, item.proxyFee,
             item.mealType, item.mealFee, item.shopItems, item.shopFee, item.genericSpec,
             st.name, ...(item.additions || [])
@@ -914,7 +1130,8 @@
       document.getElementById('totalCount').textContent = baseList.length;
 
       let count = filterState.serviceTypes.length + filterState.areas.length + filterState.schedules.length +
-        (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
+        filterState.mealSchedules.length + filterState.transCategories.length + filterState.transOptions.length +
+        filterState.mealDeliveryTypes.length + (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0);
       document.getElementById('activeFilterCount').textContent = count;
       document.getElementById('bottomFilterBadge').textContent = count;
       document.getElementById('activeFilterCount').classList.toggle('hidden', count === 0);
@@ -941,6 +1158,26 @@
     function renderCardHTML(item) {
       const st = getServiceTypeObj(item.serviceType);
       const addTagsHtml = (item.additions || []).map(tag => `<span class="px-2 py-0.5 rounded-md text-xs font-medium border bg-blue-50 text-blue-800 border-blue-200">${escapeHtml(tag)}</span>`).join('');
+
+      let specificBadgesHtml = '';
+      if (item.serviceType === 'transport_support') {
+        const cats = (item.transCategories || []).map(c => `<span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-slate-100 text-slate-800 border-slate-300">${escapeHtml(c)}</span>`).join('');
+        const twoStaff = item.transTwoStaff ? `<span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-emerald-50 text-emerald-800 border-emerald-200"><i class="fa-solid fa-people-carry-box mr-1"></i>二人対応可能</span>` : '';
+        const wcRental = item.transWheelchairRental ? `<span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-cyan-50 text-cyan-800 border-cyan-200"><i class="fa-solid fa-wheelchair mr-1"></i>車いすレンタル可能</span>` : '';
+        if (cats || twoStaff || wcRental) {
+          specificBadgesHtml = `<div class="flex flex-wrap gap-1.5 mb-2.5">${cats}${twoStaff}${wcRental}</div>`;
+        }
+      } else if (item.serviceType === 'meal_delivery') {
+        const mealTypes = (item.mealDeliveryTypes || []).map(mt => `<span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-orange-50 text-orange-800 border-orange-200"><i class="fa-solid fa-utensils mr-1"></i>${escapeHtml(mt)}</span>`).join('');
+        if (mealTypes) {
+          specificBadgesHtml = `<div class="flex flex-wrap gap-1.5 mb-2.5">${mealTypes}</div>`;
+        }
+      }
+
+      const validSchedules = (item.schedules || []).map(getScheduleLabel).filter(Boolean);
+      const scheduleBadgesHtml = validSchedules.length > 0
+        ? `<div class="flex flex-wrap items-center gap-1 mb-2.5"><span class="text-[11px] text-slate-500 mr-0.5">対応:</span>${validSchedules.map(lbl => `<span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-bold">${escapeHtml(lbl)}</span>`).join('')}</div>`
+        : '';
 
       let specSummary = '';
       if (item.serviceType === 'medical_guidance') specSummary = [item.medProf, item.medDetail].filter(Boolean).join(' ／ ');
@@ -974,6 +1211,8 @@
                 <h3 onclick="openDetailModal('${item.id}')" class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-amber-700 cursor-pointer leading-snug">${escapeHtml(item.name)}</h3>
                 <div class="text-xs text-slate-500 mt-0.5">${escapeHtml(item.corp || '')} ${item.code ? `<span class="font-mono text-slate-400 ml-2">${escapeHtml(item.code)}</span>` : ''}</div>
               </div>
+              ${specificBadgesHtml}
+              ${scheduleBadgesHtml}
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs">
                 <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-amber-700 hover:underline">${escapeHtml(item.phone)}</button></div>
                 <div class="flex items-center gap-2"><span class="text-slate-400 w-8">FAX</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
@@ -1009,8 +1248,12 @@
             <button type="button" onclick="toggleFavorite('${item.id}', event)" class="text-base p-1"><i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i></button>
             <span class="px-2 py-0.5 rounded text-xs font-bold border ${st.color} shrink-0">${escapeHtml(st.name)}</span>
             <div class="min-w-0 flex-1">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
                 <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-amber-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
+                ${item.serviceType === 'transport_support' && (item.transCategories || []).length > 0 ? (item.transCategories || []).map(c => `<span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300 text-[11px] font-bold shrink-0">${escapeHtml(c)}</span>`).join('') : ''}
+                ${item.serviceType === 'transport_support' && item.transTwoStaff ? `<span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold shrink-0">二人対応可</span>` : ''}
+                ${item.serviceType === 'transport_support' && item.transWheelchairRental ? `<span class="px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-700 border border-cyan-200 text-[11px] font-bold shrink-0">車いす貸出可</span>` : ''}
+                ${item.serviceType === 'meal_delivery' && (item.mealDeliveryTypes || []).length > 0 ? (item.mealDeliveryTypes || []).map(mt => `<span class="px-1.5 py-0.5 rounded bg-orange-50 text-orange-700 border border-orange-200 text-[11px] font-bold shrink-0">${escapeHtml(mt)}</span>`).join('') : ''}
                 ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold shrink-0">HP</a>` : ''}
                 ${photoCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 text-[11px] font-bold shrink-0">写真${photoCount}</span>` : ''}
                 ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
@@ -1173,12 +1416,33 @@
 
       const rows = [];
       const addRow = (label, val) => { if (val) rows.push(`<div class="bg-white p-2.5 rounded-lg border border-orange-200"><div class="text-[11px] text-slate-500 font-bold">${label}</div><div class="mt-0.5 font-medium">${escapeHtml(val)}</div></div>`); };
-      if (item.serviceType === 'medical_guidance') { addRow('職種', item.medProf); addRow('訪問可能曜日・処方対応', item.medDetail); }
-      else if (item.serviceType === 'transport_support') { addRow('対応車両・機材', item.transVehicle); addRow('料金体系・チケット対応', item.transFee); }
-      else if (item.serviceType === 'self_pay_proxy') { addRow('対応メニュー', item.proxyMenu); addRow('料金目安', item.proxyFee); }
-      else if (item.serviceType === 'meal_delivery') { addRow('治療食・形態食対応', item.mealType); addRow('1食単価・安否確認・締切', item.mealFee); }
-      else if (item.serviceType === 'shopping_delivery') { addRow('取扱品目・巡回曜日', item.shopItems); addRow('配達手数料・支払方法', item.shopFee); }
-      else addRow('サービス詳細', item.genericSpec);
+      if (item.serviceType === 'medical_guidance') {
+        addRow('職種', item.medProf);
+        addRow('訪問可能曜日・処方対応', item.medDetail);
+      } else if (item.serviceType === 'transport_support') {
+        const cats = (item.transCategories || []).join('・');
+        const opts = [
+          item.transTwoStaff ? '二人対応可能' : '',
+          item.transWheelchairRental ? '車いすレンタル可能' : ''
+        ].filter(Boolean).join('・');
+        addRow('移送区分', cats);
+        addRow('対応オプション', opts);
+        addRow('対応車両・機材', item.transVehicle);
+        addRow('料金体系・チケット対応', item.transFee);
+      } else if (item.serviceType === 'self_pay_proxy') {
+        addRow('対応メニュー', item.proxyMenu);
+        addRow('料金目安', item.proxyFee);
+      } else if (item.serviceType === 'meal_delivery') {
+        const mTypes = (item.mealDeliveryTypes || []).join('・');
+        addRow('配達形態', mTypes);
+        addRow('治療食・形態食対応', item.mealType);
+        addRow('1食単価・安否確認・締切', item.mealFee);
+      } else if (item.serviceType === 'shopping_delivery') {
+        addRow('取扱品目・巡回曜日', item.shopItems);
+        addRow('配達手数料・支払方法', item.shopFee);
+      } else {
+        addRow('サービス詳細', item.genericSpec);
+      }
 
       const specSec = document.getElementById('detailServiceSpecificSection');
       document.getElementById('detailServiceSpecificBody').innerHTML = rows.join('');
@@ -1188,6 +1452,12 @@
       document.getElementById('detailAreaDetail').textContent = item.areaDetail || item.area;
       document.getElementById('detailHours').textContent = item.hours || '未登録';
       document.getElementById('detailHolidays').textContent = item.holidays || '未登録';
+
+      const validSchedules = (item.schedules || []).map(getScheduleLabel).filter(Boolean);
+      document.getElementById('detailSchedules').innerHTML = validSchedules.length > 0
+        ? validSchedules.map(lbl => `<span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">${escapeHtml(lbl)}</span>`).join('')
+        : '登録なし';
+
       document.getElementById('detailAdditions').innerHTML = (item.additions || []).map(a => `<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 text-xs">${escapeHtml(a)}</span>`).join('') || '登録なし';
       document.getElementById('detailUpdatedAt').textContent = item.updatedAt || '-';
 
@@ -1281,11 +1551,34 @@
       stSelect.innerHTML = getCategoryServices().map(st => `<option value="${escapeHtml(st.id)}">${escapeHtml(st.name)}</option>`).join('');
       document.getElementById('formArea').innerHTML = masterData.areas.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
 
-      document.getElementById('formSchedules').innerHTML = masterData.schedules.map(sc => `
+      // 汎用（配食以外）の営業曜日・時間帯チェックボックス
+      document.getElementById('formSchedulesGeneral').innerHTML = GENERAL_SCHEDULE_ITEMS.map(sc => `
         <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-medium">
-          <input type="checkbox" name="formSchedule" value="${escapeHtml(sc.id)}" class="rounded text-amber-600"><span>${escapeHtml(sc.label)}</span>
+          <input type="checkbox" name="formScheduleGeneral" value="${escapeHtml(sc.id)}" class="rounded text-amber-600"><span>${escapeHtml(sc.label)}</span>
         </label>
       `).join('');
+
+      // 配食専用の営業曜日・時間帯チェックボックス
+      const dayItems = MEAL_SCHEDULE_ITEMS.filter(s => s.group === 'day');
+      const timeItems = MEAL_SCHEDULE_ITEMS.filter(s => s.group === 'time');
+      document.getElementById('formSchedulesMeal').innerHTML = `
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500 w-10">曜日:</span>
+          ${dayItems.map(sc => `
+            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-medium">
+              <input type="checkbox" name="formScheduleMeal" value="${escapeHtml(sc.id)}" class="rounded text-amber-600"><span>${escapeHtml(sc.label)}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500 w-10">時間:</span>
+          ${timeItems.map(sc => `
+            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer text-xs font-medium">
+              <input type="checkbox" name="formScheduleMeal" value="${escapeHtml(sc.id)}" class="rounded text-amber-600"><span>${escapeHtml(sc.label)}</span>
+            </label>
+          `).join('')}
+        </div>
+      `;
     }
 
     function updateServiceSpecificFormFields() {
@@ -1301,6 +1594,11 @@
         shopping_delivery: 'fields_shopping_delivery'
       };
       document.getElementById(map[stId] || 'fields_generic').classList.remove('hidden');
+
+      // 営業曜日・時間帯の対応欄を「配食」と「それ以外」で切り替え
+      const isMeal = stId === 'meal_delivery';
+      document.getElementById('formSchedulesMeal').classList.toggle('hidden', !isMeal);
+      document.getElementById('formSchedulesGeneral').classList.toggle('hidden', isMeal);
     }
 
     function openFormModal(editId = null) {
@@ -1319,12 +1617,22 @@
 
         document.getElementById('formMedProf').value = item.medProf || '';
         document.getElementById('formMedDetail').value = item.medDetail || '';
+
+        const itemTransCats = Array.isArray(item.transCategories) ? item.transCategories : [];
+        document.querySelectorAll('input[name="formTransCategory"]').forEach(c => c.checked = itemTransCats.includes(c.value));
+        document.getElementById('formTransTwoStaff').checked = Boolean(item.transTwoStaff);
+        document.getElementById('formTransWheelchairRental').checked = Boolean(item.transWheelchairRental);
+
         document.getElementById('formTransVehicle').value = item.transVehicle || '';
         document.getElementById('formTransFee').value = item.transFee || '';
         document.getElementById('formProxyMenu').value = item.proxyMenu || '';
         document.getElementById('formProxyFee').value = item.proxyFee || '';
+
+        const itemMealTypes = Array.isArray(item.mealDeliveryTypes) ? item.mealDeliveryTypes : [];
+        document.querySelectorAll('input[name="formMealDeliveryType"]').forEach(c => c.checked = itemMealTypes.includes(c.value));
         document.getElementById('formMealType').value = item.mealType || '';
         document.getElementById('formMealFee').value = item.mealFee || '';
+
         document.getElementById('formShopItems').value = item.shopItems || '';
         document.getElementById('formShopFee').value = item.shopFee || '';
         document.getElementById('formGenericSpec').value = item.genericSpec || '';
@@ -1343,7 +1651,9 @@
         document.getElementById('formAdditions').value = (item.additions || []).join(', ');
         document.getElementById('formMemo').value = item.memo || '';
 
-        document.querySelectorAll('input[name="formSchedule"]').forEach(c => c.checked = (item.schedules || []).includes(c.value));
+        const savedSchedules = item.schedules || [];
+        document.querySelectorAll('input[name="formScheduleGeneral"]').forEach(c => c.checked = savedSchedules.includes(c.value));
+        document.querySelectorAll('input[name="formScheduleMeal"]').forEach(c => c.checked = savedSchedules.includes(c.value));
         updateServiceSpecificFormFields();
       } else {
         document.getElementById('formModalTitle').innerHTML = `<i class="fa-solid fa-layer-group text-amber-600"></i><span>他サービス事業所 新規登録</span>`;
@@ -1358,6 +1668,7 @@
     async function saveFacility(e) {
       e.preventDefault();
       const id = document.getElementById('formId').value;
+      const serviceType = document.getElementById('formServiceType').value;
       const today = new Date().toISOString().split('T')[0];
 
       const photos = Array.from(document.querySelectorAll('#photoRowsContainer .photo-row')).map(row => ({
@@ -1370,19 +1681,26 @@
         url: row.querySelector('.att-url').value.trim()
       })).filter(a => a.url);
 
+      const scheduleInputName = serviceType === 'meal_delivery' ? 'formScheduleMeal' : 'formScheduleGeneral';
+      const schedules = Array.from(document.querySelectorAll(`input[name="${scheduleInputName}"]:checked`)).map(c => c.value);
+
       const payload = {
         id: id || 'fac_' + Date.now(),
         name: document.getElementById('formName').value.trim(),
         corp: document.getElementById('formCorp').value.trim(),
         code: document.getElementById('formCode').value.trim(),
-        serviceType: document.getElementById('formServiceType').value,
+        serviceType,
 
         medProf: document.getElementById('formMedProf').value.trim(),
         medDetail: document.getElementById('formMedDetail').value.trim(),
+        transCategories: Array.from(document.querySelectorAll('input[name="formTransCategory"]:checked')).map(c => c.value),
+        transTwoStaff: document.getElementById('formTransTwoStaff').checked,
+        transWheelchairRental: document.getElementById('formTransWheelchairRental').checked,
         transVehicle: document.getElementById('formTransVehicle').value.trim(),
         transFee: document.getElementById('formTransFee').value.trim(),
         proxyMenu: document.getElementById('formProxyMenu').value.trim(),
         proxyFee: document.getElementById('formProxyFee').value.trim(),
+        mealDeliveryTypes: Array.from(document.querySelectorAll('input[name="formMealDeliveryType"]:checked')).map(c => c.value),
         mealType: document.getElementById('formMealType').value.trim(),
         mealFee: document.getElementById('formMealFee').value.trim(),
         shopItems: document.getElementById('formShopItems').value.trim(),
@@ -1399,7 +1717,7 @@
         attachments,
         hours: document.getElementById('formHours').value.trim(),
         holidays: document.getElementById('formHolidays').value.trim(),
-        schedules: Array.from(document.querySelectorAll('input[name="formSchedule"]:checked')).map(c => c.value),
+        schedules,
         areaDetail: document.getElementById('formAreaDetail').value.trim(),
         additions: document.getElementById('formAdditions').value.split(/[,、]/).map(s => s.trim()).filter(Boolean),
         memo: document.getElementById('formMemo').value.trim(),
@@ -1514,7 +1832,8 @@
       r.onload = async ev => {
         const parsed = JSON.parse(ev.target.result);
         if (parsed.masters && parsed.facilities) {
-          masterData = parsed.masters; facilities = parsed.facilities;
+          masterData = { ...parsed.masters, schedules: [...GENERAL_SCHEDULE_ITEMS] };
+          facilities = parsed.facilities;
           initFilterUI(); initFormUI(); applyFilters();
           await saveMastersToStorage(); await saveToStorage();
           showToast('復元しました', 'success');
@@ -1578,10 +1897,21 @@
     function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
 
     function resetAllFilters() {
-      filterState = { keyword: '', favoriteOnly: false, serviceTypes: [], areas: [], schedules: [] };
+      filterState = {
+        keyword: '',
+        favoriteOnly: false,
+        serviceTypes: [],
+        areas: [],
+        schedules: [],
+        mealSchedules: [],
+        transCategories: [],
+        transOptions: [],
+        mealDeliveryTypes: []
+      };
       syncSearchInputs('');
       document.getElementById('favoriteOnlyToggle').checked = false;
       document.querySelectorAll('.filter-chip').forEach(b => highlightChip(b, false));
+      updateServiceFilterSectionsVisibility();
       applyFilters();
     }
 
