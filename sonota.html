@@ -323,21 +323,52 @@
         </div>
 
         <div class="p-4 sm:p-7 overflow-y-auto flex-1 space-y-5">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
-              <div class="flex items-center gap-2">
-                <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
-                <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-amber-600 text-white text-xs font-bold">発信</a>
+          <!-- 連絡先1・連絡先2 -->
+          <div class="space-y-2.5">
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+              <div class="text-[11px] font-bold text-amber-700 mb-2 flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300">連絡先 1</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
+                    <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-amber-600 text-white text-xs font-bold">発信</a>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">FAX番号</div>
+                  <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
+                  <div class="text-sm font-bold text-slate-800"><span id="detailContact"></span></div>
+                </div>
               </div>
             </div>
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">FAX番号</div>
-              <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
-              <div class="text-sm font-bold text-slate-800"><span id="detailContact"></span></div>
+
+            <div id="detailContact2Box" class="hidden bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+              <div class="text-[11px] font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded bg-slate-200 border border-slate-300">連絡先 2</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" id="detailPhone2Btn" class="text-base font-bold font-mono text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone2"></span></button>
+                    <a id="detailPhone2CallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-amber-600 text-white text-xs font-bold">発信</a>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">FAX番号</div>
+                  <button type="button" id="detailFax2Btn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax2"></span></button>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
+                  <div class="text-sm font-bold text-slate-800"><span id="detailContact2"></span></div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -540,13 +571,34 @@
             </div>
           </div>
 
-          <!-- 連絡先・住所 -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-3333" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-3334" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名・窓口</label><input type="text" id="formContact" placeholder="例：山本 健太（配車担当）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">拠点・主対応エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
-            <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+          <!-- 連絡先1・連絡先2・住所 -->
+          <div class="space-y-4 pt-2 border-t border-slate-100">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <div class="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-phone-volume text-amber-600"></i><span>連絡先 1（主窓口）</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-3333" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm font-mono" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-3334" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm font-mono" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名・窓口</label><input type="text" id="formContact" placeholder="例：山本 健太（配車担当）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <div class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-phone text-slate-500"></i><span>連絡先 2（任意・予約専用/夜間/サブ窓口等）</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 2</label><input type="text" id="formPhone2" placeholder="090-0000-0000" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm font-mono" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号 2</label><input type="text" id="formFax2" placeholder="095-800-3335" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm font-mono" /></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">担当者名・窓口 2</label><input type="text" id="formContact2" placeholder="例：予約専用ダイヤル / 夜間緊急" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div><label class="block text-xs font-bold text-slate-700 mb-1">拠点・主対応エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
+              <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            </div>
           </div>
 
           <!-- 写真（複数登録・スライダー表示用） -->
@@ -747,7 +799,9 @@
     const INITIAL_FACILITIES = [
       {
         id: 'fac_008', name: 'あおぞら介護タクシー長崎', corp: '合同会社 あおぞらモビリティ', code: '九運旅二第88号', serviceType: 'transport_support',
-        phone: '095-899-1122', fax: '095-899-1123', contact: '木村 健二（代表・ケアドライバー）', area: '桜馬場', address: '長崎市桜馬場2-4-10',
+        phone: '095-899-1122', fax: '095-899-1123', contact: '木村 健二（代表・ケアドライバー）',
+        phone2: '090-1234-5678', fax2: '', contact2: '配車専用直通携帯',
+        area: '桜馬場', address: '長崎市桜馬場2-4-10',
         homepage: '', photos: [], attachments: [],
         areaDetail: '長崎市全域（坂道・階段介助も2名体制相談可）', hours: '7:30〜19:00', holidays: '日曜（事前予約は対応可）',
         schedules: ['weekend', 'early_late'],
@@ -760,7 +814,9 @@
       },
       {
         id: 'fac_009', name: 'まごころ配食サービス 長崎中央店', corp: '株式会社 まごころフード', code: '', serviceType: 'meal_delivery',
-        phone: '095-811-7744', fax: '095-811-7745', contact: '井上 美咲（栄養士・配達責任者）', area: '大浦', address: '長崎市大浦町8-15',
+        phone: '095-811-7744', fax: '095-811-7745', contact: '井上 美咲（栄養士・配達責任者）',
+        phone2: '', fax2: '', contact2: '',
+        area: '大浦', address: '長崎市大浦町8-15',
         homepage: '', photos: [], attachments: [],
         areaDetail: '大浦・小島・桜馬場・戸町・土井首・深堀エリア', hours: '9:00〜18:00', holidays: '元日のみ（364日配達）',
         schedules: ['weekday', 'saturday', 'sunday_holiday', 'noon', 'evening'],
@@ -1104,8 +1160,9 @@
           ].join(' ');
           const mealTags = (item.mealDeliveryTypes || []).join(' ');
           const text = [
-            item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, photoCaptions, scheduleNames, transTags, mealTags,
+            item.name, item.corp, item.code, item.address, item.area, item.areaDetail,
+            item.phone, item.fax, item.contact, item.phone2, item.fax2, item.contact2,
+            item.memo, item.homepage, attNames, photoCaptions, scheduleNames, transTags, mealTags,
             item.medProf, item.medDetail, item.transVehicle, item.transFee, item.proxyMenu, item.proxyFee,
             item.mealType, item.mealFee, item.shopItems, item.shopFee, item.genericSpec,
             st.name, ...(item.additions || [])
@@ -1189,6 +1246,7 @@
 
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
       const photoCount = Array.isArray(item.photos) ? item.photos.length : 0;
+      const hasContact2 = Boolean((item.phone2 && item.phone2.trim()) || (item.fax2 && item.fax2.trim()) || (item.contact2 && item.contact2.trim()));
 
       return `
         <article class="bg-white rounded-2xl border border-slate-200 hover:border-amber-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
@@ -1213,10 +1271,19 @@
               </div>
               ${specificBadgesHtml}
               ${scheduleBadgesHtml}
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs">
-                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-amber-700 hover:underline">${escapeHtml(item.phone)}</button></div>
-                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">FAX</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
-                <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">担当・窓口: ${escapeHtml(item.contact || '未設定')}</div>
+              <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs space-y-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  <div class="flex items-center gap-2"><span class="text-slate-400 w-9 shrink-0">TEL1</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号1', event)" class="font-mono font-bold text-sm text-amber-700 hover:underline">${escapeHtml(item.phone)}</button></div>
+                  <div class="flex items-center gap-2"><span class="text-slate-400 w-9 shrink-0">FAX1</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号1', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
+                  <div class="sm:col-span-2 text-slate-700 truncate">窓口1: ${escapeHtml(item.contact || '未設定')}</div>
+                </div>
+                ${hasContact2 ? `
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-2 border-t border-slate-200/80">
+                    <div class="flex items-center gap-2"><span class="text-slate-400 w-9 shrink-0">TEL2</span><button type="button" onclick="copyText('${escapeHtml(item.phone2 || '')}', '電話番号2', event)" class="font-mono font-bold text-sm text-amber-700 hover:underline">${escapeHtml(item.phone2 || '-')}</button></div>
+                    <div class="flex items-center gap-2"><span class="text-slate-400 w-9 shrink-0">FAX2</span><button type="button" onclick="copyText('${escapeHtml(item.fax2 || '')}', 'FAX番号2', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax2 || '-')}</button></div>
+                    ${item.contact2 ? `<div class="sm:col-span-2 text-slate-700 truncate">窓口2: ${escapeHtml(item.contact2)}</div>` : ''}
+                  </div>
+                ` : ''}
               </div>
               <div class="space-y-1 text-xs text-slate-600 mb-3">
                 ${item.address ? `<div class="truncate"><i class="fa-solid fa-map-pin text-slate-400 w-4"></i>${escapeHtml(item.address)}</div>` : ''}
@@ -1258,11 +1325,14 @@
                 ${photoCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 text-[11px] font-bold shrink-0">写真${photoCount}</span>` : ''}
                 ${attCount > 0 ? `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold shrink-0">資料${attCount}</span>` : ''}
               </div>
-              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 担当: ${escapeHtml(item.contact || '-')}</div>
+              <div class="text-xs text-slate-500 truncate">${escapeHtml(item.area)} / 窓口1: ${escapeHtml(item.contact || '-')}${item.contact2 ? ` / 窓口2: ${escapeHtml(item.contact2)}` : ''}</div>
             </div>
           </div>
           <div class="flex items-center justify-between lg:justify-end gap-3 shrink-0">
-            <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-xs text-amber-700">${escapeHtml(item.phone)}</button>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号1', event)" class="font-mono font-bold text-xs text-amber-700">${escapeHtml(item.phone)}</button>
+              ${item.phone2 ? `<span class="text-slate-300">/</span><button type="button" onclick="copyText('${escapeHtml(item.phone2)}', '電話番号2', event)" class="font-mono font-bold text-xs text-slate-700">${escapeHtml(item.phone2)}</button>` : ''}
+            </div>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 text-xs"><i class="fa-solid fa-pen"></i></button>
               <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-600 hover:text-white text-xs font-semibold">詳細</button>
@@ -1370,12 +1440,36 @@
       document.getElementById('detailCorp').textContent = item.corp || '';
       document.getElementById('detailFavBtn').innerHTML = item.favorite ? '<i class="fa-solid fa-star text-amber-400"></i>' : '<i class="fa-regular fa-star text-slate-400"></i>';
       document.getElementById('detailFavBtn').onclick = () => toggleFavorite(item.id);
+
+      // 連絡先1
       document.getElementById('detailPhone').textContent = item.phone;
-      document.getElementById('detailPhoneBtn').onclick = () => copyText(item.phone, '電話番号');
+      document.getElementById('detailPhoneBtn').onclick = () => copyText(item.phone, '電話番号1');
       document.getElementById('detailPhoneCallLink').href = `tel:${item.phone.replace(/[^0-9+]/g, '')}`;
       document.getElementById('detailFax').textContent = item.fax || '未登録';
-      document.getElementById('detailFaxBtn').onclick = () => copyText(item.fax, 'FAX番号');
+      document.getElementById('detailFaxBtn').onclick = () => copyText(item.fax, 'FAX番号1');
       document.getElementById('detailContact').textContent = item.contact || '未設定';
+
+      // 連絡先2
+      const hasContact2 = Boolean((item.phone2 && item.phone2.trim()) || (item.fax2 && item.fax2.trim()) || (item.contact2 && item.contact2.trim()));
+      const contact2Box = document.getElementById('detailContact2Box');
+      if (hasContact2) {
+        document.getElementById('detailPhone2').textContent = item.phone2 || '未登録';
+        document.getElementById('detailPhone2Btn').onclick = () => copyText(item.phone2, '電話番号2');
+        const callLink2 = document.getElementById('detailPhone2CallLink');
+        if (item.phone2) {
+          callLink2.href = `tel:${item.phone2.replace(/[^0-9+]/g, '')}`;
+          callLink2.classList.remove('hidden');
+        } else {
+          callLink2.classList.add('hidden');
+        }
+        document.getElementById('detailFax2').textContent = item.fax2 || '未登録';
+        document.getElementById('detailFax2Btn').onclick = () => copyText(item.fax2, 'FAX番号2');
+        document.getElementById('detailContact2').textContent = item.contact2 || '未設定';
+        contact2Box.classList.remove('hidden');
+      } else {
+        contact2Box.classList.add('hidden');
+      }
+
       document.getElementById('detailMemo').textContent = item.memo || '（独自メモなし）';
 
       // 写真スライダー初期化
@@ -1640,6 +1734,9 @@
         document.getElementById('formPhone').value = item.phone;
         document.getElementById('formFax').value = item.fax || '';
         document.getElementById('formContact').value = item.contact || '';
+        document.getElementById('formPhone2').value = item.phone2 || '';
+        document.getElementById('formFax2').value = item.fax2 || '';
+        document.getElementById('formContact2').value = item.contact2 || '';
         document.getElementById('formArea').value = item.area;
         document.getElementById('formAddress').value = item.address || '';
         document.getElementById('formHomepage').value = item.homepage || '';
@@ -1710,6 +1807,9 @@
         phone: document.getElementById('formPhone').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
         contact: document.getElementById('formContact').value.trim(),
+        phone2: document.getElementById('formPhone2').value.trim(),
+        fax2: document.getElementById('formFax2').value.trim(),
+        contact2: document.getElementById('formContact2').value.trim(),
         area: document.getElementById('formArea').value,
         address: document.getElementById('formAddress').value.trim(),
         homepage: document.getElementById('formHomepage').value.trim(),
@@ -1844,8 +1944,8 @@
 
     function exportCSV() {
       document.getElementById('dataMenuDropdown').classList.add('hidden');
-      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号', 'FAX番号', '担当者名', 'エリア', '住所', 'ホームページURL', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
-      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.area, f.address||'', f.homepage||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+      const headers = ['ID', '事業所名', '法人名', '事業所番号', 'サービス種別ID', 'サービス種別名', '電話番号1', 'FAX番号1', '担当者名1', '電話番号2', 'FAX番号2', '担当者名2', 'エリア', '住所', 'ホームページURL', '営業時間', '定休日', 'タグ', '算定加算', '独自メモ', 'お気に入り', '更新日'];
+      const rows = facilities.map(f => [f.id, f.name, f.corp||'', f.code||'', f.serviceType, getServiceTypeObj(f.serviceType).name, f.phone, f.fax||'', f.contact||'', f.phone2||'', f.fax2||'', f.contact2||'', f.area, f.address||'', f.homepage||'', f.hours||'', f.holidays||'', (f.careTags||[]).join('|'), (f.additions||[]).join('|'), (f.memo||'').replace(/\r?\n/g,' '), f.favorite?'1':'0', f.updatedAt||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
       const blob = new Blob([new Uint8Array([0xEF,0xBB,0xBF]), [headers.join(','), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `介護事業所一覧_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
@@ -1859,7 +1959,12 @@
         for (let i = 1; i < lines.length; i++) {
           const c = lines[i].split(',').map(s => s.replace(/^"|"$/g, '').replace(/""/g, '"'));
           if (c.length < 7 || !c[1]) continue;
-          const obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], homepage: c[11], hours: c[12], holidays: c[13], careTags: c[14]?c[14].split('|'):[], additions: c[15]?c[15].split('|'):[], memo: c[16], favorite: c[17]==='1', updatedAt: c[18]||new Date().toISOString().slice(0,10) };
+          let obj;
+          if (c.length >= 22) {
+            obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], phone2: c[9], fax2: c[10], contact2: c[11], area: c[12], address: c[13], homepage: c[14], hours: c[15], holidays: c[16], careTags: c[17]?c[17].split('|'):[], additions: c[18]?c[18].split('|'):[], memo: c[19], favorite: c[20]==='1', updatedAt: c[21]||new Date().toISOString().slice(0,10) };
+          } else {
+            obj = { id: c[0] || 'fac_' + Date.now() + i, name: c[1], corp: c[2], code: c[3], serviceType: c[4], phone: c[6], fax: c[7], contact: c[8], area: c[9], address: c[10], homepage: c[11], hours: c[12], holidays: c[13], careTags: c[14]?c[14].split('|'):[], additions: c[15]?c[15].split('|'):[], memo: c[16], favorite: c[17]==='1', updatedAt: c[18]||new Date().toISOString().slice(0,10) };
+          }
           const idx = facilities.findIndex(f => f.id === obj.id);
           if (idx !== -1) facilities[idx] = { ...facilities[idx], ...obj }; else facilities.unshift(obj);
         }
