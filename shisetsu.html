@@ -193,6 +193,16 @@
           <div id="serviceTypeFilters" class="flex flex-wrap gap-1.5"></div>
         </div>
 
+        <!-- 有料老人ホーム種別絞り込み -->
+        <div class="bg-indigo-50/60 border border-indigo-200/80 rounded-xl p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-house-user text-indigo-600"></i><span>有料老人ホーム種別（複数選択可）</span>
+            </label>
+          </div>
+          <div id="yuuryouTypeFilters" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
         <!-- 居室タイプ絞り込み -->
         <div class="bg-indigo-50/60 border border-indigo-200/80 rounded-xl p-3 space-y-2">
           <div class="flex items-center justify-between">
@@ -359,14 +369,31 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <div>
               <div class="text-xs text-slate-500 font-medium mb-1">電話番号</div>
-              <div class="flex items-center gap-2">
-                <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
-                <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-purple-600 text-white text-xs font-bold">発信</a>
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-bold text-slate-400">①</span>
+                  <button type="button" id="detailPhoneBtn" class="text-base font-bold font-mono text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone"></span></button>
+                  <a id="detailPhoneCallLink" href="#" class="sm:hidden px-2.5 py-1 rounded-lg bg-purple-600 text-white text-xs font-bold">発信</a>
+                </div>
+                <div id="detailPhone2Wrap" class="hidden flex items-center gap-2">
+                  <span class="text-[10px] font-bold text-slate-400">②</span>
+                  <button type="button" id="detailPhone2Btn" class="text-sm font-bold font-mono text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-phone text-xs"></i><span id="detailPhone2"></span></button>
+                  <a id="detailPhone2CallLink" href="#" class="sm:hidden px-2 py-0.5 rounded-lg bg-purple-600 text-white text-xs font-bold">発信</a>
+                </div>
               </div>
             </div>
             <div>
               <div class="text-xs text-slate-500 font-medium mb-1">FAX番号</div>
-              <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-slate-400">①</span>
+                  <button type="button" id="detailFaxBtn" class="text-base font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax"></span></button>
+                </div>
+                <div id="detailFax2Wrap" class="hidden flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold text-slate-400">②</span>
+                  <button type="button" id="detailFax2Btn" class="text-sm font-bold font-mono text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-fax text-xs text-slate-400"></i><span id="detailFax2"></span></button>
+                </div>
+              </div>
             </div>
             <div>
               <div class="text-xs text-slate-500 font-medium mb-1">窓口担当者</div>
@@ -502,6 +529,27 @@
             <div class="sm:col-span-2">
               <label class="block text-xs font-bold text-slate-700 mb-1">施設系サービス種別 <span class="text-rose-500">*</span></label>
               <select id="formServiceType" required onchange="updateServiceSpecificFormFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+            </div>
+          </div>
+
+          <!-- 有料老人ホーム種別（有料老人ホーム選択時のみ表示） -->
+          <div id="formYuuryouTypeSection" class="hidden p-4 rounded-xl bg-indigo-50/70 border border-indigo-200 space-y-2">
+            <label class="block text-xs font-bold text-indigo-900">
+              <i class="fa-solid fa-house-user text-indigo-600 mr-1"></i>有料老人ホーム種別（該当するものにチェック・複数選択可）
+            </label>
+            <div class="flex flex-wrap gap-2">
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-indigo-50">
+                <input type="checkbox" name="formYuuryouType" value="住宅型" class="rounded text-indigo-600">
+                <span>住宅型</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-indigo-50">
+                <input type="checkbox" name="formYuuryouType" value="サ高住" class="rounded text-indigo-600">
+                <span>サ高住</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-300 bg-white cursor-pointer text-xs font-bold text-slate-800 hover:bg-indigo-50">
+                <input type="checkbox" name="formYuuryouType" value="介護付き" class="rounded text-indigo-600">
+                <span>介護付き</span>
+              </label>
             </div>
           </div>
 
@@ -659,20 +707,23 @@
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">喫煙ルール</label><input type="text" id="formResSmoking" placeholder="例：敷地内全面禁煙 / 屋外喫煙所あり" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">居室内設備</label><input type="text" id="formResRoomEquip" placeholder="例：トイレ・洗面台・ナースコール完備" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">保証人・身元引受人</label><input type="text" id="formResGuarantor" placeholder="例：原則必要（保証人なし・成年後見制度相談可）" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">認知症・看取り受入</label><input type="text" id="formResDementia" placeholder="例：認知症重度・看取り実績多数" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">体験入居・見学条件</label><input type="text" id="formResTrial" placeholder="例：体験入居1泊3,300円・見学随時可" class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg text-sm" /></div>
               </div>
             </div>
           </div>
 
-          <!-- 連絡先・住所 -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号 <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-2222" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号</label><input type="text" id="formFax" placeholder="095-800-2223" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
-            <div><label class="block text-xs font-bold text-slate-700 mb-1">相談員・担当者名</label><input type="text" id="formContact" placeholder="例：鈴木 一郎（生活相談員）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+          <!-- 連絡先・住所（連絡先2枠対応） -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号① <span class="text-rose-500">*</span></label><input type="text" id="formPhone" required placeholder="095-800-2222" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号①</label><input type="text" id="formFax" placeholder="095-800-2223" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">電話番号②（直通・携帯・別窓口）</label><input type="text" id="formPhone2" placeholder="例：095-800-2224 / 090-XXXX-XXXX" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">FAX番号②</label><input type="text" id="formFax2" placeholder="例：095-800-2225" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono" /></div>
+            <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">相談員・担当者名</label><input type="text" id="formContact" placeholder="例：鈴木 一郎（生活相談員）" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
             <div><label class="block text-xs font-bold text-slate-700 mb-1">所在包括エリア <span class="text-rose-500">*</span></label><select id="formArea" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"></select></div>
-            <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 mb-1">住所</label><input type="text" id="formAddress" placeholder="例：長崎市〇〇町1-2-3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" /></div>
           </div>
 
           <!-- 施設写真（複数登録・スライダー表示用） -->
@@ -804,6 +855,7 @@
     const FONT_KEY = 'carenavi_fontsize_v1';
     const GAS_URL = (window.CARENAVI_CONFIG && window.CARENAVI_CONFIG.GAS_API_URL) ? window.CARENAVI_CONFIG.GAS_API_URL.trim() : '';
 
+    const YUURYOU_TYPE_OPTIONS = ['住宅型', 'サ高住', '介護付き'];
     const ROOM_TYPE_OPTIONS_STANDARD = ['ユニット型個室', '従来型個室', '多床室', '居室内トイレ'];
     const ROOM_TYPE_OPTIONS_YUURYOU_CARE = ['個室', '多床室', '夫婦部屋あり'];
     const ROOM_TYPE_OPTIONS = ['ユニット型個室', '従来型個室', '個室', '多床室', '夫婦部屋あり', '居室内トイレ'];
@@ -918,7 +970,7 @@
     let currentMasterTab = 'serviceTypes';
     let currentSliderPhotos = [];
     let currentSlideIndex = 0;
-    let filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+    let filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], yuuryouTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
 
     function parseMonthlyFeeNumbers(item) {
       const raw = String(item.resMonthlyFee || '').trim();
@@ -1132,6 +1184,14 @@
       return trimmed.startsWith('data:image/') ? trimmed : sanitizeUrl(trimmed);
     }
 
+    function getItemYuuryouTypes(item) {
+      if (item.serviceType !== 'yuuryou_home') return [];
+      if (Array.isArray(item.yuuryouTypes) && item.yuuryouTypes.length > 0) {
+        return item.yuuryouTypes.filter(yt => YUURYOU_TYPE_OPTIONS.includes(yt));
+      }
+      return [];
+    }
+
     function getItemRoomTypes(item) {
       if (NO_ROOM_SERVICE_IDS.has(item.serviceType)) return [];
       const allowedOpts = YUURYOU_CARE_ROOM_SERVICE_IDS.has(item.serviceType)
@@ -1198,6 +1258,13 @@
         <button type="button" data-service="${escapeHtml(st.id)}" onclick="toggleArrayFilter('serviceTypes', '${escapeHtml(st.id)}', this, 'purple')"
           class="filter-chip text-left px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-purple-50/60 text-xs font-medium text-slate-700 flex items-center gap-1.5 max-w-full">
           <span class="w-2 h-2 rounded-full ${st.bar} shrink-0"></span><span class="truncate">${escapeHtml(st.name)}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('yuuryouTypeFilters').innerHTML = YUURYOU_TYPE_OPTIONS.map(yt => `
+        <button type="button" data-yuuryoutype="${escapeHtml(yt)}" onclick="toggleArrayFilter('yuuryouTypes', '${escapeHtml(yt)}', this, 'indigo')"
+          class="filter-chip px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-indigo-50/60 text-xs font-medium text-slate-700">
+          ${escapeHtml(yt)}
         </button>
       `).join('');
 
@@ -1275,6 +1342,11 @@
         if (filterState.allowWelfare && !matchesRuleCondition(item, 'welfare')) return false;
         if (filterState.serviceTypes.length > 0 && !filterState.serviceTypes.includes(item.serviceType)) return false;
 
+        if (filterState.yuuryouTypes.length > 0) {
+          const yTypes = getItemYuuryouTypes(item);
+          if (item.serviceType !== 'yuuryou_home' || !filterState.yuuryouTypes.some(yt => yTypes.includes(yt))) return false;
+        }
+
         if (filterState.roomTypes.length > 0) {
           const itemRooms = getItemRoomTypes(item);
           if (!filterState.roomTypes.every(rt => itemRooms.includes(rt))) return false;
@@ -1306,11 +1378,11 @@
             item.allowWelfare ? '生活保護入居可' : ''
           ].join(' ');
           const text = [
-            item.name, item.corp, item.code, item.address, item.area, item.areaDetail, item.contact, item.memo,
-            item.homepage, attNames, photoCaptions, allowFlags, getRoomSummaryText(item), getCostSummaryText(item),
+            item.name, item.corp, item.code, item.phone, item.phone2, item.fax, item.fax2, item.address, item.area, item.areaDetail, item.contact, item.memo,
+            item.homepage, attNames, photoCaptions, allowFlags, getItemYuuryouTypes(item).join(' '), getRoomSummaryText(item), getCostSummaryText(item),
             getItemShortFacilityTypes(item).join(' '), getShortBathSummaryText(item),
             item.shortBooking, item.shortTransport, item.shokiboCap, item.shokiboFee,
-            item.resDeposit, item.resMonthlyFee, item.resVacancy, item.resCareLimit, item.resExitCareLimit, item.resDementia,
+            item.resDeposit, item.resMonthlyFee, item.resVacancy, item.resGuarantor, item.resCareLimit, item.resExitCareLimit, item.resDementia,
             st.name, ...(item.careTags || []), ...(item.additions || [])
           ].join(' ').toLowerCase();
           if (!kw.split(/\s+/).every(k => text.includes(k))) return false;
@@ -1344,7 +1416,7 @@
       document.getElementById('mobileResultCount').textContent = filtered.length;
       document.getElementById('totalCount').textContent = baseList.length;
 
-      let count = filterState.serviceTypes.length + filterState.roomTypes.length +
+      let count = filterState.serviceTypes.length + filterState.yuuryouTypes.length + filterState.roomTypes.length +
         filterState.shortFacilityTypes.length + filterState.shortBaths.length +
         filterState.areas.length + filterState.careTags.length + filterState.schedules.length +
         (filterState.keyword.trim() ? 1 : 0) + (filterState.favoriteOnly ? 1 : 0) +
@@ -1401,6 +1473,7 @@
         specSummary = [
           item.resMonthlyFee ? `月額: ${escapeHtml(item.resMonthlyFee)}` : '',
           item.resVacancy ? `空室: ${escapeHtml(item.resVacancy)}` : '',
+          item.resGuarantor ? `保証人: ${escapeHtml(item.resGuarantor)}` : '',
           item.serviceType !== 'tokuyou' && item.resCareLimit ? `上限: ${escapeHtml(item.resCareLimit)}` : ''
         ].filter(Boolean).join(' ／ ');
       }
@@ -1410,6 +1483,8 @@
       const showHours = !NO_HOURS_SERVICE_IDS.has(item.serviceType) && Boolean(item.hours);
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
       const photoCount = Array.isArray(item.photos) ? item.photos.length : 0;
+      const yuuryouTypes = getItemYuuryouTypes(item);
+      const yuuryouBadgesHtml = yuuryouTypes.map(yt => `<span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-300 text-xs font-bold">${escapeHtml(yt)}</span>`).join('');
 
       return `
         <article class="bg-white rounded-2xl border border-slate-200 hover:border-purple-400 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
@@ -1419,6 +1494,7 @@
               <div class="flex items-start justify-between gap-2 mb-2">
                 <div class="flex flex-wrap items-center gap-1.5">
                   <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
+                  ${yuuryouBadgesHtml}
                   <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>${escapeHtml(item.area)}</span>
                   ${item.homepage ? `<a href="${escapeHtml(sanitizeUrl(item.homepage))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-globe"></i><span>HP</span></a>` : ''}
                   ${photoCount > 0 ? `<button type="button" onclick="openDetailModal('${item.id}')" class="px-2 py-0.5 rounded bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-images"></i><span>写真${photoCount}枚</span></button>` : ''}
@@ -1433,8 +1509,20 @@
                 <div class="text-xs text-slate-500 mt-0.5">${escapeHtml(item.corp || '')} ${item.code ? `<span class="font-mono text-slate-400 ml-2">${escapeHtml(item.code)}</span>` : ''}</div>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80 mb-3 text-xs">
-                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">TEL</span><button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-sm text-purple-700 hover:underline">${escapeHtml(item.phone)}</button></div>
-                <div class="flex items-center gap-2"><span class="text-slate-400 w-8">FAX</span><button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline">${escapeHtml(item.fax || '-')}</button></div>
+                <div class="flex items-start gap-2">
+                  <span class="text-slate-400 w-8 shrink-0 pt-0.5">TEL</span>
+                  <div class="flex flex-col gap-0.5 min-w-0">
+                    <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号①', event)" class="font-mono font-bold text-sm text-purple-700 hover:underline text-left">${escapeHtml(item.phone)}</button>
+                    ${item.phone2 ? `<button type="button" onclick="copyText('${escapeHtml(item.phone2)}', '電話番号②', event)" class="font-mono font-semibold text-xs text-purple-600 hover:underline text-left">② ${escapeHtml(item.phone2)}</button>` : ''}
+                  </div>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-slate-400 w-8 shrink-0 pt-0.5">FAX</span>
+                  <div class="flex flex-col gap-0.5 min-w-0">
+                    <button type="button" onclick="copyText('${escapeHtml(item.fax || '')}', 'FAX番号①', event)" class="font-mono font-semibold text-sm text-slate-700 hover:underline text-left">${escapeHtml(item.fax || '-')}</button>
+                    ${item.fax2 ? `<button type="button" onclick="copyText('${escapeHtml(item.fax2)}', 'FAX番号②', event)" class="font-mono font-semibold text-xs text-slate-600 hover:underline text-left">② ${escapeHtml(item.fax2)}</button>` : ''}
+                  </div>
+                </div>
                 <div class="sm:col-span-2 pt-1 border-t border-slate-200/60 text-slate-700 truncate">相談員・担当: ${escapeHtml(item.contact || '未設定')}</div>
               </div>
               <div class="space-y-1 text-xs text-slate-600 mb-3">
@@ -1464,11 +1552,14 @@
       const st = getServiceTypeObj(item.serviceType);
       const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
       const photoCount = Array.isArray(item.photos) ? item.photos.length : 0;
+      const yuuryouTypes = getItemYuuryouTypes(item);
+      const yuuryouBadgesHtml = yuuryouTypes.map(yt => `<span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-300 text-[11px] font-bold shrink-0">${escapeHtml(yt)}</span>`).join('');
       return `
         <div class="bg-white rounded-xl border border-slate-200 hover:border-purple-400 px-4 py-3 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
             <button type="button" onclick="toggleFavorite('${item.id}', event)" class="text-base p-1"><i class="${item.favorite ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-slate-300'}"></i></button>
             <span class="px-2 py-0.5 rounded text-xs font-bold border ${st.color} shrink-0">${escapeHtml(st.name)}</span>
+            ${yuuryouBadgesHtml}
             <div class="min-w-0 flex-1">
               <div class="flex items-center gap-2">
                 <h3 onclick="openDetailModal('${item.id}')" class="font-bold text-slate-900 hover:text-purple-700 cursor-pointer truncate text-sm sm:text-base">${escapeHtml(item.name)}</h3>
@@ -1480,7 +1571,10 @@
             </div>
           </div>
           <div class="flex items-center justify-between lg:justify-end gap-3 shrink-0">
-            <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号', event)" class="font-mono font-bold text-xs text-purple-700">${escapeHtml(item.phone)}</button>
+            <div class="flex flex-col items-end">
+              <button type="button" onclick="copyText('${escapeHtml(item.phone)}', '電話番号①', event)" class="font-mono font-bold text-xs text-purple-700">${escapeHtml(item.phone)}</button>
+              ${item.phone2 ? `<button type="button" onclick="copyText('${escapeHtml(item.phone2)}', '電話番号②', event)" class="font-mono font-semibold text-[11px] text-purple-600">② ${escapeHtml(item.phone2)}</button>` : ''}
+            </div>
             <div class="flex items-center gap-1.5">
               <button type="button" onclick="openFormModal('${item.id}')" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 text-xs"><i class="fa-solid fa-pen"></i></button>
               <button type="button" onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-purple-600 hover:text-white text-xs font-semibold">詳細</button>
@@ -1581,9 +1675,13 @@
       const isNoHoursType = NO_HOURS_SERVICE_IDS.has(item.serviceType);
 
       document.getElementById('detailTopBar').className = `h-2 w-full shrink-0 ${st.bar}`;
+      const detailYuuryouBadges = getItemYuuryouTypes(item).map(yt =>
+        `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold border bg-indigo-50 text-indigo-800 border-indigo-300">${escapeHtml(yt)}</span>`
+      ).join('');
       document.getElementById('detailBadges').innerHTML = `
         <span class="px-2 py-0.5 rounded-md text-xs font-bold border bg-purple-50 text-purple-800 border-purple-200">施設系</span>
         <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border ${st.color}">${escapeHtml(st.name)}</span>
+        ${detailYuuryouBadges}
         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-medium">${escapeHtml(item.area)}</span>
         ${renderAllowBadgesHTML(item)}
       `;
@@ -1592,10 +1690,30 @@
       document.getElementById('detailFavBtn').innerHTML = item.favorite ? '<i class="fa-solid fa-star text-amber-400"></i>' : '<i class="fa-regular fa-star text-slate-400"></i>';
       document.getElementById('detailFavBtn').onclick = () => toggleFavorite(item.id);
       document.getElementById('detailPhone').textContent = item.phone;
-      document.getElementById('detailPhoneBtn').onclick = () => copyText(item.phone, '電話番号');
+      document.getElementById('detailPhoneBtn').onclick = () => copyText(item.phone, '電話番号①');
       document.getElementById('detailPhoneCallLink').href = `tel:${item.phone.replace(/[^0-9+]/g, '')}`;
+
+      const phone2Wrap = document.getElementById('detailPhone2Wrap');
+      if (item.phone2) {
+        document.getElementById('detailPhone2').textContent = item.phone2;
+        document.getElementById('detailPhone2Btn').onclick = () => copyText(item.phone2, '電話番号②');
+        document.getElementById('detailPhone2CallLink').href = `tel:${item.phone2.replace(/[^0-9+]/g, '')}`;
+        phone2Wrap.classList.remove('hidden');
+      } else {
+        phone2Wrap.classList.add('hidden');
+      }
+
       document.getElementById('detailFax').textContent = item.fax || '未登録';
-      document.getElementById('detailFaxBtn').onclick = () => copyText(item.fax, 'FAX番号');
+      document.getElementById('detailFaxBtn').onclick = () => copyText(item.fax, 'FAX番号①');
+
+      const fax2Wrap = document.getElementById('detailFax2Wrap');
+      if (item.fax2) {
+        document.getElementById('detailFax2').textContent = item.fax2;
+        document.getElementById('detailFax2Btn').onclick = () => copyText(item.fax2, 'FAX番号②');
+        fax2Wrap.classList.remove('hidden');
+      } else {
+        fax2Wrap.classList.add('hidden');
+      }
       document.getElementById('detailContact').textContent = item.contact || '未設定';
       document.getElementById('detailMemo').textContent = item.memo || '（独自メモなし）';
 
@@ -1694,6 +1812,7 @@
         addRow('入居一時金・敷金', item.resDeposit);
         addRow('月額利用料目安', item.resMonthlyFee);
         addRow('現在の空室・待機状況', item.resVacancy);
+        addRow('保証人・身元引受人', item.resGuarantor);
         if (item.serviceType !== 'tokuyou') {
           addRow('入居時介護度上限目安', item.resCareLimit);
           addRow('退去時介護度上限目安・継続居住', item.resExitCareLimit);
@@ -1835,10 +1954,12 @@
       ['fields_short_stay', 'fields_shokibo', 'fields_residential'].forEach(id => document.getElementById(id).classList.add('hidden'));
 
       const isTokuyou = stId === 'tokuyou';
+      const isYuuryou = stId === 'yuuryou_home';
       const isNoHoursType = NO_HOURS_SERVICE_IDS.has(stId);
       const isNoRoomType = NO_ROOM_SERVICE_IDS.has(stId);
       const isYuuryouCareRoom = YUURYOU_CARE_ROOM_SERVICE_IDS.has(stId);
 
+      document.getElementById('formYuuryouTypeSection').classList.toggle('hidden', !isYuuryou);
       document.getElementById('formRoomSection').classList.toggle('hidden', isNoRoomType);
       document.getElementById('formRoomOptionsStandard').classList.toggle('hidden', isNoRoomType || isYuuryouCareRoom);
       document.getElementById('formRoomOptionsYuuryouCare').classList.toggle('hidden', isNoRoomType || !isYuuryouCareRoom);
@@ -1878,6 +1999,11 @@
         document.getElementById('formAllowSmoke').checked = Boolean(item.allowSmoke);
         document.getElementById('formAllowWelfare').checked = Boolean(item.allowWelfare);
 
+        const yTypes = getItemYuuryouTypes(item);
+        document.querySelectorAll('input[name="formYuuryouType"]').forEach(c => {
+          c.checked = item.serviceType === 'yuuryou_home' && yTypes.includes(c.value);
+        });
+
         const roomTypes = getItemRoomTypes(item);
         const targetContainerId = YUURYOU_CARE_ROOM_SERVICE_IDS.has(item.serviceType)
           ? '#formRoomOptionsYuuryouCare'
@@ -1906,6 +2032,7 @@
         document.getElementById('formResDeposit').value = item.resDeposit || '';
         document.getElementById('formResMonthlyFee').value = item.resMonthlyFee || '';
         document.getElementById('formResVacancy').value = item.resVacancy || '';
+        document.getElementById('formResGuarantor').value = item.resGuarantor || '';
         document.getElementById('formResCareLimit').value = item.resCareLimit || '';
         document.getElementById('formResExitCareLimit').value = item.resExitCareLimit || '';
         document.getElementById('formResAlcohol').value = item.resAlcohol || '';
@@ -1915,7 +2042,9 @@
         document.getElementById('formResTrial').value = item.resTrial || '';
 
         document.getElementById('formPhone').value = item.phone;
+        document.getElementById('formPhone2').value = item.phone2 || '';
         document.getElementById('formFax').value = item.fax || '';
+        document.getElementById('formFax2').value = item.fax2 || '';
         document.getElementById('formContact').value = item.contact || '';
         document.getElementById('formArea').value = item.area;
         document.getElementById('formAddress').value = item.address || '';
@@ -1971,6 +2100,10 @@
         allowSmoke: document.getElementById('formAllowSmoke').checked,
         allowWelfare: document.getElementById('formAllowWelfare').checked,
 
+        yuuryouTypes: stId === 'yuuryou_home'
+          ? Array.from(document.querySelectorAll('input[name="formYuuryouType"]:checked')).map(c => c.value)
+          : [],
+
         roomTypes: NO_ROOM_SERVICE_IDS.has(stId)
           ? []
           : Array.from(document.querySelectorAll(`${YUURYOU_CARE_ROOM_SERVICE_IDS.has(stId) ? '#formRoomOptionsYuuryouCare' : '#formRoomOptionsStandard'} input[name="formRoomType"]:checked`)).map(c => c.value),
@@ -1990,6 +2123,7 @@
         resDeposit: document.getElementById('formResDeposit').value.trim(),
         resMonthlyFee: document.getElementById('formResMonthlyFee').value.trim(),
         resVacancy: document.getElementById('formResVacancy').value.trim(),
+        resGuarantor: document.getElementById('formResGuarantor').value.trim(),
         resCareLimit: isTokuyou ? '' : document.getElementById('formResCareLimit').value.trim(),
         resExitCareLimit: isTokuyou ? '' : document.getElementById('formResExitCareLimit').value.trim(),
         resAlcohol: isTokuyou ? '' : document.getElementById('formResAlcohol').value.trim(),
@@ -1999,7 +2133,9 @@
         resTrial: document.getElementById('formResTrial').value.trim(),
 
         phone: document.getElementById('formPhone').value.trim(),
+        phone2: document.getElementById('formPhone2').value.trim(),
         fax: document.getElementById('formFax').value.trim(),
+        fax2: document.getElementById('formFax2').value.trim(),
         contact: document.getElementById('formContact').value.trim(),
         area: document.getElementById('formArea').value,
         address: document.getElementById('formAddress').value.trim(),
@@ -2204,7 +2340,7 @@
     function toggleBottomFavoriteFilter() { syncFavoriteToggles(!filterState.favoriteOnly); }
 
     function resetAllFilters() {
-      filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
+      filterState = { keyword: '', favoriteOnly: false, allowDrink: false, allowSmoke: false, allowWelfare: false, serviceTypes: [], yuuryouTypes: [], roomTypes: [], shortFacilityTypes: [], shortBaths: [], areas: [], careTags: [], schedules: [] };
       syncSearchInputs('');
       document.getElementById('favoriteOnlyToggle').checked = false;
       if (document.getElementById('filterDrinkCheck')) document.getElementById('filterDrinkCheck').checked = false;
